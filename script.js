@@ -61,6 +61,10 @@ if (estimateForm && estimateResult) {
       airport: 145,
       wedding: 190,
       nightlife: 180,
+      golf: 175,
+      cape: 215,
+      bach: 195,
+      local: 170,
       corporate: 165,
     };
 
@@ -92,6 +96,8 @@ if (estimateForm && estimateResult) {
 
 const quoteForm = document.getElementById("quoteForm");
 const quoteSuccess = document.getElementById("quoteSuccess");
+const INTAKE_ENDPOINT =
+  "https://formsubmit.co/ajax/902c76a22ec98900ac487ed64bc69c35";
 
 function toTitleCase(value) {
   if (!value || typeof value !== "string") return "";
@@ -118,7 +124,28 @@ function buildMailtoFromFormData(data) {
   const subject = `Quote Request - ${data.get("name") || "New Lead"}`;
   const body = lines.join("\n");
 
-  return `mailto:info@bostonpartyvan.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return `mailto:aimhoff1@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function buildIntakePayload(data) {
+  const name = data.get("name") || "New Lead";
+  return {
+    name: data.get("name") || "",
+    email: data.get("email") || "",
+    phone: data.get("phone") || "",
+    event_date: data.get("date") || "",
+    event_type: toTitleCase(data.get("eventType") || ""),
+    passengers: data.get("guestCount") || "",
+    pickup_location: data.get("pickup") || "",
+    dropoff_location: data.get("dropoff") || "",
+    preferred_contact_method: toTitleCase(data.get("contactPreference") || ""),
+    best_contact_time: toTitleCase(data.get("contactTime") || ""),
+    notes: data.get("notes") || "",
+    _subject: `New Quote Request - ${name}`,
+    _template: "table",
+    _captcha: "false",
+    _replyto: data.get("email") || "",
+  };
 }
 
 if (quoteForm && quoteSuccess) {
@@ -128,23 +155,74 @@ if (quoteForm && quoteSuccess) {
     dateInput.min = today;
   }
 
-  quoteForm.addEventListener("submit", (event) => {
+  quoteForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const data = new FormData(quoteForm);
     const name = data.get("name");
-    const mailto = buildMailtoFromFormData(data);
-    const fallbackLink = document.createElement("a");
-    fallbackLink.href = mailto;
-    fallbackLink.textContent = "Open draft again";
-    fallbackLink.rel = "nofollow";
+    const submitButton = quoteForm.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton ? submitButton.textContent : "";
 
-    quoteSuccess.textContent = `Thanks ${name || "there"}! Your details are ready to send. `;
-    quoteSuccess.appendChild(fallbackLink);
+    // Honeypot trap: silently ignore likely bot submissions.
+    if ((data.get("_honey") || "").toString().trim() !== "") {
+      quoteSuccess.classList.remove("error");
+      quoteSuccess.textContent = "Thanks! Your request has been received.";
+      quoteForm.reset();
+      return;
+    }
 
-    // Open the user's email app with a pre-filled quote request.
-    window.location.href = mailto;
+    try {
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending...";
+      }
 
-    quoteForm.reset();
+      quoteSuccess.classList.remove("error");
+      quoteSuccess.textContent = "Sending your request...";
+
+      const payload = buildIntakePayload(data);
+      const response = await fetch(INTAKE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json().catch(() => ({}));
+      const message = (result.message || "").toString();
+      const isSuccess = result.success === true || result.success === "true";
+
+      if (!response.ok || !isSuccess) {
+        if (message.toLowerCase().includes("activation")) {
+          quoteSuccess.classList.remove("error");
+          quoteSuccess.textContent =
+            "Almost done: check aimhoff1@gmail.com for the FormSubmit activation email, click Activate Form once, then submit again.";
+          return;
+        }
+        throw new Error(result.message || "Submission failed");
+      }
+
+      quoteSuccess.classList.remove("error");
+      quoteSuccess.textContent = `Thanks ${name || "there"}! Your request was sent. We’ll follow up soon.`;
+      quoteForm.reset();
+    } catch (error) {
+      const mailto = buildMailtoFromFormData(data);
+      const fallbackLink = document.createElement("a");
+      fallbackLink.href = mailto;
+      fallbackLink.textContent = "Send via email instead";
+      fallbackLink.rel = "nofollow";
+
+      quoteSuccess.classList.add("error");
+      quoteSuccess.textContent =
+        "We couldn’t auto-submit right now. Please use the backup link: ";
+      quoteSuccess.appendChild(fallbackLink);
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText || "Send Quote Request";
+      }
+    }
   });
 }

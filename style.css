@@ -246,6 +246,12 @@ a {
   transform: translateY(-2px);
 }
 
+.btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+}
+
 .btn-primary {
   color: #05121b;
   background: linear-gradient(135deg, var(--accent-hot), #ff9954);
@@ -327,10 +333,15 @@ a {
 
 .card-grid,
 .fleet-grid,
-.testimonial-grid,
 .steps {
   display: grid;
   gap: 1rem;
+}
+
+.service-layout {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1.1fr 0.9fr;
 }
 
 .card-grid {
@@ -340,12 +351,15 @@ a {
 .service-card,
 .fleet-card,
 .steps article,
-.testimonials blockquote,
 .faq-list details,
 .quote-form,
 .estimate-form,
 .estimate-result,
-.service-area ul li {
+.service-area ul li,
+.service-spotlight,
+.service-tile,
+.ops-row,
+.template-card {
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
@@ -354,6 +368,64 @@ a {
 .service-card {
   padding: 1.1rem;
   transition: transform 220ms ease, border-color 220ms ease;
+}
+
+.service-spotlight {
+  padding: 1.2rem;
+}
+
+.service-spotlight p {
+  color: var(--text-soft);
+}
+
+.route-list {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.route-list li {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: auto 1fr;
+}
+
+.route-list span {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #122130;
+  background: linear-gradient(130deg, var(--accent-gold), #ffe18a);
+}
+
+.route-list h4 {
+  margin: 0 0 0.28rem;
+  font-family: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  font-size: 1rem;
+}
+
+.route-list li p {
+  margin: 0;
+}
+
+.service-stack {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.service-tile {
+  padding: 1rem;
+}
+
+.service-tile p {
+  color: var(--text-soft);
 }
 
 .service-card p {
@@ -479,6 +551,67 @@ textarea:focus {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.ops-board {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.ops-row {
+  padding: 0.95rem 1rem;
+  display: grid;
+  gap: 0.6rem 1rem;
+  grid-template-columns: 90px minmax(170px, 220px) 1fr;
+  align-items: start;
+}
+
+.ops-step {
+  margin: 0;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.ops-row h3 {
+  margin: 0;
+  font-size: 1.08rem;
+}
+
+.ops-row p {
+  margin: 0;
+  color: var(--text-soft);
+}
+
+.template-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.template-card {
+  padding: 1rem;
+}
+
+.template-label {
+  margin: 0 0 0.3rem;
+  color: var(--accent-cool);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.template-card ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1rem;
+  color: var(--text-soft);
+}
+
+.mobile-callbar {
+  display: none;
+}
+
 .steps article {
   padding: 1rem;
 }
@@ -497,23 +630,6 @@ textarea:focus {
 
 .steps p {
   color: var(--text-soft);
-}
-
-.testimonial-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.testimonials blockquote {
-  margin: 0;
-  padding: 1rem;
-  display: grid;
-  gap: 0.8rem;
-}
-
-.testimonials cite {
-  color: var(--accent-cool);
-  font-style: normal;
-  font-size: 0.9rem;
 }
 
 .faq-list {
@@ -571,6 +687,10 @@ textarea:focus {
   min-height: 1.2em;
 }
 
+.quote-success.error {
+  color: #ffb8a3;
+}
+
 .quote-success a {
   color: var(--accent-gold);
   font-weight: 700;
@@ -580,6 +700,15 @@ textarea:focus {
   margin-top: 0.7rem;
   color: var(--text-soft);
   font-size: 0.9rem;
+}
+
+.hp-field {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .site-footer {
@@ -643,7 +772,8 @@ textarea:focus {
   }
 
   .hero,
-  .estimator-wrap {
+  .estimator-wrap,
+  .service-layout {
     grid-template-columns: 1fr;
   }
 
@@ -651,11 +781,62 @@ textarea:focus {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .service-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .template-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ops-row {
+    grid-template-columns: 1fr;
+  }
+
   .fleet-grid,
   .steps,
-  .testimonial-grid,
   .site-footer {
     grid-template-columns: 1fr;
+  }
+
+  .mobile-callbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 1fr auto;
+    padding: 0.55rem 0.7rem calc(0.55rem + env(safe-area-inset-bottom));
+    background: rgba(5, 16, 27, 0.94);
+    border-top: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+  }
+
+  .mobile-callbar a {
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 0.72rem 0.9rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .mobile-call {
+    background: linear-gradient(135deg, var(--accent-hot), #ff9954);
+    color: #08131c;
+  }
+
+  .mobile-quote {
+    color: var(--text-main);
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.04);
+    min-width: 112px;
+  }
+
+  body {
+    padding-bottom: 84px;
   }
 }
 
@@ -668,6 +849,10 @@ textarea:focus {
   }
 
   .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-stack {
     grid-template-columns: 1fr;
   }
 
