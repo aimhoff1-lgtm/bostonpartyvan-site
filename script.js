@@ -93,6 +93,34 @@ if (estimateForm && estimateResult) {
 const quoteForm = document.getElementById("quoteForm");
 const quoteSuccess = document.getElementById("quoteSuccess");
 
+function toTitleCase(value) {
+  if (!value || typeof value !== "string") return "";
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function buildMailtoFromFormData(data) {
+  const lines = [
+    `Name: ${data.get("name") || ""}`,
+    `Email: ${data.get("email") || ""}`,
+    `Phone: ${data.get("phone") || ""}`,
+    `Event date: ${data.get("date") || ""}`,
+    `Event type: ${toTitleCase(data.get("eventType") || "")}`,
+    `Passengers: ${data.get("guestCount") || ""}`,
+    `Pickup: ${data.get("pickup") || ""}`,
+    `Drop-off: ${data.get("dropoff") || ""}`,
+    `Preferred contact method: ${toTitleCase(data.get("contactPreference") || "")}`,
+    `Best contact time: ${toTitleCase(data.get("contactTime") || "")}`,
+    "",
+    "Trip notes:",
+    data.get("notes") || "(none provided)",
+  ];
+
+  const subject = `Quote Request - ${data.get("name") || "New Lead"}`;
+  const body = lines.join("\n");
+
+  return `mailto:info@bostonpartyvan.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 if (quoteForm && quoteSuccess) {
   const dateInput = quoteForm.querySelector('input[name="date"]');
   if (dateInput) {
@@ -105,9 +133,18 @@ if (quoteForm && quoteSuccess) {
 
     const data = new FormData(quoteForm);
     const name = data.get("name");
-    const eventType = data.get("eventType");
+    const mailto = buildMailtoFromFormData(data);
+    const fallbackLink = document.createElement("a");
+    fallbackLink.href = mailto;
+    fallbackLink.textContent = "Open draft again";
+    fallbackLink.rel = "nofollow";
 
-    quoteSuccess.textContent = `Thanks ${name}! Your ${eventType || "trip"} request was received. We’ll reach out shortly with options.`;
+    quoteSuccess.textContent = `Thanks ${name || "there"}! Your details are ready to send. `;
+    quoteSuccess.appendChild(fallbackLink);
+
+    // Open the user's email app with a pre-filled quote request.
+    window.location.href = mailto;
+
     quoteForm.reset();
   });
 }

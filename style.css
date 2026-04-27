@@ -554,6 +554,17 @@ textarea:focus {
   min-height: 1.2em;
 }
 
+.quote-success a {
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.form-help {
+  margin-top: 0.7rem;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
 .site-footer {
   display: grid;
   grid-template-columns: 1.3fr 1fr 1fr;
