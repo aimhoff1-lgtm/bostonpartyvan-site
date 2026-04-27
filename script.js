@@ -103,6 +103,7 @@ if (estimateForm && estimateResult) {
       nightlife: 180,
       golf: 175,
       cape: 215,
+      whitemountains: 235,
       bach: 195,
       local: 170,
       corporate: 165,

@@ -47,10 +47,17 @@
   - Increased detail panel max height to reduce text clipping risk on iPhone
 - Golf + Cape builder moved out of the top of Trip menu:
   - Removed the featured Golf + Cape block from above package cards
-  - Created a dedicated standalone `Featured route flow` section for that content
+  - Removed the standalone `Featured route flow` section per latest direction
 - Added remaining package photography:
   - `assets/images/showtime.jpg` now powers the `Showtime Shuttle` card
   - `assets/images/nightlife.jpg` now powers the `Bachelor / bachelorette` card
+- Added new event offerings:
+  - New package card: `White Mountains / Northern NH` (`Mountain Weekend Run`)
+  - New package card: `Corporate outings` (`Team Offsite Transit`)
+  - Estimator `Trip type` now includes `White Mountains / Northern NH`
+  - Quote form `Event type` now includes `White Mountains / Northern NH`
+  - Updated labels to `Corporate Outing` in estimator and quote flow
+  - Service footprint now explicitly includes `White Mountains / Northern NH`
 
 ### Test Checklist
 - Version badge remains `V1.3` until this release is pushed and confirmed
@@ -59,7 +66,7 @@
 - Entering a phone number with `Text me first` allows submission
 - Header shows your uploaded Party Van logo next to brand text
 - Hero/splash section shows skyline photo behind the headline content
-- Trip menu now includes seven interactive image cards with overlay text
+- Trip menu now includes nine interactive package cards
 - Clicking a package expands its details, and clicking it again collapses it
 - Opening one package closes the others automatically
 - Sporting Events card uses TD Garden image background
@@ -73,9 +80,13 @@
 - Expanded package cards visibly grow by about 50%
 - Package card text remains visible without clipping on narrow mobile widths
 - Trip menu now starts directly with the package cards (no Golf + Cape block above)
-- `Featured route flow` section appears as its own standalone block
+- No separate `Featured route flow` section appears on the page
 - `Showtime Shuttle` card now shows the uploaded showtime photo
 - `Bachelor / bachelorette` card now shows the uploaded nightlife photo
+- `White Mountains / Northern NH` package card appears and expands correctly
+- `Corporate outings` package card appears and expands correctly
+- Estimator includes `White Mountains / Northern NH` and `Corporate Outing`
+- Quote form event type includes `White Mountains / Northern NH` and `Corporate Outing`
 
 ### Rollback
 - Revert full release commit:

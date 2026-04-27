@@ -384,10 +384,6 @@ a {
   font-size: 0.95rem;
 }
 
-.featured-flow .service-spotlight {
-  max-width: 860px;
-}
-
 .card-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -807,8 +803,16 @@ textarea:focus {
   --package-image: url("assets/images/cape.png");
 }
 
+.package-white-mountains {
+  --package-image: linear-gradient(140deg, rgba(37, 67, 86, 0.95), rgba(22, 38, 55, 0.92));
+}
+
 .package-wedding {
   --package-image: url("assets/images/weddings.jpg");
+}
+
+.package-corporate {
+  --package-image: linear-gradient(140deg, rgba(52, 60, 74, 0.95), rgba(28, 33, 44, 0.92));
 }
 
 .package-bachelorette {
