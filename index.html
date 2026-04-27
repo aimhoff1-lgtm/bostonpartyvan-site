@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boston Party Bus | Sprinter Van Rentals & Group Rides</title>
+    <meta
+      name="description"
+      content="Fun, reliable sprinter van rentals in Greater Boston for weddings, birthdays, airport runs, concerts, and private events."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="bg-orb bg-orb-a"></div>
+    <div class="bg-orb bg-orb-b"></div>
+    <div class="noise-layer"></div>
+
+    <header class="site-header">
+      <div class="top-strip">
+        <p>Now booking spring and summer events across Greater Boston</p>
+        <a href="tel:+17812021700">(781) 202-1700</a>
+      </div>
+      <div class="nav-wrap">
+        <a class="brand" href="#home">
+          <span class="brand-dot"></span>
+          <span class="brand-main">Boston Party Bus</span>
+        </a>
+        <button class="menu-toggle" aria-label="Toggle menu">Menu</button>
+        <nav class="main-nav">
+          <a href="#services">Services</a>
+          <a href="#fleet">Fleet</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+          <a class="nav-cta" href="#quote">Get Quote</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero section reveal">
+        <div class="hero-copy">
+          <p class="eyebrow">Sprinter-first launch fleet</p>
+          <h1>Group travel that feels like the pre-party, not the commute.</h1>
+          <p class="hero-sub">
+            We run clean, stylish sprinter vans with pro drivers for airport runs,
+            weddings, birthdays, concerts, and private nights out.
+          </p>
+          <div class="hero-actions">
+            <a href="#quote" class="btn btn-primary">Book Your Ride</a>
+            <a href="#fleet" class="btn btn-ghost">View Sprinters</a>
+          </div>
+          <ul class="hero-points">
+            <li>Licensed & insured</li>
+            <li>24/7 booking support</li>
+            <li>Transparent pricing</li>
+          </ul>
+        </div>
+        <aside class="hero-card">
+          <h2>This Weekend Special</h2>
+          <p>Save 8% when you book a Friday or Saturday ride before Thursday.</p>
+          <div class="special-stats">
+            <div>
+              <strong>10-14</strong>
+              <span>Passengers</span>
+            </div>
+            <div>
+              <strong>24/7</strong>
+              <span>Dispatch</span>
+            </div>
+            <div>
+              <strong>3 hr</strong>
+              <span>Minimum</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="services" class="section reveal">
+        <div class="section-head">
+          <p class="eyebrow">Popular rides</p>
+          <h2>Services built for real Boston plans</h2>
+        </div>
+        <div class="card-grid">
+          <article class="service-card">
+            <h3>Airport Group Transfers</h3>
+            <p>Logan pickups with luggage-friendly layouts and flight-aware timing.</p>
+          </article>
+          <article class="service-card">
+            <h3>Weddings & Engagements</h3>
+            <p>Guest shuttles and bridal party rides with polished, on-time drivers.</p>
+          </article>
+          <article class="service-card">
+            <h3>Nightlife & Concert Runs</h3>
+            <p>One ride for the whole group. No parking drama, no split rides.</p>
+          </article>
+          <article class="service-card">
+            <h3>Corporate & Team Travel</h3>
+            <p>Reliable point-to-point service for events, retreats, and meetings.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="fleet" class="section reveal">
+        <div class="section-head">
+          <p class="eyebrow">Current fleet</p>
+          <h2>Start with sprinters, scale fast</h2>
+        </div>
+        <div class="fleet-grid">
+          <article class="fleet-card">
+            <p class="fleet-tag">City Cruiser</p>
+            <h3>10 Passenger Sprinter</h3>
+            <ul>
+              <li>Ideal for airport and local event routes</li>
+              <li>Room for 6-8 bags</li>
+              <li>Tinted windows + charging ports</li>
+            </ul>
+            <p class="fleet-price">From $145/hr</p>
+          </article>
+          <article class="fleet-card fleet-featured">
+            <p class="fleet-tag">Most Booked</p>
+            <h3>12 Passenger Executive Sprinter</h3>
+            <ul>
+              <li>Premium interior with captain seating</li>
+              <li>Bluetooth audio + ambient lighting</li>
+              <li>Perfect for birthdays and wedding parties</li>
+            </ul>
+            <p class="fleet-price">From $175/hr</p>
+          </article>
+          <article class="fleet-card">
+            <p class="fleet-tag">Crew Mover</p>
+            <h3>14 Passenger Sprinter</h3>
+            <ul>
+              <li>Great for teams, retreats, and family events</li>
+              <li>Extra cargo capacity</li>
+              <li>Long-distance comfortable ride setup</li>
+            </ul>
+            <p class="fleet-price">From $195/hr</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="pricing" class="section estimator reveal">
+        <div class="section-head">
+          <p class="eyebrow">Quick planning tool</p>
+          <h2>Estimate your ride in under 30 seconds</h2>
+        </div>
+        <div class="estimator-wrap">
+          <form id="estimateForm" class="estimate-form">
+            <label>
+              Trip type
+              <select name="tripType">
+                <option value="airport">Airport Transfer</option>
+                <option value="wedding">Wedding</option>
+                <option value="nightlife">Night Out</option>
+                <option value="corporate">Corporate</option>
+              </select>
+            </label>
+            <label>
+              Hours needed
+              <input type="number" min="3" max="14" step="1" value="4" name="hours" />
+            </label>
+            <label>
+              Estimated mileage
+              <input type="number" min="10" max="300" step="5" value="40" name="miles" />
+            </label>
+            <label>
+              Passengers
+              <input type="number" min="1" max="14" step="1" value="10" name="passengers" />
+            </label>
+            <label class="check">
+              <input type="checkbox" name="weekend" />
+              Weekend pickup (Fri-Sun)
+            </label>
+            <label class="check">
+              <input type="checkbox" name="multiStop" />
+              Multi-stop itinerary
+            </label>
+            <button type="submit" class="btn btn-primary">Calculate Estimate</button>
+          </form>
+          <div class="estimate-result" id="estimateResult" aria-live="polite">
+            <p class="estimate-label">Estimated range</p>
+            <p class="estimate-price">$640 - $760</p>
+            <p class="estimate-note">
+              Final quote depends on route details, tolls, and event timing.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section process reveal">
+        <div class="section-head">
+          <p class="eyebrow">How booking works</p>
+          <h2>Simple, fast, no chaos</h2>
+        </div>
+        <div class="steps">
+          <article>
+            <span>1</span>
+            <h3>Send trip details</h3>
+            <p>Tell us date, headcount, pickup, stops, and vibe.</p>
+          </article>
+          <article>
+            <span>2</span>
+            <h3>Review your quote</h3>
+            <p>We send a clear estimate with no mystery fees.</p>
+          </article>
+          <article>
+            <span>3</span>
+            <h3>Lock in your ride</h3>
+            <p>Secure it with a deposit, then we handle the rest.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal testimonials">
+        <div class="section-head">
+          <p class="eyebrow">Loved by groups</p>
+          <h2>What riders say</h2>
+        </div>
+        <div class="testimonial-grid">
+          <blockquote>
+            “Driver was early, van was spotless, and our wedding schedule stayed perfect.”
+            <cite>Danielle R., Cambridge</cite>
+          </blockquote>
+          <blockquote>
+            “Way easier than rideshares for 11 people heading to Fenway.”
+            <cite>Mike T., Somerville</cite>
+          </blockquote>
+          <blockquote>
+            “Airport pickup for our team was smooth and actually relaxing.”
+            <cite>Alyssa K., Back Bay</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="faq" class="section reveal faq">
+        <div class="section-head">
+          <p class="eyebrow">Common questions</p>
+          <h2>FAQ</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>Do you have a minimum booking?</summary>
+            <p>Yes. Our current minimum is 3 hours for local bookings.</p>
+          </details>
+          <details>
+            <summary>Can we bring our own playlist?</summary>
+            <p>Yes, most vans support Bluetooth connection for your music.</p>
+          </details>
+          <details>
+            <summary>How far in advance should we book?</summary>
+            <p>2-4 weeks is ideal. Peak wedding and graduation weekends fill quickly.</p>
+          </details>
+          <details>
+            <summary>Do you serve outside Boston?</summary>
+            <p>Yes. We serve Greater Boston and nearby New England routes.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="section reveal service-area">
+        <div class="section-head">
+          <p class="eyebrow">Coverage</p>
+          <h2>Areas we currently serve</h2>
+        </div>
+        <ul>
+          <li>Boston</li>
+          <li>Cambridge</li>
+          <li>Somerville</li>
+          <li>Brookline</li>
+          <li>Waltham</li>
+          <li>Newton</li>
+          <li>Quincy</li>
+          <li>Worcester</li>
+          <li>Providence</li>
+          <li>Southern NH</li>
+        </ul>
+      </section>
+
+      <section id="quote" class="section reveal quote-section">
+        <div class="section-head">
+          <p class="eyebrow">Let’s build your route</p>
+          <h2>Request a custom quote</h2>
+        </div>
+        <form id="quoteForm" class="quote-form">
+          <label>
+            Full name
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Phone
+            <input type="tel" name="phone" required />
+          </label>
+          <label>
+            Event date
+            <input type="date" name="date" required />
+          </label>
+          <label>
+            Pickup location
+            <input type="text" name="pickup" required />
+          </label>
+          <label>
+            Drop-off location
+            <input type="text" name="dropoff" required />
+          </label>
+          <label>
+            Event type
+            <select name="eventType" required>
+              <option value="">Select one</option>
+              <option value="airport">Airport</option>
+              <option value="wedding">Wedding</option>
+              <option value="birthday">Birthday</option>
+              <option value="concert">Concert</option>
+              <option value="corporate">Corporate</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label>
+            Passenger count
+            <input type="number" min="1" max="14" name="guestCount" required />
+          </label>
+          <label class="full">
+            Trip notes
+            <textarea
+              name="notes"
+              rows="4"
+              placeholder="Any stops, timing details, special requests..."
+            ></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary">Send Quote Request</button>
+        </form>
+        <p id="quoteSuccess" class="quote-success" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <h3>Boston Party Bus</h3>
+        <p>Sprinter rentals for nights out, weddings, airport groups, and private events.</p>
+      </div>
+      <div>
+        <p><a href="tel:+17812021700">(781) 202-1700</a></p>
+        <p><a href="mailto:info@bostonpartybus.com">info@bostonpartybus.com</a></p>
+      </div>
+      <div>
+        <p>Available 24/7</p>
+        <p>Greater Boston + New England</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
