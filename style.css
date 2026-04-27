@@ -13,6 +13,7 @@
   --radius-xl: 24px;
   --radius-md: 14px;
   --content-width: min(1120px, 92vw);
+  --hero-image: url("assets/images/skyline.webp");
 }
 
 * {
@@ -149,12 +150,13 @@ a {
   font-weight: 700;
 }
 
-.brand-dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: linear-gradient(140deg, var(--accent-hot), var(--accent-gold));
-  box-shadow: 0 0 0 5px rgba(255, 106, 61, 0.17);
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.32);
 }
 
 .brand-main {
@@ -200,6 +202,28 @@ a {
   grid-template-columns: 1.25fr 1fr;
   align-items: center;
   min-height: 68vh;
+  padding: clamp(1.2rem, 2.2vw, 2rem);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  background-image:
+    linear-gradient(
+      120deg,
+      rgba(4, 10, 18, 0.84) 10%,
+      rgba(4, 10, 18, 0.58) 48%,
+      rgba(4, 10, 18, 0.76) 100%
+    ),
+    var(--hero-image),
+    linear-gradient(135deg, #0e2133 0%, #153450 100%);
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
 }
 
 .eyebrow {
@@ -287,6 +311,9 @@ a {
   border-radius: var(--radius-xl);
   padding: 1.4rem;
   box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(5px);
+  position: relative;
+  z-index: 1;
 }
 
 .hero-card h2 {
@@ -359,7 +386,8 @@ a {
 .service-spotlight,
 .service-tile,
 .ops-row,
-.template-card {
+.template-card,
+.package-card {
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
@@ -438,11 +466,32 @@ a {
 }
 
 .fleet-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.fleet-note {
+  margin: 0 0 1rem;
+  color: var(--text-soft);
+  max-width: 70ch;
 }
 
 .fleet-card {
-  padding: 1.25rem;
+  padding: 0 1.25rem 1.25rem;
+  overflow: hidden;
+}
+
+.fleet-media {
+  margin: 0 -1.25rem 1rem;
+  height: 170px;
+  overflow: hidden;
+}
+
+.fleet-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
 }
 
 .fleet-featured {
@@ -487,6 +536,12 @@ label {
   gap: 0.35rem;
   color: var(--text-soft);
   font-size: 0.9rem;
+}
+
+.field-hint {
+  color: #8eb0d4;
+  font-size: 0.85em;
+  font-weight: 500;
 }
 
 input,
@@ -583,18 +638,85 @@ textarea:focus {
   color: var(--text-soft);
 }
 
-.template-grid {
+.package-grid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-.template-card {
-  padding: 1rem;
+.package-card {
+  min-height: 290px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease;
 }
 
-.template-label {
-  margin: 0 0 0.3rem;
+.package-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(5, 16, 27, 0.24) 0%,
+      rgba(5, 16, 27, 0.46) 45%,
+      rgba(5, 16, 27, 0.88) 100%
+    ),
+    var(--package-image, linear-gradient(135deg, #19324a 0%, #101f30 100%));
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.01);
+  transition: transform 440ms ease, filter 440ms ease;
+}
+
+.package-card::after {
+  content: "";
+  position: absolute;
+  inset: -35% -20% auto;
+  height: 125%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 193, 73, 0.3), transparent 65%);
+  opacity: 0;
+  transform: translateY(16%);
+  transition: opacity 320ms ease, transform 320ms ease;
+}
+
+.package-card:hover,
+.package-card.is-active {
+  transform: translateY(-4px);
+  border-color: rgba(255, 193, 73, 0.5);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.36);
+}
+
+.package-card:hover::before,
+.package-card.is-active::before {
+  transform: scale(1.08);
+  filter: saturate(1.14);
+}
+
+.package-card:hover::after,
+.package-card.is-active::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.package-toggle {
+  width: 100%;
+  border: 0;
+  color: var(--text-main);
+  background: transparent;
+  text-align: left;
+  padding: 1rem 1rem 0.7rem;
+  cursor: pointer;
+  display: grid;
+  gap: 0.42rem;
+}
+
+.package-label {
+  margin: 0;
   color: var(--accent-cool);
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -602,10 +724,77 @@ textarea:focus {
   font-weight: 700;
 }
 
-.template-card ul {
-  margin: 0.5rem 0 0;
-  padding-left: 1rem;
-  color: var(--text-soft);
+.package-toggle h3 {
+  margin: 0;
+  font-size: clamp(1.18rem, 2.4vw, 1.5rem);
+  max-width: 18ch;
+}
+
+.package-toggle p {
+  margin: 0;
+  color: #cfdeec;
+  max-width: 46ch;
+}
+
+.package-cta {
+  margin-top: 0.3rem;
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--accent-gold);
+}
+
+.package-detail {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(12px);
+  transition: max-height 320ms ease, opacity 220ms ease, transform 220ms ease;
+}
+
+.package-card.is-active .package-detail {
+  max-height: 220px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.package-detail ul {
+  margin: 0;
+  padding: 0 1rem 1rem 1.15rem;
+  color: #d1e0ee;
+  display: grid;
+  gap: 0.45rem;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.package-sports {
+  --package-image: url("assets/images/td-garden-exterior.jpg");
+}
+
+.package-golf {
+  --package-image: url("assets/images/golfgroup.jpg");
+}
+
+.package-cape {
+  --package-image: url("assets/images/cape.png");
+}
+
+.package-wedding {
+  --package-image: url("assets/images/weddings.jpg");
+}
+
+.package-bachelorette {
+  --package-image: linear-gradient(140deg, rgba(69, 39, 78, 0.95), rgba(36, 20, 49, 0.92));
+}
+
+.package-concert {
+  --package-image: linear-gradient(140deg, rgba(49, 40, 82, 0.95), rgba(21, 23, 49, 0.92));
+}
+
+.package-local {
+  --package-image: url("assets/images/skyline.webp");
 }
 
 .mobile-callbar {
@@ -771,6 +960,12 @@ textarea:focus {
     display: flex;
   }
 
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+
   .hero,
   .estimator-wrap,
   .service-layout {
@@ -785,8 +980,8 @@ textarea:focus {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .template-grid {
-    grid-template-columns: 1fr;
+  .package-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .ops-row {
@@ -853,6 +1048,10 @@ textarea:focus {
   }
 
   .service-stack {
+    grid-template-columns: 1fr;
+  }
+
+  .package-grid {
     grid-template-columns: 1fr;
   }
 

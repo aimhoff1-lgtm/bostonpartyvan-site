@@ -34,6 +34,36 @@ if ("IntersectionObserver" in window) {
   revealItems.forEach((item) => item.classList.add("in-view"));
 }
 
+const packageCards = document.querySelectorAll("[data-package-card]");
+
+function setPackageCardExpanded(card, expanded) {
+  const toggle = card.querySelector("[data-package-toggle]");
+  const cta = card.querySelector("[data-package-cta]");
+  card.classList.toggle("is-active", expanded);
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+  }
+  if (cta) {
+    cta.textContent = expanded ? "Click to collapse" : "Click for route details";
+  }
+}
+
+if (packageCards.length) {
+  packageCards.forEach((card) => {
+    const toggle = card.querySelector("[data-package-toggle]");
+    if (!toggle) return;
+
+    toggle.addEventListener("click", () => {
+      const isExpanded = card.classList.contains("is-active");
+      packageCards.forEach((eachCard) => setPackageCardExpanded(eachCard, false));
+      setPackageCardExpanded(card, !isExpanded);
+    });
+  });
+
+  const activeCard = document.querySelector("[data-package-card].is-active");
+  packageCards.forEach((card) => setPackageCardExpanded(card, card === activeCard));
+}
+
 const estimateForm = document.getElementById("estimateForm");
 const estimateResult = document.getElementById("estimateResult");
 
@@ -150,6 +180,37 @@ function buildIntakePayload(data) {
 
 if (quoteForm && quoteSuccess) {
   const dateInput = quoteForm.querySelector('input[name="date"]');
+  const contactPreferenceInput = quoteForm.querySelector(
+    'select[name="contactPreference"]'
+  );
+  const phoneInput = quoteForm.querySelector('input[name="phone"]');
+  const phoneHint = quoteForm.querySelector("[data-phone-hint]");
+
+  function syncPhoneRequirement() {
+    if (!contactPreferenceInput || !phoneInput) return;
+    const requiresPhone = contactPreferenceInput.value === "text";
+    phoneInput.required = requiresPhone;
+    phoneInput.setAttribute("aria-required", requiresPhone ? "true" : "false");
+    if (phoneHint) {
+      phoneHint.textContent = requiresPhone
+        ? " (required for text)"
+        : " (optional)";
+    }
+    phoneInput.setCustomValidity("");
+  }
+
+  if (contactPreferenceInput) {
+    contactPreferenceInput.addEventListener("change", syncPhoneRequirement);
+  }
+
+  if (phoneInput) {
+    phoneInput.addEventListener("input", () => {
+      phoneInput.setCustomValidity("");
+    });
+  }
+
+  syncPhoneRequirement();
+
   if (dateInput) {
     const today = new Date().toISOString().split("T")[0];
     dateInput.min = today;
@@ -160,14 +221,28 @@ if (quoteForm && quoteSuccess) {
 
     const data = new FormData(quoteForm);
     const name = data.get("name");
+    const requiresPhone = data.get("contactPreference") === "text";
+    const phoneValue = (data.get("phone") || "").toString().trim();
     const submitButton = quoteForm.querySelector('button[type="submit"]');
     const originalButtonText = submitButton ? submitButton.textContent : "";
+
+    if (requiresPhone && !phoneValue) {
+      if (phoneInput) {
+        phoneInput.setCustomValidity("Phone is required when preferred contact is text.");
+        phoneInput.reportValidity();
+      }
+      quoteSuccess.classList.add("error");
+      quoteSuccess.textContent =
+        "Please enter a phone number if you prefer to be contacted by text.";
+      return;
+    }
 
     // Honeypot trap: silently ignore likely bot submissions.
     if ((data.get("_honey") || "").toString().trim() !== "") {
       quoteSuccess.classList.remove("error");
       quoteSuccess.textContent = "Thanks! Your request has been received.";
       quoteForm.reset();
+      syncPhoneRequirement();
       return;
     }
 
@@ -207,6 +282,7 @@ if (quoteForm && quoteSuccess) {
       quoteSuccess.classList.remove("error");
       quoteSuccess.textContent = `Thanks ${name || "there"}! Your request was sent. We’ll follow up soon.`;
       quoteForm.reset();
+      syncPhoneRequirement();
     } catch (error) {
       const mailto = buildMailtoFromFormData(data);
       const fallbackLink = document.createElement("a");

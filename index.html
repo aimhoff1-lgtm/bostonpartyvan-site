@@ -20,7 +20,7 @@
     <div class="bg-orb bg-orb-a"></div>
     <div class="bg-orb bg-orb-b"></div>
     <div class="noise-layer"></div>
-    <div class="version-tag" title="Site version">V1.2</div>
+    <div class="version-tag" title="Site version">V1.3</div>
 
     <header class="site-header">
       <div class="top-strip">
@@ -29,7 +29,11 @@
       </div>
       <div class="nav-wrap">
         <a class="brand" href="#home">
-          <span class="brand-dot"></span>
+          <img
+            src="assets/images/PartyvanLogo.jpeg"
+            alt="Boston Party Van logo"
+            class="brand-logo"
+          />
           <span class="brand-main">Boston Party Van</span>
         </a>
         <button class="menu-toggle" aria-label="Toggle menu">Menu</button>
@@ -160,37 +164,43 @@
 
       <section id="fleet" class="section reveal">
         <div class="section-head">
-          <p class="eyebrow">Launch fleet</p>
-          <h2>Sprinter options for different group sizes</h2>
+          <p class="eyebrow">Potential fleet</p>
+          <h2>Example sprinter styles we can source for your trip</h2>
         </div>
+        <p class="fleet-note">
+          We source based on your date, route, and group size. Photos below are example
+          vehicles and final assignment is confirmed at booking.
+        </p>
         <div class="fleet-grid">
           <article class="fleet-card">
-            <p class="fleet-tag">City Cruiser</p>
-            <h3>10 Passenger Sprinter</h3>
+            <figure class="fleet-media">
+              <img
+                src="assets/images/MBenzSprinter14PAX-Exterior0.jpg"
+                alt="Example Mercedes Sprinter high-roof van"
+              />
+            </figure>
+            <p class="fleet-tag">Example vehicle A</p>
+            <h3>Premium High-Roof Sprinter</h3>
             <ul>
-              <li>Ideal for airport and local event routes</li>
-              <li>Room for 6-8 bags</li>
-              <li>Tinted windows + charging ports</li>
+              <li>Typically used for polished event nights and private routes</li>
+              <li>Configured for group comfort and luggage flexibility</li>
+              <li>Final exact trim depends on live rental availability</li>
             </ul>
             <p class="fleet-price">Custom quote</p>
           </article>
           <article class="fleet-card fleet-featured">
-            <p class="fleet-tag">Executive Layout</p>
-            <h3>12 Passenger Executive Sprinter</h3>
+            <figure class="fleet-media">
+              <img
+                src="assets/images/ford-van.webp"
+                alt="Example Ford Transit van option"
+              />
+            </figure>
+            <p class="fleet-tag">Example vehicle B</p>
+            <h3>Executive Transit-Style Van</h3>
             <ul>
-              <li>Premium interior with captain seating</li>
-              <li>Bluetooth audio + ambient lighting</li>
-              <li>Perfect for birthdays and wedding parties</li>
-            </ul>
-            <p class="fleet-price">Custom quote</p>
-          </article>
-          <article class="fleet-card">
-            <p class="fleet-tag">Crew Mover</p>
-            <h3>14 Passenger Sprinter</h3>
-            <ul>
-              <li>Great for teams, retreats, and family events</li>
-              <li>Extra cargo capacity</li>
-              <li>Long-distance comfortable ride setup</li>
+              <li>Common option for game nights, weddings, and airport groups</li>
+              <li>Capacity-matched layout selected for your trip profile</li>
+              <li>Assigned vehicle is confirmed before your event day</li>
             </ul>
             <p class="fleet-price">Custom quote</p>
           </article>
@@ -278,47 +288,116 @@
         </div>
       </section>
 
-      <section class="section reveal trip-templates">
+      <section id="packages" class="section reveal package-experiences">
         <div class="section-head">
-          <p class="eyebrow">Trip templates</p>
-          <h2>Example routing structures we can build for your group</h2>
+          <p class="eyebrow">Popular packages</p>
+          <h2>Tap a package to open the route flow</h2>
         </div>
-        <div class="template-grid">
-          <article class="template-card">
-            <p class="template-label">Template A</p>
-            <h3>Golf Day Circuit</h3>
-            <ul>
-              <li>Morning pickup from city or suburbs</li>
-              <li>Tee-time drop and post-round transfer</li>
-              <li>Dinner stop and return ride</li>
-            </ul>
+        <div class="package-grid">
+          <article class="package-card package-sports is-active" data-package-card>
+            <button type="button" class="package-toggle" data-package-toggle aria-expanded="true">
+              <p class="package-label">Sporting events</p>
+              <h3>Game Night Express</h3>
+              <p>TD Garden, Fenway, and Foxborough drop + pickup timing.</p>
+              <span class="package-cta" data-package-cta>Click to collapse</span>
+            </button>
+            <div class="package-detail" data-package-detail>
+              <ul>
+                <li>Pickup sweep across one neighborhood or hotel cluster</li>
+                <li>Arrival timed to avoid long pre-game standing lines</li>
+                <li>Post-game meetup zone and synchronized return</li>
+              </ul>
+            </div>
           </article>
-          <article class="template-card">
-            <p class="template-label">Template B</p>
-            <h3>Cape Escape Route</h3>
-            <ul>
-              <li>City pickup and bridge-timing departure</li>
-              <li>Hyannis or Falmouth stop sequence</li>
-              <li>Evening return window</li>
-            </ul>
+          <article class="package-card package-golf" data-package-card>
+            <button type="button" class="package-toggle" data-package-toggle aria-expanded="false">
+              <p class="package-label">Golf trips</p>
+              <h3>Tee Time Takeoff</h3>
+              <p>Course transfers, clubhouse stop, and one easy return ride.</p>
+              <span class="package-cta" data-package-cta>Click for route details</span>
+            </button>
+            <div class="package-detail" data-package-detail>
+              <ul>
+                <li>Morning pickup with club-loading buffer built in</li>
+                <li>Tee-time arrival plus post-round food stop option</li>
+                <li>Flexible return by one-time departure or staggered pickups</li>
+              </ul>
+            </div>
           </article>
-          <article class="template-card">
-            <p class="template-label">Template C</p>
-            <h3>Boston Local Loop</h3>
-            <ul>
-              <li>Seaport or Back Bay pickup</li>
-              <li>Fenway / Foxborough / Salem destination leg</li>
-              <li>Night return with one final stop</li>
-            </ul>
+          <article class="package-card package-cape" data-package-card>
+            <button type="button" class="package-toggle" data-package-toggle aria-expanded="false">
+              <p class="package-label">Cape trips</p>
+              <h3>Cape Escape Route</h3>
+              <p>Bridge-aware departure windows and full-day shoreline plans.</p>
+              <span class="package-cta" data-package-cta>Click for route details</span>
+            </button>
+            <div class="package-detail" data-package-detail>
+              <ul>
+                <li>Boston departure timed around bridge traffic windows</li>
+                <li>Hyannis, Falmouth, or custom town-to-town stops</li>
+                <li>Night return plan with optional dinner buffer stop</li>
+              </ul>
+            </div>
           </article>
-          <article class="template-card">
-            <p class="template-label">Template D</p>
-            <h3>Bachelor/Bachelorette Night Plan</h3>
-            <ul>
-              <li>Hotel or home-base pickup</li>
-              <li>Dinner + nightlife district sequence</li>
-              <li>Late-night return loop</li>
-            </ul>
+          <article class="package-card package-wedding" data-package-card>
+            <button type="button" class="package-toggle" data-package-toggle aria-expanded="false">
+              <p class="package-label">Weddings</p>
+              <h3>Ceremony + Reception Shuttle</h3>
+              <p>Guest transport between hotel blocks, ceremony, and reception.</p>
+              <span class="package-cta" data-package-cta>Click for route details</span>
+            </button>
+            <div class="package-detail" data-package-detail>
+              <ul>
+                <li>Hotel pickup sweeps with clean arrival windows</li>
+                <li>Ceremony-to-reception transfer timing built in</li>
+                <li>End-of-night return loops for guests and wedding party</li>
+              </ul>
+            </div>
+          </article>
+          <article class="package-card package-bachelorette" data-package-card>
+            <button type="button" class="package-toggle" data-package-toggle aria-expanded="false">
+              <p class="package-label">Bachelor / bachelorette</p>
+              <h3>Weekend Party Circuit</h3>
+              <p>Dinner, nightlife, and safe late-night return planning.</p>
+              <span class="package-cta" data-package-cta>Click for route details</span>
+            </button>
+            <div class="package-detail" data-package-detail>
+              <ul>
+                <li>Hotel or home-base pickup with timeline check-in</li>
+                <li>Two or three nightlife stops with wait-time planning</li>
+                <li>Late-night return loop built for full group regrouping</li>
+              </ul>
+            </div>
+          </article>
+          <article class="package-card package-concert" data-package-card>
+            <button type="button" class="package-toggle" data-package-toggle aria-expanded="false">
+              <p class="package-label">Concert nights</p>
+              <h3>Showtime Shuttle</h3>
+              <p>Pre-show arrival and smooth post-encore pickup coordination.</p>
+              <span class="package-cta" data-package-cta>Click for route details</span>
+            </button>
+            <div class="package-detail" data-package-detail>
+              <ul>
+                <li>Early arrival option for dinner near the venue</li>
+                <li>Pickup fallback points in case streets are closed</li>
+                <li>Direct ride home or one final food stop after the show</li>
+              </ul>
+            </div>
+          </article>
+          <article class="package-card package-local" data-package-card>
+            <button type="button" class="package-toggle" data-package-toggle aria-expanded="false">
+              <p class="package-label">Local city loops</p>
+              <h3>Boston Night Loop</h3>
+              <p>Seaport, Back Bay, and custom local celebration routes.</p>
+              <span class="package-cta" data-package-cta>Click for route details</span>
+            </button>
+            <div class="package-detail" data-package-detail>
+              <ul>
+                <li>Custom stop sequence mapped around your exact group plan</li>
+                <li>Driver coordination for pacing and regroup times</li>
+                <li>One simple final return without rideshare split chaos</li>
+              </ul>
+            </div>
           </article>
         </div>
       </section>
@@ -400,8 +479,8 @@
             <input type="email" name="email" required />
           </label>
           <label>
-            Phone
-            <input type="tel" name="phone" required />
+            Phone<span class="field-hint" data-phone-hint> (optional)</span>
+            <input type="tel" name="phone" />
           </label>
           <label>
             Event date

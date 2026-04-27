@@ -1,5 +1,79 @@
 # Release Notes
 
+## Unreleased (next after V1.3)
+
+### Changed
+- Quote form phone validation is now conditional:
+  - `Phone` remains optional by default
+  - If preferred contact method is `Text me first`, `Phone` becomes required
+- Added dynamic inline hint text:
+  - `Phone (optional)` by default
+  - Changes to `Phone (required for text)` when text preference is selected
+- Header brand now uses uploaded logo asset:
+  - Added `assets/images/PartyvanLogo.jpeg` in nav brand area
+  - Added responsive logo sizing and styling for desktop/mobile
+- Hero splash now uses your uploaded skyline image:
+  - Hero background points to `assets/images/skyline.webp`
+  - Added readability overlay so headline/buttons remain clear over photo
+- Replaced static trip-template cards with interactive package gallery:
+  - Added click-to-expand cards with text-over-image treatment and animated flare
+  - Added package categories: Sporting Events, Golf Trips, Cape Trips, Weddings,
+    Bachelor/Bachelorette, Concert Nights, and Local City Loops
+  - Wired real image backgrounds for:
+    - `assets/images/td-garden-exterior.jpg` (sporting events)
+    - `assets/images/skyline.webp` (Cape + local)
+  - Added one-open-at-a-time expand/collapse behavior with updated CTA text
+- Fleet section repositioned to a sourced-vehicle model:
+  - Updated language to `Potential fleet` and clarified that final assignment
+    depends on route/date availability
+  - Added uploaded example-vehicle photos:
+    - `assets/images/MBenzSprinter14PAX-Exterior0.jpg`
+    - `assets/images/ford-van.webp`
+  - Removed hard-assigned fleet promise style in favor of flexible sourcing language
+- Package image map expanded with your new uploads:
+  - `assets/images/golfgroup.jpg` now powers Golf Trips card
+  - `assets/images/cape.png` now powers Cape Trips card
+  - Added new Weddings package card using `assets/images/weddings.jpg`
+
+### Test Checklist
+- Version badge remains `V1.3` until this release is pushed and confirmed
+- With preferred contact = `Call me first` or `Email me first`, form submits with phone blank
+- With preferred contact = `Text me first`, blank phone shows validation error
+- Entering a phone number with `Text me first` allows submission
+- Header shows your uploaded Party Van logo next to brand text
+- Hero/splash section shows skyline photo behind the headline content
+- Package section appears with seven image cards and overlay text
+- Clicking a package expands its details, and clicking it again collapses it
+- Opening one package closes the others automatically
+- Sporting Events card uses TD Garden image background
+- Fleet section heading reads `Potential fleet` and includes availability disclaimer
+- Fleet cards show your two uploaded van photos as example vehicles
+- Golf Trips package uses the uploaded golf group photo
+- Cape Trips package uses the uploaded Cape harbor photo
+- Weddings package appears and expands like the other package cards
+
+### Rollback
+- Revert full release commit:
+  - `git revert <commit_hash>`
+- Revert only one file:
+  - `git restore --source=<commit_hash> -- <file_path>`
+
+## V1.3 - 2026-04-27
+
+### Changed
+- On-page version badge bumped to `V1.3`
+- Quote intake field updated from required `Phone` to `Phone (optional)`
+
+### Test Checklist
+- Version badge shows `V1.3` in top-left
+- Quote form can submit successfully without entering a phone number
+
+### Rollback
+- Revert full release commit:
+  - `git revert <commit_hash>`
+- Revert only one file:
+  - `git restore --source=<commit_hash> -- <file_path>`
+
 ## V1.2 - 2026-04-27
 
 ### Changed
