@@ -58,6 +58,10 @@
   - Quote form `Event type` now includes `White Mountains / Northern NH`
   - Updated labels to `Corporate Outing` in estimator and quote flow
   - Service footprint now explicitly includes `White Mountains / Northern NH`
+- Hero tone shifted to a driver-first, non-party theme:
+  - Headline updated to `Leave the driving to us.`
+  - Hero support copy reframed around reliable transportation
+  - Primary CTA updated to `Plan Your Trip`
 
 ### Test Checklist
 - Version badge remains `V1.3` until this release is pushed and confirmed
@@ -87,6 +91,8 @@
 - `Corporate outings` package card appears and expands correctly
 - Estimator includes `White Mountains / Northern NH` and `Corporate Outing`
 - Quote form event type includes `White Mountains / Northern NH` and `Corporate Outing`
+- Hero heading reads `Leave the driving to us.`
+- Hero CTA reads `Plan Your Trip`
 
 ### Rollback
 - Revert full release commit:
