@@ -45,6 +45,12 @@
   - Switched to standardized `min-height` sizing with `clamp()` values
   - Kept a consistent collapsed footprint while allowing safer expansion on smaller screens
   - Increased detail panel max height to reduce text clipping risk on iPhone
+- Golf + Cape builder moved out of the top of Trip menu:
+  - Removed the featured Golf + Cape block from above package cards
+  - Created a dedicated standalone `Featured route flow` section for that content
+- Added remaining package photography:
+  - `assets/images/showtime.jpg` now powers the `Showtime Shuttle` card
+  - `assets/images/nightlife.jpg` now powers the `Bachelor / bachelorette` card
 
 ### Test Checklist
 - Version badge remains `V1.3` until this release is pushed and confirmed
@@ -66,6 +72,10 @@
 - Clicking any area of a package image/card toggles the card details
 - Expanded package cards visibly grow by about 50%
 - Package card text remains visible without clipping on narrow mobile widths
+- Trip menu now starts directly with the package cards (no Golf + Cape block above)
+- `Featured route flow` section appears as its own standalone block
+- `Showtime Shuttle` card now shows the uploaded showtime photo
+- `Bachelor / bachelorette` card now shows the uploaded nightlife photo
 
 ### Rollback
 - Revert full release commit:

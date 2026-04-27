@@ -384,6 +384,10 @@ a {
   font-size: 0.95rem;
 }
 
+.featured-flow .service-spotlight {
+  max-width: 860px;
+}
+
 .card-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -688,7 +692,7 @@ textarea:focus {
     ),
     var(--package-image, linear-gradient(135deg, #19324a 0%, #101f30 100%));
   background-size: cover;
-  background-position: center;
+  background-position: var(--package-position, center);
   transform: scale(1.01);
   transition: transform 440ms ease, filter 440ms ease;
 }
@@ -808,11 +812,12 @@ textarea:focus {
 }
 
 .package-bachelorette {
-  --package-image: linear-gradient(140deg, rgba(69, 39, 78, 0.95), rgba(36, 20, 49, 0.92));
+  --package-image: url("assets/images/nightlife.jpg");
 }
 
 .package-concert {
-  --package-image: linear-gradient(140deg, rgba(49, 40, 82, 0.95), rgba(21, 23, 49, 0.92));
+  --package-image: url("assets/images/showtime.jpg");
+  --package-position: center top;
 }
 
 .package-local {
