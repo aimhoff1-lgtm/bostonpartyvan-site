@@ -34,6 +34,17 @@
   - `assets/images/golfgroup.jpg` now powers Golf Trips card
   - `assets/images/cape.png` now powers Cape Trips card
   - Added new Weddings package card using `assets/images/weddings.jpg`
+- Merged `Trip menu` and `Packages` into one unified section:
+  - Removed the separate `Popular packages` block to avoid repetition
+  - Kept interactive package cards and moved them directly into the Trip menu area
+  - Added concise helper line guiding users to open package cards for route examples
+- Package card interaction refined:
+  - Clicking anywhere on a package card (not just text/button area) now toggles expand/collapse
+  - Expanded package cards now grow by approximately 50% for stronger visual focus
+- Package card sizing made responsive-safe across devices:
+  - Switched to standardized `min-height` sizing with `clamp()` values
+  - Kept a consistent collapsed footprint while allowing safer expansion on smaller screens
+  - Increased detail panel max height to reduce text clipping risk on iPhone
 
 ### Test Checklist
 - Version badge remains `V1.3` until this release is pushed and confirmed
@@ -42,7 +53,7 @@
 - Entering a phone number with `Text me first` allows submission
 - Header shows your uploaded Party Van logo next to brand text
 - Hero/splash section shows skyline photo behind the headline content
-- Package section appears with seven image cards and overlay text
+- Trip menu now includes seven interactive image cards with overlay text
 - Clicking a package expands its details, and clicking it again collapses it
 - Opening one package closes the others automatically
 - Sporting Events card uses TD Garden image background
@@ -51,6 +62,10 @@
 - Golf Trips package uses the uploaded golf group photo
 - Cape Trips package uses the uploaded Cape harbor photo
 - Weddings package appears and expands like the other package cards
+- Only one section now covers both trip menu and package cards (no redundant second section)
+- Clicking any area of a package image/card toggles the card details
+- Expanded package cards visibly grow by about 50%
+- Package card text remains visible without clipping on narrow mobile widths
 
 ### Rollback
 - Revert full release commit:

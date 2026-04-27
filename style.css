@@ -14,6 +14,8 @@
   --radius-md: 14px;
   --content-width: min(1120px, 92vw);
   --hero-image: url("assets/images/skyline.webp");
+  --package-card-collapsed: clamp(260px, 30vw, 300px);
+  --package-card-expanded: clamp(390px, 46vw, 460px);
 }
 
 * {
@@ -371,6 +373,17 @@ a {
   grid-template-columns: 1.1fr 0.9fr;
 }
 
+.trip-menu-wrap {
+  display: grid;
+  gap: 1rem;
+}
+
+.trip-menu-note {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+}
+
 .card-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -645,11 +658,20 @@ textarea:focus {
 }
 
 .package-card {
-  min-height: 290px;
+  min-height: var(--package-card-collapsed);
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease;
+  cursor: pointer;
+  transition:
+    transform 280ms ease,
+    box-shadow 280ms ease,
+    border-color 280ms ease,
+    min-height 320ms ease;
+}
+
+.package-card.is-active {
+  min-height: var(--package-card-expanded);
 }
 
 .package-card::before {
@@ -754,7 +776,7 @@ textarea:focus {
 }
 
 .package-card.is-active .package-detail {
-  max-height: 220px;
+  max-height: 420px;
   opacity: 1;
   transform: translateY(0);
 }

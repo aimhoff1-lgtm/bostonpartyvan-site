@@ -49,15 +49,25 @@ function setPackageCardExpanded(card, expanded) {
 }
 
 if (packageCards.length) {
+  const togglePackageCard = (card) => {
+    const isExpanded = card.classList.contains("is-active");
+    packageCards.forEach((eachCard) => setPackageCardExpanded(eachCard, false));
+    setPackageCardExpanded(card, !isExpanded);
+  };
+
   packageCards.forEach((card) => {
     const toggle = card.querySelector("[data-package-toggle]");
-    if (!toggle) return;
-
-    toggle.addEventListener("click", () => {
-      const isExpanded = card.classList.contains("is-active");
-      packageCards.forEach((eachCard) => setPackageCardExpanded(eachCard, false));
-      setPackageCardExpanded(card, !isExpanded);
+    card.addEventListener("click", () => {
+      togglePackageCard(card);
     });
+
+    if (toggle) {
+      toggle.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        togglePackageCard(card);
+      });
+    }
   });
 
   const activeCard = document.querySelector("[data-package-card].is-active");
