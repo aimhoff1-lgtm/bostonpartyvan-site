@@ -1,5 +1,28 @@
 # Release Notes
 
+## V1.5.1 - 2026-04-28
+
+### Changed
+- On-page version badge bumped to `V1.5.1`
+- Completed canonical-domain SEO host switch from `workers.dev` to `.com`:
+  - Updated homepage canonical, Open Graph URL/image host references, and JSON-LD `@id`/`url` links
+  - Updated all `/guides/` page canonical + Open Graph + JSON-LD provider URL references
+  - Updated `robots.txt` sitemap URL to `https://www.bostonpartyvan.com/sitemap.xml`
+  - Updated all `sitemap.xml` `<loc>` URLs to `https://www.bostonpartyvan.com/...`
+
+### Test Checklist
+- Version badge shows `V1.5.1` in top-left
+- View-source on homepage shows canonical URL as `https://www.bostonpartyvan.com/`
+- `https://www.bostonpartyvan.com/robots.txt` shows `.com` sitemap URL
+- `https://www.bostonpartyvan.com/sitemap.xml` lists only `.com` URLs
+- Opening any guide page shows canonical and `og:url` on `.com` host
+
+### Rollback
+- Revert full release commit:
+  - `git revert <commit_hash>`
+- Revert only one file:
+  - `git restore --source=<commit_hash> -- <file_path>`
+
 ## V1.5 - 2026-04-28
 
 ### Changed

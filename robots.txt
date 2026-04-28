@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bostonpartyvan-site.aimhoff1.workers.dev/sitemap.xml
+Sitemap: https://www.bostonpartyvan.com/sitemap.xml
