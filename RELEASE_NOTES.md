@@ -1,5 +1,59 @@
 # Release Notes
 
+## V1.5 - 2026-04-28
+
+### Changed
+- On-page version badge bumped to `V1.5`
+- Added high-visibility `Quick actions` strip near the top of the homepage:
+  - `Call now` (`tel:`)
+  - `Text now` (`sms:`)
+  - `Get pricing` (quote form jump)
+- Added `Why groups book us` trust section with no testimonial claims:
+  - Transparent sourcing language
+  - One-driver/one-plan route operations
+  - Route-first quoting clarity
+  - Group logistics support positioning
+- Upgraded mobile CTA bar from 2 actions to 3 actions:
+  - `Call`
+  - `Text`
+  - `Get Pricing`
+- Added lead-source tracking fields to the quote form and submit payload:
+  - `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`
+  - First landing page, referrer, submit page, first-seen timestamp, last-touch timestamp
+  - Derived lead source summary (for example, `google / cpc | spring-campaign`)
+- Added client-side attribution persistence:
+  - Stores first-touch/last-touch context in browser storage
+  - Reuses source data when users navigate around before submitting
+- Added tracking data to both:
+  - FormSubmit AJAX payload
+  - Email fallback (`mailto`) body
+- Improved quote form status UX:
+  - Distinct sending/success/error state classes
+  - Success message now includes response-time expectation
+- Added low-priority domain canonicalization polish item to backlog:
+  - `PRODUCT_BACKLOG.md`
+
+### Test Checklist
+- Version badge shows `V1.5` in top-left
+- New top `Quick actions` strip is visible and all three cards are clickable
+- `Call now` opens dialer to `(617) 515-3702`
+- `Text now` opens SMS composer to `(617) 515-3702`
+- `Get pricing` scrolls to quote form
+- New `Why groups book us` section appears with 4 trust cards
+- Mobile sticky CTA bar shows 3 buttons: `Call`, `Text`, `Get Pricing`
+- Quote form still validates phone when preferred contact is `Text me first`
+- Quote form success message includes expected response time text
+- If submission fails, fallback `Send via email instead` link still appears
+- Submitted lead includes UTM/source fields in inbox (when URL includes UTM params)
+- Submitted lead still includes sensible source summary for direct visits
+- Existing package cards, estimator, and FAQ interactions still function
+
+### Rollback
+- Revert full release commit:
+  - `git revert <commit_hash>`
+- Revert only one file:
+  - `git restore --source=<commit_hash> -- <file_path>`
+
 ## V1.4 - 2026-04-28
 
 ### Changed

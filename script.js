@@ -139,10 +139,117 @@ const quoteForm = document.getElementById("quoteForm");
 const quoteSuccess = document.getElementById("quoteSuccess");
 const INTAKE_ENDPOINT =
   "https://formsubmit.co/ajax/902c76a22ec98900ac487ed64bc69c35";
+const ATTRIBUTION_STORAGE_KEY = "bpv_attribution_v1";
+const TRACKED_UTM_KEYS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+];
 
 function toTitleCase(value) {
   if (!value || typeof value !== "string") return "";
   return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function normalizeValue(value) {
+  if (value === null || value === undefined) return "";
+  return String(value).trim();
+}
+
+function readAttributionStorage() {
+  try {
+    const raw = localStorage.getItem(ATTRIBUTION_STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function writeAttributionStorage(data) {
+  try {
+    localStorage.setItem(ATTRIBUTION_STORAGE_KEY, JSON.stringify(data));
+  } catch (error) {
+    // Non-blocking: if storage fails, we still submit lead data.
+  }
+}
+
+function buildLeadSourceSummary(attribution) {
+  const source = normalizeValue(attribution.utm_source) || "direct";
+  const medium = normalizeValue(attribution.utm_medium) || "none";
+  const campaign = normalizeValue(attribution.utm_campaign);
+  return campaign ? `${source} / ${medium} | ${campaign}` : `${source} / ${medium}`;
+}
+
+function buildAttributionSnapshot() {
+  const now = new Date().toISOString();
+  const params = new URLSearchParams(window.location.search);
+  const stored = readAttributionStorage();
+  const currentPath = `${window.location.pathname}${window.location.search}`;
+  const snapshot = { ...stored };
+
+  if (!normalizeValue(snapshot.first_landing_page)) {
+    snapshot.first_landing_page = currentPath;
+    snapshot.first_seen_at = now;
+    snapshot.first_referrer = document.referrer || "";
+  }
+
+  let foundUtm = false;
+  TRACKED_UTM_KEYS.forEach((key) => {
+    const value = normalizeValue(params.get(key));
+    if (value) {
+      snapshot[key] = value;
+      foundUtm = true;
+    }
+  });
+
+  if (foundUtm || !normalizeValue(snapshot.last_touch_at)) {
+    snapshot.last_touch_at = now;
+  }
+
+  if (!normalizeValue(snapshot.utm_source)) {
+    snapshot.utm_source = document.referrer ? "referral" : "direct";
+  }
+  if (!normalizeValue(snapshot.utm_medium)) {
+    snapshot.utm_medium = document.referrer ? "referral" : "none";
+  }
+  if (!normalizeValue(snapshot.utm_campaign)) {
+    snapshot.utm_campaign = "organic-or-direct";
+  }
+
+  snapshot.last_referrer = document.referrer || normalizeValue(snapshot.first_referrer);
+  snapshot.last_submit_page = currentPath;
+  snapshot.lead_source_summary = buildLeadSourceSummary(snapshot);
+
+  writeAttributionStorage(snapshot);
+  return snapshot;
+}
+
+function populateAttributionFields(form, attribution) {
+  if (!form) return;
+  const fieldMap = {
+    utm_source: attribution.utm_source,
+    utm_medium: attribution.utm_medium,
+    utm_campaign: attribution.utm_campaign,
+    utm_term: attribution.utm_term,
+    utm_content: attribution.utm_content,
+    lead_landing_page: attribution.first_landing_page,
+    lead_referrer: attribution.last_referrer || attribution.first_referrer,
+    lead_submit_page: attribution.last_submit_page,
+    lead_first_seen_at: attribution.first_seen_at,
+    lead_last_touch_at: attribution.last_touch_at,
+    lead_source_summary: attribution.lead_source_summary,
+  };
+
+  Object.entries(fieldMap).forEach(([name, value]) => {
+    const input = form.querySelector(`input[name="${name}"]`);
+    if (input) {
+      input.value = normalizeValue(value);
+    }
+  });
 }
 
 function buildMailtoFromFormData(data) {
@@ -158,6 +265,17 @@ function buildMailtoFromFormData(data) {
     `Preferred contact method: ${toTitleCase(data.get("contactPreference") || "")}`,
     `Best contact time: ${toTitleCase(data.get("contactTime") || "")}`,
     "",
+    "Lead source tracking:",
+    `Source summary: ${data.get("lead_source_summary") || ""}`,
+    `UTM source: ${data.get("utm_source") || ""}`,
+    `UTM medium: ${data.get("utm_medium") || ""}`,
+    `UTM campaign: ${data.get("utm_campaign") || ""}`,
+    `Landing page: ${data.get("lead_landing_page") || ""}`,
+    `Referrer: ${data.get("lead_referrer") || ""}`,
+    `Submit page: ${data.get("lead_submit_page") || ""}`,
+    `First seen at: ${data.get("lead_first_seen_at") || ""}`,
+    `Last touch at: ${data.get("lead_last_touch_at") || ""}`,
+    "",
     "Trip notes:",
     data.get("notes") || "(none provided)",
   ];
@@ -170,6 +288,7 @@ function buildMailtoFromFormData(data) {
 
 function buildIntakePayload(data) {
   const name = data.get("name") || "New Lead";
+  const sourceSummary = data.get("lead_source_summary") || "direct / none";
   return {
     name: data.get("name") || "",
     email: data.get("email") || "",
@@ -181,8 +300,19 @@ function buildIntakePayload(data) {
     dropoff_location: data.get("dropoff") || "",
     preferred_contact_method: toTitleCase(data.get("contactPreference") || ""),
     best_contact_time: toTitleCase(data.get("contactTime") || ""),
+    utm_source: data.get("utm_source") || "",
+    utm_medium: data.get("utm_medium") || "",
+    utm_campaign: data.get("utm_campaign") || "",
+    utm_term: data.get("utm_term") || "",
+    utm_content: data.get("utm_content") || "",
+    lead_landing_page: data.get("lead_landing_page") || "",
+    lead_referrer: data.get("lead_referrer") || "",
+    lead_submit_page: data.get("lead_submit_page") || "",
+    lead_first_seen_at: data.get("lead_first_seen_at") || "",
+    lead_last_touch_at: data.get("lead_last_touch_at") || "",
+    lead_source_summary: sourceSummary,
     notes: data.get("notes") || "",
-    _subject: `New Quote Request - ${name}`,
+    _subject: `New Quote Request - ${name} (${sourceSummary})`,
     _template: "table",
     _captcha: "false",
     _replyto: data.get("email") || "",
@@ -196,6 +326,16 @@ if (quoteForm && quoteSuccess) {
   );
   const phoneInput = quoteForm.querySelector('input[name="phone"]');
   const phoneHint = quoteForm.querySelector("[data-phone-hint]");
+  const setQuoteMessage = (message, stateClass = "") => {
+    quoteSuccess.classList.remove("error", "success", "sending");
+    if (stateClass) {
+      quoteSuccess.classList.add(stateClass);
+    }
+    quoteSuccess.textContent = message;
+  };
+
+  const initialAttribution = buildAttributionSnapshot();
+  populateAttributionFields(quoteForm, initialAttribution);
 
   function syncPhoneRequirement() {
     if (!contactPreferenceInput || !phoneInput) return;
@@ -230,6 +370,8 @@ if (quoteForm && quoteSuccess) {
   quoteForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    const latestAttribution = buildAttributionSnapshot();
+    populateAttributionFields(quoteForm, latestAttribution);
     const data = new FormData(quoteForm);
     const name = data.get("name");
     const requiresPhone = data.get("contactPreference") === "text";
@@ -242,17 +384,18 @@ if (quoteForm && quoteSuccess) {
         phoneInput.setCustomValidity("Phone is required when preferred contact is text.");
         phoneInput.reportValidity();
       }
-      quoteSuccess.classList.add("error");
-      quoteSuccess.textContent =
-        "Please enter a phone number if you prefer to be contacted by text.";
+      setQuoteMessage(
+        "Please enter a phone number if you prefer to be contacted by text.",
+        "error"
+      );
       return;
     }
 
     // Honeypot trap: silently ignore likely bot submissions.
     if ((data.get("_honey") || "").toString().trim() !== "") {
-      quoteSuccess.classList.remove("error");
-      quoteSuccess.textContent = "Thanks! Your request has been received.";
+      setQuoteMessage("Thanks! Your request has been received.", "success");
       quoteForm.reset();
+      populateAttributionFields(quoteForm, buildAttributionSnapshot());
       syncPhoneRequirement();
       return;
     }
@@ -263,8 +406,7 @@ if (quoteForm && quoteSuccess) {
         submitButton.textContent = "Sending...";
       }
 
-      quoteSuccess.classList.remove("error");
-      quoteSuccess.textContent = "Sending your request...";
+      setQuoteMessage("Sending your request...", "sending");
 
       const payload = buildIntakePayload(data);
       const response = await fetch(INTAKE_ENDPOINT, {
@@ -282,17 +424,20 @@ if (quoteForm && quoteSuccess) {
 
       if (!response.ok || !isSuccess) {
         if (message.toLowerCase().includes("activation")) {
-          quoteSuccess.classList.remove("error");
-          quoteSuccess.textContent =
-            "Almost done: check aimhoff1@gmail.com for the FormSubmit activation email, click Activate Form once, then submit again.";
+          setQuoteMessage(
+            "Almost done: check aimhoff1@gmail.com for the FormSubmit activation email, click Activate Form once, then submit again."
+          );
           return;
         }
         throw new Error(result.message || "Submission failed");
       }
 
-      quoteSuccess.classList.remove("error");
-      quoteSuccess.textContent = `Thanks ${name || "there"}! Your request was sent. We’ll follow up soon.`;
+      setQuoteMessage(
+        `Thanks ${name || "there"}! Your request is in. We typically reply within 30-60 minutes between 8am-9pm ET (same day otherwise).`,
+        "success"
+      );
       quoteForm.reset();
+      populateAttributionFields(quoteForm, buildAttributionSnapshot());
       syncPhoneRequirement();
     } catch (error) {
       const mailto = buildMailtoFromFormData(data);
@@ -301,6 +446,7 @@ if (quoteForm && quoteSuccess) {
       fallbackLink.textContent = "Send via email instead";
       fallbackLink.rel = "nofollow";
 
+      quoteSuccess.classList.remove("success", "sending");
       quoteSuccess.classList.add("error");
       quoteSuccess.textContent =
         "We couldn’t auto-submit right now. Please use the backup link: ";

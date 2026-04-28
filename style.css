@@ -351,6 +351,52 @@ a {
   font-size: 0.82rem;
 }
 
+.quick-actions {
+  padding-top: 1.25rem;
+}
+
+.quick-actions-grid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.quick-action-card {
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: linear-gradient(145deg, rgba(14, 34, 52, 0.88), rgba(10, 22, 35, 0.84));
+  padding: 1rem;
+  display: grid;
+  gap: 0.42rem;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.quick-action-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(38, 214, 189, 0.52);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+}
+
+.quick-action-label {
+  margin: 0;
+  color: var(--accent-cool);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.quick-action-card h3 {
+  margin: 0;
+  font-size: clamp(1.12rem, 2vw, 1.34rem);
+}
+
+.quick-action-card span {
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
 .section-head {
   margin-bottom: 1.4rem;
 }
@@ -648,6 +694,23 @@ textarea:focus {
 
 .ops-row p {
   margin: 0;
+  color: var(--text-soft);
+}
+
+.trust-grid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.trust-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.trust-card p {
   color: var(--text-soft);
 }
 
@@ -958,8 +1021,16 @@ textarea:focus {
 
 .quote-success {
   margin-top: 0.8rem;
-  color: var(--accent-cool);
+  color: var(--text-soft);
   min-height: 1.2em;
+}
+
+.quote-success.sending {
+  color: var(--text-soft);
+}
+
+.quote-success.success {
+  color: #b8f3d8;
 }
 
 .quote-success.error {
@@ -1058,6 +1129,11 @@ textarea:focus {
     grid-template-columns: 1fr;
   }
 
+  .quick-actions-grid,
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+
   .card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1088,7 +1164,7 @@ textarea:focus {
     z-index: 200;
     display: grid;
     gap: 0.5rem;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     padding: 0.55rem 0.7rem calc(0.55rem + env(safe-area-inset-bottom));
     background: rgba(5, 16, 27, 0.94);
     border-top: 1px solid var(--line);
@@ -1109,11 +1185,15 @@ textarea:focus {
     color: #08131c;
   }
 
+  .mobile-text {
+    background: linear-gradient(135deg, var(--accent-cool), #87ede0);
+    color: #08131c;
+  }
+
   .mobile-quote {
     color: var(--text-main);
     border: 1px solid var(--line);
     background: rgba(255, 255, 255, 0.04);
-    min-width: 112px;
   }
 
   body {

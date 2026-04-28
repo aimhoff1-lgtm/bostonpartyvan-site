@@ -218,7 +218,7 @@
     <div class="bg-orb bg-orb-a"></div>
     <div class="bg-orb bg-orb-b"></div>
     <div class="noise-layer"></div>
-    <div class="version-tag" title="Site version">V1.4</div>
+    <div class="version-tag" title="Site version">V1.5</div>
 
     <header class="site-header">
       <div class="top-strip">
@@ -286,6 +286,29 @@
             </div>
           </div>
         </aside>
+      </section>
+
+      <section class="section reveal quick-actions" aria-label="Quick actions">
+        <div class="quick-actions-grid">
+          <a class="quick-action-card" href="tel:+16175153702">
+            <p class="quick-action-label">Call now</p>
+            <h3>(617) 515-3702</h3>
+            <span>Fastest way to confirm availability</span>
+          </a>
+          <a
+            class="quick-action-card"
+            href="sms:+16175153702?&amp;body=Hi%20Boston%20Party%20Van%2C%20I%20want%20a%20quote."
+          >
+            <p class="quick-action-label">Text now</p>
+            <h3>Start by text</h3>
+            <span>Great for quick questions and timing checks</span>
+          </a>
+          <a class="quick-action-card" href="#quote">
+            <p class="quick-action-label">Get pricing</p>
+            <h3>Send one form</h3>
+            <span>We usually reply within the same day</span>
+          </a>
+        </div>
       </section>
 
       <section id="services" class="section reveal">
@@ -678,6 +701,43 @@
         </div>
       </section>
 
+      <section class="section reveal trust-section">
+        <div class="section-head">
+          <p class="eyebrow">Why groups book us</p>
+          <h2>Party vibe, professional route execution</h2>
+        </div>
+        <div class="trust-grid">
+          <article class="trust-card">
+            <h3>Transparent sourcing</h3>
+            <p>
+              Vans are subject to availability and shared with photos prior to booking
+              so there are no surprises.
+            </p>
+          </article>
+          <article class="trust-card">
+            <h3>One driver, one plan</h3>
+            <p>
+              Your group stays together with one coordinated timeline from first pickup
+              through final drop-off.
+            </p>
+          </article>
+          <article class="trust-card">
+            <h3>Route-first communication</h3>
+            <p>
+              We quote and plan around your actual date, stop list, and group size rather
+              than one-size-fits-all pricing.
+            </p>
+          </article>
+          <article class="trust-card">
+            <h3>Built for group momentum</h3>
+            <p>
+              We handle traffic, parking, and timing so your crew can focus on the event,
+              not logistics.
+            </p>
+          </article>
+        </div>
+      </section>
+
       <section id="faq" class="section reveal faq">
         <div class="section-head">
           <p class="eyebrow">Common questions</p>
@@ -754,6 +814,17 @@
         </div>
         <form id="quoteForm" class="quote-form">
           <input class="hp-field" type="text" name="_honey" tabindex="-1" autocomplete="off" />
+          <input type="hidden" name="utm_source" />
+          <input type="hidden" name="utm_medium" />
+          <input type="hidden" name="utm_campaign" />
+          <input type="hidden" name="utm_term" />
+          <input type="hidden" name="utm_content" />
+          <input type="hidden" name="lead_landing_page" />
+          <input type="hidden" name="lead_referrer" />
+          <input type="hidden" name="lead_submit_page" />
+          <input type="hidden" name="lead_first_seen_at" />
+          <input type="hidden" name="lead_last_touch_at" />
+          <input type="hidden" name="lead_source_summary" />
           <label>
             Full name
             <input type="text" name="name" required />
@@ -827,7 +898,7 @@
         </form>
         <p class="form-help">
           Submissions are sent directly to our booking inbox. If there is a delivery issue,
-          we will show a backup send option.
+          we will show a backup send option. Lead source tags are included automatically.
         </p>
         <p id="quoteSuccess" class="quote-success" aria-live="polite"></p>
       </section>
@@ -848,7 +919,12 @@
       </div>
     </footer>
     <div class="mobile-callbar">
-      <a class="mobile-call" href="tel:+16175153702">Call (617) 515-3702</a>
+      <a class="mobile-call" href="tel:+16175153702">Call</a>
+      <a
+        class="mobile-text"
+        href="sms:+16175153702?&amp;body=Hi%20Boston%20Party%20Van%2C%20I%20want%20a%20quote."
+        >Text</a
+      >
       <a class="mobile-quote" href="#quote">Get Pricing</a>
     </div>
 
