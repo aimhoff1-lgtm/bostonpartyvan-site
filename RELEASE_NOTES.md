@@ -1,8 +1,9 @@
 # Release Notes
 
-## Unreleased (next after V1.3)
+## V1.4 - 2026-04-28
 
 ### Changed
+- On-page version badge bumped to `V1.4`
 - Quote form phone validation is now conditional:
   - `Phone` remains optional by default
   - If preferred contact method is `Text me first`, `Phone` becomes required
@@ -62,9 +63,35 @@
   - Headline updated to `Leave the driving to us.`
   - Hero support copy reframed around reliable transportation
   - Primary CTA updated to `Plan Your Trip`
+- Pre-domain SEO foundation added:
+  - Updated homepage `<title>` and `<meta name="description">` to target Boston
+    group transportation and route intent
+  - Added canonical URL, robots meta, Open Graph tags, and Twitter card tags
+  - Improved internal nav anchor label (`Trip Menu`) and key fleet image alt text
+  - Added `robots.txt` and `sitemap.xml` for crawler discovery
+- Structured data added in JSON-LD:
+  - `LocalBusiness` with service areas and contact info
+  - `Service` offer catalog for key route/event offerings
+  - `FAQPage` schema matching the on-page FAQ entries
+- Added a new homepage `Popular destination guides` section with internal links for
+  high-intent route/service queries
+- Added eight dedicated SEO landing pages under `/guides/`:
+  - `boston-sporting-event-transportation`
+  - `boston-concert-night-transportation`
+  - `boston-to-cape-cod-group-transportation`
+  - `boston-golf-outing-transportation`
+  - `white-mountains-northern-nh-transportation`
+  - `boston-wedding-shuttle-service`
+  - `boston-corporate-outing-transportation`
+  - `bachelor-bachelorette-party-transportation-boston`
+- Added shared guide styling file: `guides/guides.css`
+- Expanded homepage service footprint with key search destinations and venues:
+  `TD Garden`, `Fenway Park`, `Gillette Stadium`, `Seaport District`,
+  `Back Bay`, `Logan Airport`, and `Cape Cod`
+- Expanded `sitemap.xml` to include all new guide pages for crawler discovery
 
 ### Test Checklist
-- Version badge remains `V1.3` until this release is pushed and confirmed
+- Version badge shows `V1.4` in top-left
 - With preferred contact = `Call me first` or `Email me first`, form submits with phone blank
 - With preferred contact = `Text me first`, blank phone shows validation error
 - Entering a phone number with `Text me first` allows submission
@@ -93,6 +120,14 @@
 - Quote form event type includes `White Mountains / Northern NH` and `Corporate Outing`
 - Hero heading reads `Leave the driving to us.`
 - Hero CTA reads `Plan Your Trip`
+- Main nav includes new `Destinations` link
+- Homepage shows `Popular destination guides` section with 8 clickable guide cards
+- Each guide page loads with unique title/meta and links back to homepage quote form
+- `guides/guides.css` loads correctly on all guide pages
+- View-source/head contains canonical URL + Open Graph/Twitter meta tags
+- View-source includes JSON-LD for `LocalBusiness`, `Service`, and `FAQPage`
+- `/robots.txt` is accessible and includes the sitemap URL
+- `/sitemap.xml` is accessible and includes homepage + all guide URLs
 
 ### Rollback
 - Revert full release commit:
