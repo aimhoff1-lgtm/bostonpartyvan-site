@@ -12,9 +12,10 @@
 - Replaced the old skyline image with the new generated skyline asset:
   - New asset: `assets/images/boston-skyline-river-dusk.webp`
   - Updated homepage hero, social preview image references, local route package image, and White Mountains guide image references
-- Added apex-to-www redirect rules in `_redirects`:
-  - `http://bostonpartyvan.com/*` -> `https://www.bostonpartyvan.com/:splat` (301)
-  - `https://bostonpartyvan.com/*` -> `https://www.bostonpartyvan.com/:splat` (301)
+- Added Worker-level apex-to-www redirect handling:
+  - `bostonpartyvan.com` -> `www.bostonpartyvan.com` (301)
+  - Static assets continue to be served through the `ASSETS` binding
+- Added `.assetsignore` so Worker deployment metadata is not served as public static content
 - Added GA4 event plumbing in `script.js` (disabled until a GA4 ID is added):
   - Config location: `SITE_CONFIG.ga4MeasurementId`
   - Tracks `contact_click` for call/text/get-pricing links
@@ -22,7 +23,7 @@
   - Tracks `generate_lead` after successful quote-form submission
 - Loaded shared `script.js` on all guide pages so contact-click tracking works site-wide
 - Updated `README.md` with:
-  - Canonical redirect behavior via `_redirects`
+  - Canonical redirect behavior
   - GA4 setup steps and test checklist
 - Updated `PRODUCT_BACKLOG.md` with canonicalization progress tracking
 

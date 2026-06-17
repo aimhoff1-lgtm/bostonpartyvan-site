@@ -72,9 +72,8 @@ When ready:
    - `www.bostonpartyvan.com`
    - `bostonpartyvan.com`
 3. Redirect apex to `www`.
-   - This repo includes `_redirects` rules for:
-     - `http://bostonpartyvan.com/*` -> `https://www.bostonpartyvan.com/:splat` (301)
-     - `https://bostonpartyvan.com/*` -> `https://www.bostonpartyvan.com/:splat` (301)
+   - The Cloudflare Worker deployment branch includes Worker-level redirect logic:
+     - `bostonpartyvan.com` -> `https://www.bostonpartyvan.com` (301)
    - Push/deploy to activate.
 
 ## GA4 Conversion Tracking (Optional, Recommended)

@@ -1,0 +1,10 @@
+.DS_Store
+.git
+.gitignore
+.wrangler
+*.zip
+PRODUCT_BACKLOG.md
+README.md
+RELEASE_NOTES.md
+worker
+wrangler.jsonc
