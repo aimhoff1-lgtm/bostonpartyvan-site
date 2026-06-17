@@ -13,7 +13,7 @@
   --radius-xl: 24px;
   --radius-md: 14px;
   --content-width: min(1120px, 92vw);
-  --hero-image: url("assets/images/skyline.webp");
+  --hero-image: url("assets/images/boston-skyline-river-dusk.webp");
   --package-card-collapsed: clamp(260px, 30vw, 300px);
   --package-card-expanded: clamp(390px, 46vw, 460px);
 }
@@ -888,7 +888,7 @@ textarea:focus {
 }
 
 .package-local {
-  --package-image: url("assets/images/skyline.webp");
+  --package-image: url("assets/images/boston-skyline-river-dusk.webp");
 }
 
 .route-hub-intro {

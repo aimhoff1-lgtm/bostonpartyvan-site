@@ -1,5 +1,50 @@
 # Release Notes
 
+## V1.5.2 (Draft) - Pending Push
+
+### Version Status
+- Live site remains `V1.5.1`
+- This bundle is the next candidate release: `V1.5.2`
+- On-page version badge bumped to `V1.5.2`
+
+### Changed
+- Bumped the top-left on-page version badge to `V1.5.2`
+- Replaced the old skyline image with the new generated skyline asset:
+  - New asset: `assets/images/boston-skyline-river-dusk.webp`
+  - Updated homepage hero, social preview image references, local route package image, and White Mountains guide image references
+- Added apex-to-www redirect rules in `_redirects`:
+  - `http://bostonpartyvan.com/*` -> `https://www.bostonpartyvan.com/:splat` (301)
+  - `https://bostonpartyvan.com/*` -> `https://www.bostonpartyvan.com/:splat` (301)
+- Added GA4 event plumbing in `script.js` (disabled until a GA4 ID is added):
+  - Config location: `SITE_CONFIG.ga4MeasurementId`
+  - Tracks `contact_click` for call/text/get-pricing links
+  - Tracks `estimate_calculated` on estimator submit
+  - Tracks `generate_lead` after successful quote-form submission
+- Loaded shared `script.js` on all guide pages so contact-click tracking works site-wide
+- Updated `README.md` with:
+  - Canonical redirect behavior via `_redirects`
+  - GA4 setup steps and test checklist
+- Updated `PRODUCT_BACKLOG.md` with canonicalization progress tracking
+
+### Test Checklist
+- `https://bostonpartyvan.com/...` returns `301` to `https://www.bostonpartyvan.com/...`
+- `https://www.bostonpartyvan.com/...` remains reachable
+- Old skyline image file is deleted and no site files reference it
+- Homepage hero uses `assets/images/boston-skyline-river-dusk.webp`
+- Call links fire `contact_click` (when GA4 ID is set)
+- Text links fire `contact_click` (when GA4 ID is set)
+- `Get Pricing` links fire `contact_click` (when GA4 ID is set)
+- Estimator submit fires `estimate_calculated` (when GA4 ID is set)
+- Successful quote submission fires `generate_lead` (when GA4 ID is set)
+- All guide pages load with no JS errors and include `../../script.js`
+- Version badge shows `V1.5.2` in top-left
+
+### Rollback
+- Revert full release commit:
+  - `git revert <commit_hash>`
+- Revert only one file:
+  - `git restore --source=<commit_hash> -- <file_path>`
+
 ## V1.5.1 - 2026-04-28
 
 ### Changed
@@ -91,7 +136,7 @@
   - Added `assets/images/PartyvanLogo.jpeg` in nav brand area
   - Added responsive logo sizing and styling for desktop/mobile
 - Hero splash now uses your uploaded skyline image:
-  - Hero background points to `assets/images/skyline.webp`
+  - Hero background points to the current skyline image asset
   - Added readability overlay so headline/buttons remain clear over photo
 - Replaced static trip-template cards with interactive package gallery:
   - Added click-to-expand cards with text-over-image treatment and animated flare
@@ -99,7 +144,7 @@
     Bachelor/Bachelorette, Concert Nights, and Local City Loops
   - Wired real image backgrounds for:
     - `assets/images/td-garden-exterior.jpg` (sporting events)
-    - `assets/images/skyline.webp` (Cape + local)
+    - Current skyline image asset (Cape + local)
   - Added one-open-at-a-time expand/collapse behavior with updated CTA text
 - Fleet section repositioned to a sourced-vehicle model:
   - Updated language to `Potential fleet` and clarified that final assignment
