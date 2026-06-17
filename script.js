@@ -1,3 +1,54 @@
+const SITE_CONFIG = {
+  // Paste your GA4 Measurement ID here when ready (example: "G-ABC123XYZ9").
+  ga4MeasurementId: "",
+};
+
+const GA4_MEASUREMENT_ID = (
+  window.BPV_GA4_MEASUREMENT_ID ||
+  SITE_CONFIG.ga4MeasurementId ||
+  ""
+)
+  .toString()
+  .trim();
+
+function initGa4Tracking() {
+  if (!GA4_MEASUREMENT_ID) return false;
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag =
+    window.gtag ||
+    function gtag() {
+      window.dataLayer.push(arguments);
+    };
+
+  const existingGaScript = document.querySelector(
+    `script[src*="googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}"]`
+  );
+
+  if (!existingGaScript) {
+    const gaScript = document.createElement("script");
+    gaScript.async = true;
+    gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(
+      GA4_MEASUREMENT_ID
+    )}`;
+    document.head.appendChild(gaScript);
+  }
+
+  window.gtag("js", new Date());
+  window.gtag("config", GA4_MEASUREMENT_ID, {
+    anonymize_ip: true,
+  });
+
+  return true;
+}
+
+const isGa4Enabled = initGa4Tracking();
+
+function trackGa4Event(eventName, params = {}) {
+  if (!isGa4Enabled || typeof window.gtag !== "function") return;
+  window.gtag("event", eventName, params);
+}
+
 const menuToggle = document.querySelector(".menu-toggle");
 const mainNav = document.querySelector(".main-nav");
 
@@ -132,6 +183,16 @@ if (estimateForm && estimateResult) {
       note.textContent =
         "This is an instant estimate. We'll confirm your final price after route and timing review.";
     }
+
+    trackGa4Event("estimate_calculated", {
+      trip_type: tripType,
+      hours,
+      miles,
+      passengers,
+      is_weekend: isWeekend ? "true" : "false",
+      multi_stop: hasMultiStop ? "true" : "false",
+      page_path: window.location.pathname,
+    });
   });
 }
 
@@ -157,6 +218,36 @@ function normalizeValue(value) {
   if (value === null || value === undefined) return "";
   return String(value).trim();
 }
+
+function setupContactClickTracking() {
+  const links = document.querySelectorAll("a[href]");
+  links.forEach((link) => {
+    const href = (link.getAttribute("href") || "").trim().toLowerCase();
+    let contactType = "";
+
+    if (href.startsWith("tel:")) {
+      contactType = "call";
+    } else if (href.startsWith("sms:")) {
+      contactType = "text";
+    } else if (href.includes("#quote")) {
+      contactType = "quote";
+    }
+
+    if (!contactType) return;
+
+    link.addEventListener("click", () => {
+      const label = normalizeValue(link.textContent).replace(/\s+/g, " ");
+      trackGa4Event("contact_click", {
+        contact_type: contactType,
+        link_url: href,
+        link_label: label || "n/a",
+        page_path: window.location.pathname,
+      });
+    });
+  });
+}
+
+setupContactClickTracking();
 
 function readAttributionStorage() {
   try {
@@ -319,6 +410,23 @@ function buildIntakePayload(data) {
   };
 }
 
+function buildLeadEventParams(data) {
+  const passengerCount = Number(data.get("guestCount"));
+  const eventParams = {
+    form_name: "quote_form",
+    lead_type: "quote_request",
+    contact_preference: normalizeValue(data.get("contactPreference")),
+    trip_type: normalizeValue(data.get("eventType")),
+    page_path: window.location.pathname,
+  };
+
+  if (Number.isFinite(passengerCount) && passengerCount > 0) {
+    eventParams.passenger_count = passengerCount;
+  }
+
+  return eventParams;
+}
+
 if (quoteForm && quoteSuccess) {
   const dateInput = quoteForm.querySelector('input[name="date"]');
   const contactPreferenceInput = quoteForm.querySelector(
@@ -436,6 +544,7 @@ if (quoteForm && quoteSuccess) {
         `Thanks ${name || "there"}! Your request is in. We typically reply within 30-60 minutes between 8am-9pm ET (same day otherwise).`,
         "success"
       );
+      trackGa4Event("generate_lead", buildLeadEventParams(data));
       quoteForm.reset();
       populateAttributionFields(quoteForm, buildAttributionSnapshot());
       syncPhoneRequirement();

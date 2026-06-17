@@ -71,5 +71,18 @@ When ready:
 2. Add both domains in Pages custom domains:
    - `www.bostonpartyvan.com`
    - `bostonpartyvan.com`
-3. Set redirect from apex to `www`.
+3. Redirect apex to `www`.
+   - This repo includes `_redirects` rules for:
+     - `http://bostonpartyvan.com/*` -> `https://www.bostonpartyvan.com/:splat` (301)
+     - `https://bostonpartyvan.com/*` -> `https://www.bostonpartyvan.com/:splat` (301)
+   - Push/deploy to activate.
 
+## GA4 Conversion Tracking (Optional, Recommended)
+
+1. Open [script.js](/Users/andrewimhoff/Desktop/BOSTON PARTY BUS/script.js).
+2. Set `SITE_CONFIG.ga4MeasurementId` to your GA4 ID (example: `G-ABC123XYZ9`).
+3. Push and wait for deploy.
+4. Test:
+   - Click call/text buttons (tracks `contact_click`)
+   - Use estimator (tracks `estimate_calculated`)
+   - Submit quote form successfully (tracks `generate_lead`)
