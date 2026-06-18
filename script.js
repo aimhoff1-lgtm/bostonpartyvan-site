@@ -223,22 +223,12 @@ function setupContactClickTracking() {
   const links = document.querySelectorAll("a[href]");
   links.forEach((link) => {
     const href = (link.getAttribute("href") || "").trim().toLowerCase();
-    let contactType = "";
-
-    if (href.startsWith("tel:")) {
-      contactType = "call";
-    } else if (href.startsWith("sms:")) {
-      contactType = "text";
-    } else if (href.includes("#quote")) {
-      contactType = "quote";
-    }
-
-    if (!contactType) return;
+    if (!href.includes("#quote")) return;
 
     link.addEventListener("click", () => {
       const label = normalizeValue(link.textContent).replace(/\s+/g, " ");
       trackGa4Event("contact_click", {
-        contact_type: contactType,
+        contact_type: "quote",
         link_url: href,
         link_label: label || "n/a",
         page_path: window.location.pathname,
@@ -341,40 +331,6 @@ function populateAttributionFields(form, attribution) {
       input.value = normalizeValue(value);
     }
   });
-}
-
-function buildMailtoFromFormData(data) {
-  const lines = [
-    `Name: ${data.get("name") || ""}`,
-    `Email: ${data.get("email") || ""}`,
-    `Phone: ${data.get("phone") || ""}`,
-    `Event date: ${data.get("date") || ""}`,
-    `Event type: ${toTitleCase(data.get("eventType") || "")}`,
-    `Passengers: ${data.get("guestCount") || ""}`,
-    `Pickup: ${data.get("pickup") || ""}`,
-    `Drop-off: ${data.get("dropoff") || ""}`,
-    `Preferred contact method: ${toTitleCase(data.get("contactPreference") || "")}`,
-    `Best contact time: ${toTitleCase(data.get("contactTime") || "")}`,
-    "",
-    "Lead source tracking:",
-    `Source summary: ${data.get("lead_source_summary") || ""}`,
-    `UTM source: ${data.get("utm_source") || ""}`,
-    `UTM medium: ${data.get("utm_medium") || ""}`,
-    `UTM campaign: ${data.get("utm_campaign") || ""}`,
-    `Landing page: ${data.get("lead_landing_page") || ""}`,
-    `Referrer: ${data.get("lead_referrer") || ""}`,
-    `Submit page: ${data.get("lead_submit_page") || ""}`,
-    `First seen at: ${data.get("lead_first_seen_at") || ""}`,
-    `Last touch at: ${data.get("lead_last_touch_at") || ""}`,
-    "",
-    "Trip notes:",
-    data.get("notes") || "(none provided)",
-  ];
-
-  const subject = `Quote Request - ${data.get("name") || "New Lead"}`;
-  const body = lines.join("\n");
-
-  return `mailto:aimhoff1@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 function buildIntakePayload(data) {
@@ -533,7 +489,7 @@ if (quoteForm && quoteSuccess) {
       if (!response.ok || !isSuccess) {
         if (message.toLowerCase().includes("activation")) {
           setQuoteMessage(
-            "Almost done: check aimhoff1@gmail.com for the FormSubmit activation email, click Activate Form once, then submit again."
+            "The booking form still needs to be activated before requests can be delivered. Please finish the FormSubmit activation, then submit again."
           );
           return;
         }
@@ -549,17 +505,10 @@ if (quoteForm && quoteSuccess) {
       populateAttributionFields(quoteForm, buildAttributionSnapshot());
       syncPhoneRequirement();
     } catch (error) {
-      const mailto = buildMailtoFromFormData(data);
-      const fallbackLink = document.createElement("a");
-      fallbackLink.href = mailto;
-      fallbackLink.textContent = "Send via email instead";
-      fallbackLink.rel = "nofollow";
-
       quoteSuccess.classList.remove("success", "sending");
       quoteSuccess.classList.add("error");
       quoteSuccess.textContent =
-        "We couldn’t auto-submit right now. Please use the backup link: ";
-      quoteSuccess.appendChild(fallbackLink);
+        "We couldn’t submit your request right now. Please wait a moment and try again.";
     } finally {
       if (submitButton) {
         submitButton.disabled = false;

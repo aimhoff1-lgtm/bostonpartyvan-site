@@ -1180,17 +1180,17 @@ textarea:focus {
     text-align: center;
   }
 
-  .mobile-call {
+  .mobile-primary {
     background: linear-gradient(135deg, var(--accent-hot), #ff9954);
     color: #08131c;
   }
 
-  .mobile-text {
+  .mobile-secondary {
     background: linear-gradient(135deg, var(--accent-cool), #87ede0);
     color: #08131c;
   }
 
-  .mobile-quote {
+  .mobile-tertiary {
     color: var(--text-main);
     border: 1px solid var(--line);
     background: rgba(255, 255, 255, 0.04);

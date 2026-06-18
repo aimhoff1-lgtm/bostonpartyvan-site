@@ -1,5 +1,20 @@
 # Release Notes
 
+## V1.5.3 (Draft) - Privacy Update
+
+### Changed
+- Removed the owner phone number and email address from all public pages and structured data
+- Replaced call/text CTAs with quote form, estimator, and route guide links
+- Removed the personal-email fallback and activation-address text from `script.js`
+- Updated guide headers, hero actions, and footers to use the secure quote form
+- Bumped the homepage version badge to `V1.5.3`
+
+### Test Checklist
+- No personal phone number or email address appears in repository source or public HTML
+- Homepage and guide CTAs lead to the quote form, estimator, routes, or trip menu
+- Quote form still submits through the configured private FormSubmit endpoint
+- Mobile action bar contains Quote, Estimate, and Guides actions
+
 ## V1.5.2 (Draft) - Pending Push
 
 ### Version Status
@@ -73,10 +88,7 @@
 
 ### Changed
 - On-page version badge bumped to `V1.5`
-- Added high-visibility `Quick actions` strip near the top of the homepage:
-  - `Call now` (`tel:`)
-  - `Text now` (`sms:`)
-  - `Get pricing` (quote form jump)
+- Added high-visibility `Quick actions` strip near the top of the homepage for direct contact and quote actions
 - Added `Why groups book us` trust section with no testimonial claims:
   - Transparent sourcing language
   - One-driver/one-plan route operations
@@ -105,8 +117,7 @@
 ### Test Checklist
 - Version badge shows `V1.5` in top-left
 - New top `Quick actions` strip is visible and all three cards are clickable
-- `Call now` opens dialer to `(617) 515-3702`
-- `Text now` opens SMS composer to `(617) 515-3702`
+- Direct contact actions open their intended destinations
 - `Get pricing` scrolls to quote form
 - New `Why groups book us` section appears with 4 trust cards
 - Mobile sticky CTA bar shows 3 buttons: `Call`, `Text`, `Get Pricing`
@@ -277,8 +288,8 @@
 ## V1.2 - 2026-04-27
 
 ### Changed
-- Quote-request destination email updated to `aimhoff1@gmail.com`
-- Footer contact email updated to `aimhoff1@gmail.com`
+- Quote-request destination moved to the private booking inbox
+- Footer contact destination updated
 - On-page version badge bumped to `V1.2`
 - Hero headline tightened to: `Skip the commute. Start the party.`
 - Completed originality scrub to remove derivative-feel artifacts:
@@ -293,7 +304,7 @@
   - Replaced generic 3-step cards with a `Booking map` operations board
     using four step rows and route-planning language
 - Added mobile-only sticky action bar with:
-  - `Call (617) 515-3702`
+  - Direct contact action
   - `Get Pricing` quick-jump button
 - Removed quote-style testimonial/blockquote markup entirely and replaced it with
   neutral `Trip templates` cards (non-customer content)
@@ -318,8 +329,8 @@
 
 ### Test Checklist
 - Version badge shows `V1.2` in top-left
-- Footer email displays `aimhoff1@gmail.com`
-- Submitting quote form opens an email draft addressed to `aimhoff1@gmail.com`
+- Footer contact information displays correctly
+- Submitting the quote form opens a pre-addressed email draft
 - Hero headline reads `Skip the commute. Start the party.`
 - Hero card now says `How We Build Your Quote` (no weekend discount promo)
 - Fleet cards show `Custom quote` instead of fixed hourly prices
@@ -357,12 +368,12 @@
 ### Changed
 - Brand text updated from "Boston Party Bus" to "Boston Party Van" in key locations
 - Main nav CTA changed from "Get Quote" to "Get Pricing"
-- Business phone number updated to `(617) 515-3702`
-- Contact email updated to `info@bostonpartyvan.com`
+- Business contact destination updated
+- Contact destination updated
 
 ### Test Checklist
 - Version badge shows `V1.1` in top-left
-- Header and footer display `(617) 515-3702`
+- Header and footer display the configured contact destination
 - Brand displays "Boston Party Van"
 - Submitting quote form opens prefilled email draft
 
