@@ -54,4 +54,28 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://www.bostonpartyvan.com/guides/boston-family-outing-transportation/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.76</priority>
+  </url>
+  <url>
+    <loc>https://www.bostonpartyvan.com/guides/marthas-vineyard-nantucket-ferry-transfer/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.81</priority>
+  </url>
+  <url>
+    <loc>https://www.bostonpartyvan.com/guides/boston-bar-crawl-transportation/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.bostonpartyvan.com/guides/boston-night-loop-transportation/</loc>
+    <lastmod>2026-07-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.78</priority>
+  </url>
 </urlset>
