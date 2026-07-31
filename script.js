@@ -144,48 +144,68 @@ if (estimateForm && estimateResult) {
     const data = new FormData(estimateForm);
     const tripType = data.get("tripType");
     const hours = Number(data.get("hours"));
+    const requestedStandbyHours = Number(data.get("standbyHours"));
+    const standbyHours = Number.isFinite(requestedStandbyHours) ? requestedStandbyHours : 0;
     const miles = Number(data.get("miles"));
     const passengers = Number(data.get("passengers"));
-    const isWeekend = data.get("weekend") === "on";
+    const isMultiDay = data.get("multiDay") === "on";
     const hasMultiStop = data.get("multiStop") === "on";
 
-    const hourlyByTrip = {
-      airport: 145,
-      wedding: 190,
-      nightlife: 180,
-      family: 170,
-      golf: 175,
-      cape: 215,
-      islandferry: 225,
-      whitemountains: 235,
-      bach: 195,
-      barcrawl: 195,
-      local: 170,
-      corporate: 165,
-    };
-
-    const base = (hourlyByTrip[tripType] || 160) * Math.max(hours, 3);
-    const mileageCost = Math.max(miles, 10) * 2.2;
-    const passengerAdjustment = passengers > 12 ? 65 : passengers < 6 ? -30 : 0;
-    const weekendAdjustment = isWeekend ? base * 0.14 : 0;
-    const multiStopAdjustment = hasMultiStop ? 75 : 0;
-
-    const subtotal =
-      base +
-      mileageCost +
-      passengerAdjustment +
-      weekendAdjustment +
-      multiStopAdjustment;
-
-    const low = Math.max(250, subtotal * 0.92);
-    const high = subtotal * 1.1;
-
     const price = estimateResult.querySelector(".estimate-price");
+    const breakdown = estimateResult.querySelector("#estimateBreakdown");
     const note = estimateResult.querySelector(".estimate-note");
-    if (price && note) {
-      price.textContent = `${formatUsd(low)} - ${formatUsd(high)}`;
+    const quoteLink = estimateResult.querySelector(".estimate-quote-link");
+    const needsCustomQuote =
+      isMultiDay || tripType === "islandferry" || tripType === "whitemountains";
+
+    if (needsCustomQuote && price && breakdown && note && quoteLink) {
+      price.textContent = "Custom quote";
+      breakdown.textContent = "This itinerary needs a route and availability review before pricing.";
       note.textContent =
-        "This is an instant estimate. We'll confirm your final price after route and timing review.";
+        "Ferry timing, on-island vehicle reservations, overnight scheduling, and mountain-route logistics are confirmed in a personalized quote.";
+      quoteLink.hidden = false;
+      trackGa4Event("estimate_calculated", {
+        trip_type: tripType,
+        hours,
+        miles,
+        passengers,
+        multi_stop: hasMultiStop ? "true" : "false",
+        multi_day: isMultiDay ? "true" : "false",
+        outcome: "custom_quote",
+        page_path: window.location.pathname,
+      });
+      return;
+    }
+
+    const hourlyRate = 175;
+    const standbyRate = 85;
+    const includedMiles = 40;
+    const additionalMileRate = 2.5;
+    const reservedHours = Math.max(hours, 3);
+    const eligibleStandbyHours = Math.min(
+      Math.max(standbyHours, 0),
+      Math.max(reservedHours - 3, 0)
+    );
+    const standardHours = reservedHours - eligibleStandbyHours;
+    const additionalMiles = Math.max(miles - includedMiles, 0);
+    const hourlyCost = standardHours * hourlyRate + eligibleStandbyHours * standbyRate;
+    const mileageCost = additionalMiles * additionalMileRate;
+    const subtotal = hourlyCost + mileageCost;
+    const low = subtotal * 0.96;
+    const high = subtotal * 1.06;
+
+    if (price && breakdown && note && quoteLink) {
+      price.textContent = `${formatUsd(low)} - ${formatUsd(high)}`;
+      breakdown.textContent = [
+        `${standardHours} hr at $175/hr`,
+        eligibleStandbyHours ? `${eligibleStandbyHours} standby hr at $85/hr` : "first 40 miles included",
+        additionalMiles ? `${additionalMiles} extra mi at $2.50/mi` : null,
+      ]
+        .filter(Boolean)
+        .join(" + ");
+      note.textContent =
+        "The same planning rate applies for up to 14 guests. Tolls, parking, and unusually complex routes are confirmed in your final quote.";
+      quoteLink.hidden = true;
     }
 
     trackGa4Event("estimate_calculated", {
@@ -193,8 +213,10 @@ if (estimateForm && estimateResult) {
       hours,
       miles,
       passengers,
-      is_weekend: isWeekend ? "true" : "false",
+      standby_hours: eligibleStandbyHours,
       multi_stop: hasMultiStop ? "true" : "false",
+      multi_day: isMultiDay ? "true" : "false",
+      outcome: "planning_range",
       page_path: window.location.pathname,
     });
   });

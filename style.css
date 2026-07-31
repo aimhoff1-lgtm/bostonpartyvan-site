@@ -654,6 +654,20 @@ a {
   gap: 0.82rem;
 }
 
+.estimate-baseline,
+.estimate-custom-note {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.estimate-custom-note a,
+.estimate-quote-link {
+  color: var(--accent-cool);
+  font-weight: 700;
+}
+
 label {
   display: grid;
   gap: 0.35rem;
@@ -723,6 +737,20 @@ textarea:focus {
 
 .estimate-note {
   color: var(--text-soft);
+}
+
+.estimate-breakdown {
+  margin: 0;
+  color: var(--accent-cool);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.estimate-quote-link {
+  display: inline-flex;
+  margin-top: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .steps {
