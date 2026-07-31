@@ -17,12 +17,12 @@
 - Renamed the fleet navigation and hero action to reflect the single committed ride
 - Introduced Boston Party Van in the homepage hero as Boston's newest group transportation company
 - Consolidated the header quote actions into one `Request a Quote` CTA
-- Added an Island Ferry Transfer menu option for Martha's Vineyard and Nantucket via Woods Hole or Hyannis
+- Added an Island Ferry Transfer menu option for Martha's Vineyard and Nantucket via Woods Hole or Hyannis, limited to drop-off and same-day pickup
 - Expanded the FAQ with founder/driver, vehicle, multi-day itinerary, and island ferry planning details
 - Replaced the chip-style service footprint with a route-specific destination directory after the quote form
 - Added a family-friendly, non-alcoholic `Family Day Out` Trip Menu route with field-trip and family-outing planning options
 - Added White Stadium and Boston Legacy FC coverage to sporting-event copy, structured data, and the sporting-event guide
-- Rebuilt the estimator around a simple single-day planning range with custom-quote routing for island ferry, on-island, and multi-day mountain trips
+- Rebuilt the estimator around a simple single-day planning range with custom-quote routing for island ferry and multi-day mountain trips
 - Added itinerary-gap consideration to the estimator without exposing a public rate formula
 
 ### Test Checklist
@@ -37,6 +37,7 @@
 - Family Day Out appears in the Trip Menu, estimator, quote form, FAQ, and destination directory
 - White Stadium and Boston Legacy FC appear in sporting-event destination and guide coverage
 - Estimator shows a simple planning range for local routes and sends ferry or multi-day plans to the quote form
+- Island Ferry Transfer clearly states drop-off and same-day pickup only in the menu, estimator, quote form, FAQ, and destination directory
 
 ## V1.5.3 (Draft) - Privacy Update
 

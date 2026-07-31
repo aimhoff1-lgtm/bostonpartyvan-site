@@ -161,7 +161,7 @@ if (estimateForm && estimateResult) {
       price.textContent = "Custom quote";
       breakdown.textContent = "This itinerary needs a route and availability review before pricing.";
       note.textContent =
-        "Ferry timing, on-island vehicle reservations, overnight scheduling, and mountain-route logistics are confirmed in a personalized quote.";
+        "Ferry schedules, same-day pickup and drop-off timing, overnight scheduling, and mountain-route logistics are confirmed in a personalized quote.";
       quoteLink.hidden = false;
       trackGa4Event("estimate_calculated", {
         trip_type: tripType,
