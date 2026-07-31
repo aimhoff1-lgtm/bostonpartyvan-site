@@ -946,6 +946,10 @@ textarea:focus {
   --package-image: url("assets/images/cape.png");
 }
 
+.package-island-ferry {
+  --package-image: url("assets/images/marthas-vineyard-nantucket-ferry-transfer.jpg");
+}
+
 .package-white-mountains {
   --package-image: url("assets/images/mountain-apres-ski-party.jpg");
 }

@@ -17,6 +17,7 @@
 - Renamed the fleet navigation and hero action to reflect the single committed ride
 - Introduced Boston Party Van in the homepage hero as Boston's newest group transportation company
 - Consolidated the header quote actions into one `Request a Quote` CTA
+- Added an Island Ferry Transfer menu option for Martha's Vineyard and Nantucket via Woods Hole or Hyannis
 
 ### Test Checklist
 - Version badge shows `V1.5.4` in the top-left corner

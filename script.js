@@ -155,6 +155,7 @@ if (estimateForm && estimateResult) {
       nightlife: 180,
       golf: 175,
       cape: 215,
+      islandferry: 225,
       whitemountains: 235,
       bach: 195,
       barcrawl: 195,
