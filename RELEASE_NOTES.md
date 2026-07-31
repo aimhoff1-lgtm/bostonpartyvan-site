@@ -15,6 +15,7 @@
 - Added a Boston Bar Crawl Trip Menu option with curated local-route messaging
 - Replaced the remaining White Mountains and corporate Trip Menu gradient backgrounds with dedicated images
 - Renamed the fleet navigation and hero action to reflect the single committed ride
+- Introduced Boston Party Van in the homepage hero as Boston's newest group transportation company
 
 ### Test Checklist
 - Version badge shows `V1.5.4` in the top-left corner
