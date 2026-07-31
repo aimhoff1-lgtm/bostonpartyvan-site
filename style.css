@@ -435,7 +435,6 @@ a {
 .quote-form,
 .estimate-form,
 .estimate-result,
-.service-area ul li,
 .service-spotlight,
 .service-tile,
 .ops-row,
@@ -1022,18 +1021,50 @@ textarea:focus {
   margin-top: 0.5rem;
 }
 
-.service-area ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+.section-intro {
+  max-width: 64ch;
+  margin: 0.9rem 0 0;
+  color: var(--text-soft);
 }
 
-.service-area ul li {
-  padding: 0.56rem 0.9rem;
-  color: var(--accent-gold);
+.coverage-note {
+  max-width: 64ch;
+  margin: 0.7rem 0 0;
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  font-style: italic;
+}
+
+.destination-directory {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.destination-group {
+  padding: 1.15rem 0 1.2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.destination-category {
+  margin: 0 0 0.38rem;
+  color: var(--accent-cool);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.destination-group h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.destination-group h3 + p {
+  margin: 0.42rem 0 0;
+  color: var(--text-soft);
+  line-height: 1.55;
 }
 
 .quote-section {
@@ -1179,6 +1210,10 @@ textarea:focus {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .destination-directory {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .ops-row {
     grid-template-columns: 1fr;
   }
@@ -1251,6 +1286,10 @@ textarea:focus {
   }
 
   .package-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .destination-directory {
     grid-template-columns: 1fr;
   }
 

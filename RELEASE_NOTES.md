@@ -19,6 +19,7 @@
 - Consolidated the header quote actions into one `Request a Quote` CTA
 - Added an Island Ferry Transfer menu option for Martha's Vineyard and Nantucket via Woods Hole or Hyannis
 - Expanded the FAQ with founder/driver, vehicle, multi-day itinerary, and island ferry planning details
+- Replaced the chip-style service footprint with a route-specific destination directory after the quote form
 
 ### Test Checklist
 - Version badge shows `V1.5.4` in the top-left corner
@@ -28,6 +29,7 @@
 - Homepage fleet area shows one Mercedes-Benz Sprinter 2500 High Roof vehicle card
 - Fleet interior seating photo remains hidden until its right-side caret is opened
 - Bar Crawl, Mountain Weekend Run, and Team Offsite Transit each show their dedicated menu image
+- Every Trip Menu route appears in the destination directory with relevant example stops
 
 ## V1.5.3 (Draft) - Privacy Update
 
