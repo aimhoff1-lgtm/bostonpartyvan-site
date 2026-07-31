@@ -147,6 +147,7 @@ if (estimateForm && estimateResult) {
     const miles = Number(data.get("miles"));
     const passengers = Number(data.get("passengers"));
     const isMultiDay = data.get("multiDay") === "on";
+    const hasStayOnIsland = data.get("stayOnIsland") === "on";
     const hasMultiStop = data.get("multiStop") === "on";
     const hasLongGap = data.get("longGap") === "on";
 
@@ -155,13 +156,13 @@ if (estimateForm && estimateResult) {
     const note = estimateResult.querySelector(".estimate-note");
     const quoteLink = estimateResult.querySelector(".estimate-quote-link");
     const needsCustomQuote =
-      isMultiDay || tripType === "islandferry" || tripType === "whitemountains";
+      isMultiDay || (tripType === "islandferry" && hasStayOnIsland);
 
     if (needsCustomQuote && price && breakdown && note && quoteLink) {
       price.textContent = "Custom quote";
       breakdown.textContent = "This itinerary needs a route and availability review before pricing.";
       note.textContent =
-        "Ferry schedules, same-day pickup and drop-off timing, overnight scheduling, and mountain-route logistics are confirmed in a personalized quote.";
+        "Multi-day roundtrip transport and stay-on-island services are confirmed in a personalized quote.";
       quoteLink.hidden = false;
       trackGa4Event("estimate_calculated", {
         trip_type: tripType,
@@ -170,6 +171,7 @@ if (estimateForm && estimateResult) {
         passengers,
         multi_stop: hasMultiStop ? "true" : "false",
         multi_day: isMultiDay ? "true" : "false",
+        stay_on_island: hasStayOnIsland ? "true" : "false",
         outcome: "custom_quote",
         page_path: window.location.pathname,
       });
@@ -206,6 +208,7 @@ if (estimateForm && estimateResult) {
       multi_stop: hasMultiStop ? "true" : "false",
       long_gap: hasLongGap ? "true" : "false",
       multi_day: isMultiDay ? "true" : "false",
+      stay_on_island: hasStayOnIsland ? "true" : "false",
       outcome: "planning_range",
       page_path: window.location.pathname,
     });

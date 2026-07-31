@@ -22,8 +22,9 @@
 - Replaced the chip-style service footprint with a route-specific destination directory after the quote form
 - Added a family-friendly, non-alcoholic `Family Day Out` Trip Menu route with field-trip and family-outing planning options
 - Added White Stadium and Boston Legacy FC coverage to sporting-event copy, structured data, and the sporting-event guide
-- Rebuilt the estimator around a simple single-day planning range with custom-quote routing for island ferry and multi-day mountain trips
+- Updated the estimator so same-day Island Ferry Transfers receive a planning range; multi-day roundtrip transport and stay-on-island services receive a custom quote
 - Added itinerary-gap consideration to the estimator without exposing a public rate formula
+- Strengthened mobile hero and Trip Menu image overlays so white text stays readable on iPhone-size screens
 - Added Family Day Out, Island Ferry Transfer, Boston Bar Crawl, and Boston Night Loop guides so every Trip Menu route now has a matching guide
 - Updated guide navigation to return to the active Trip Menu section
 
@@ -38,7 +39,7 @@
 - Every Trip Menu route appears in the destination directory with relevant example stops
 - Family Day Out appears in the Trip Menu, estimator, quote form, FAQ, and destination directory
 - White Stadium and Boston Legacy FC appear in sporting-event destination and guide coverage
-- Estimator shows a simple planning range for local routes and sends ferry or multi-day plans to the quote form
+- Estimator gives same-day Island Ferry Transfers a planning range and sends multi-day or stay-on-island services to the quote form
 - Island Ferry Transfer clearly states drop-off and same-day pickup only in the estimator
 - All 12 Trip Menu guide pages are in the sitemap and return visitors to the Trip Menu
 

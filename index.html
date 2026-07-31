@@ -171,7 +171,7 @@
                 "name": "How does the instant estimate work?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Share your trip type, approximate timeline, mileage, and group size to see a planning range for a simple single-day route. Island ferry and multi-day routes receive a custom quote."
+                  "text": "Share your trip type, approximate timeline, mileage, and group size to see a planning range for a simple single-day route. Same-day island ferry terminal service can be estimated; multi-day roundtrip transport or stay-on-island services receive a custom quote."
                 }
               },
               {
@@ -745,6 +745,10 @@
               Multi-day / overnight itinerary (custom quote)
             </label>
             <label class="check">
+              <input type="checkbox" name="stayOnIsland" />
+              Stay-on-island service
+            </label>
+            <label class="check">
               <input type="checkbox" name="multiStop" />
               Multi-stop itinerary
             </label>
@@ -754,7 +758,7 @@
             </label>
             <button type="submit" class="btn btn-primary">Calculate Estimate</button>
             <p class="estimate-custom-note">
-              Island ferry and multi-day mountain routes are planned individually.
+              * Custom quote needed for multi-day roundtrip transport or stay-on-island services.
               <a href="#quote">Request a custom quote</a>.
             </p>
           </form>
@@ -852,8 +856,9 @@
             <summary>How does the instant estimate work?</summary>
             <p>
               Share your trip type, approximate timeline, mileage, and group size to see a
-              planning range for a simple single-day route. Island ferry and multi-day
-              routes receive a custom quote.
+              planning range for a simple single-day route. Same-day island ferry terminal
+              service can be estimated; multi-day roundtrip transport or stay-on-island
+              services receive a custom quote.
             </p>
           </details>
           <details>
