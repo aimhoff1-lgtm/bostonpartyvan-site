@@ -123,18 +123,12 @@ a {
 
 .top-strip {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   font-size: 0.82rem;
   letter-spacing: 0.02em;
   color: var(--text-soft);
   padding: 0.55rem 0;
-}
-
-.top-strip a {
-  color: var(--accent-gold);
-  font-weight: 700;
-  text-decoration: none;
 }
 
 .nav-wrap {
