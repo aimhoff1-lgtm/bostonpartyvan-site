@@ -171,7 +171,7 @@
                 "name": "How does the instant estimate work?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Most local routes use a $175 hourly planning rate for up to 14 guests, including the first 40 miles. Extra miles are estimated at $2.50 per mile, and extended standby time can receive a lower rate. Island ferry, on-island, and multi-day routes receive a custom quote."
+                  "text": "Share your trip type, approximate timeline, mileage, and group size to see a planning range for a simple single-day route. Island ferry, on-island, and multi-day routes receive a custom quote."
                 }
               },
               {
@@ -699,10 +699,6 @@
         </div>
         <div class="estimator-wrap">
           <form id="estimateForm" class="estimate-form">
-            <p class="estimate-baseline">
-              $175/hr for up to 14 guests. The first 40 miles are included; additional
-              miles are estimated at $2.50/mile.
-            </p>
             <label>
               Trip type
               <select name="tripType">
@@ -721,20 +717,15 @@
               </select>
             </label>
             <label>
-              Reserved hours
+              Hours needed
               <input type="number" min="3" max="14" step="1" value="4" name="hours" />
-            </label>
-            <label>
-              Extended standby hours
-              <input type="number" min="0" max="10" step="0.5" value="0" name="standbyHours" />
-              <span class="field-hint">Use only for gaps of two or more hours between stops.</span>
             </label>
             <label>
               Estimated mileage
               <input type="number" min="10" max="300" step="5" value="40" name="miles" />
             </label>
             <label>
-              Guests (same rate up to 14)
+              Guests
               <input type="number" min="1" max="14" step="1" value="10" name="passengers" />
             </label>
             <label class="check">
@@ -745,17 +736,21 @@
               <input type="checkbox" name="multiStop" />
               Multi-stop itinerary
             </label>
+            <label class="check">
+              <input type="checkbox" name="longGap" />
+              Long gap between stops
+            </label>
             <button type="submit" class="btn btn-primary">Calculate Estimate</button>
             <p class="estimate-custom-note">
-              Island ferry, on-island, and multi-day mountain routes are quoted individually.
+              Island ferry, on-island, and multi-day mountain routes are planned individually.
               <a href="#quote">Request a custom quote</a>.
             </p>
           </form>
           <div class="estimate-result" id="estimateResult" aria-live="polite">
             <p class="estimate-label">Estimated range</p>
-            <p class="estimate-price">$525+</p>
+            <p class="estimate-price">Build your estimate</p>
             <p class="estimate-breakdown" id="estimateBreakdown">
-              Starts at the three-hour local minimum for up to 14 guests.
+              Enter your route details for a single-day planning range.
             </p>
             <p class="estimate-note">
               Add your route details to see a planning range.
@@ -844,10 +839,9 @@
           <details>
             <summary>How does the instant estimate work?</summary>
             <p>
-              Most local routes use a $175 hourly planning rate for up to 14 guests,
-              including the first 40 miles. Extra miles are estimated at $2.50 per mile,
-              and extended standby time can receive a lower rate. Island ferry, on-island,
-              and multi-day routes receive a custom quote.
+              Share your trip type, approximate timeline, mileage, and group size to see a
+              planning range for a simple single-day route. Island ferry, on-island, and
+              multi-day routes receive a custom quote.
             </p>
           </details>
           <details>

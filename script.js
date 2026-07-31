@@ -144,12 +144,11 @@ if (estimateForm && estimateResult) {
     const data = new FormData(estimateForm);
     const tripType = data.get("tripType");
     const hours = Number(data.get("hours"));
-    const requestedStandbyHours = Number(data.get("standbyHours"));
-    const standbyHours = Number.isFinite(requestedStandbyHours) ? requestedStandbyHours : 0;
     const miles = Number(data.get("miles"));
     const passengers = Number(data.get("passengers"));
     const isMultiDay = data.get("multiDay") === "on";
     const hasMultiStop = data.get("multiStop") === "on";
+    const hasLongGap = data.get("longGap") === "on";
 
     const price = estimateResult.querySelector(".estimate-price");
     const breakdown = estimateResult.querySelector("#estimateBreakdown");
@@ -178,33 +177,24 @@ if (estimateForm && estimateResult) {
     }
 
     const hourlyRate = 175;
-    const standbyRate = 85;
     const includedMiles = 40;
     const additionalMileRate = 2.5;
     const reservedHours = Math.max(hours, 3);
-    const eligibleStandbyHours = Math.min(
-      Math.max(standbyHours, 0),
-      Math.max(reservedHours - 3, 0)
-    );
-    const standardHours = reservedHours - eligibleStandbyHours;
     const additionalMiles = Math.max(miles - includedMiles, 0);
-    const hourlyCost = standardHours * hourlyRate + eligibleStandbyHours * standbyRate;
+    const hourlyCost = reservedHours * hourlyRate;
     const mileageCost = additionalMiles * additionalMileRate;
-    const subtotal = hourlyCost + mileageCost;
+    const gapConsideration = hasLongGap ? Math.min(Math.max(reservedHours - 3, 0) * 45, 180) : 0;
+    const subtotal = Math.max(hourlyRate * 3, hourlyCost + mileageCost - gapConsideration);
     const low = subtotal * 0.96;
     const high = subtotal * 1.06;
 
     if (price && breakdown && note && quoteLink) {
       price.textContent = `${formatUsd(low)} - ${formatUsd(high)}`;
-      breakdown.textContent = [
-        `${standardHours} hr at $175/hr`,
-        eligibleStandbyHours ? `${eligibleStandbyHours} standby hr at $85/hr` : "first 40 miles included",
-        additionalMiles ? `${additionalMiles} extra mi at $2.50/mi` : null,
-      ]
-        .filter(Boolean)
-        .join(" + ");
+      breakdown.textContent = hasLongGap
+        ? "Your planning range includes consideration for a longer gap between stops."
+        : "Your planning range reflects the route time and driving distance you entered.";
       note.textContent =
-        "The same planning rate applies for up to 14 guests. Tolls, parking, and unusually complex routes are confirmed in your final quote.";
+        "This is a planning estimate for a single-day route. Final pricing is confirmed after your exact itinerary and availability are reviewed.";
       quoteLink.hidden = true;
     }
 
@@ -213,8 +203,8 @@ if (estimateForm && estimateResult) {
       hours,
       miles,
       passengers,
-      standby_hours: eligibleStandbyHours,
       multi_stop: hasMultiStop ? "true" : "false",
+      long_gap: hasLongGap ? "true" : "false",
       multi_day: isMultiDay ? "true" : "false",
       outcome: "planning_range",
       page_path: window.location.pathname,

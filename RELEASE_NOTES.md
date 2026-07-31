@@ -22,8 +22,8 @@
 - Replaced the chip-style service footprint with a route-specific destination directory after the quote form
 - Added a family-friendly, non-alcoholic `Family Day Out` Trip Menu route with field-trip and family-outing planning options
 - Added White Stadium and Boston Legacy FC coverage to sporting-event copy, structured data, and the sporting-event guide
-- Rebuilt the estimator around $175/hr for up to 14 guests, 40 included miles, and a $2.50/mile overage estimate
-- Added a lower estimator standby rate for extended itinerary gaps and custom-quote routing for island ferry, on-island, and multi-day mountain trips
+- Rebuilt the estimator around a simple single-day planning range with custom-quote routing for island ferry, on-island, and multi-day mountain trips
+- Added itinerary-gap consideration to the estimator without exposing a public rate formula
 
 ### Test Checklist
 - Version badge shows `V1.5.4` in the top-left corner
@@ -36,7 +36,7 @@
 - Every Trip Menu route appears in the destination directory with relevant example stops
 - Family Day Out appears in the Trip Menu, estimator, quote form, FAQ, and destination directory
 - White Stadium and Boston Legacy FC appear in sporting-event destination and guide coverage
-- Estimator keeps the same planning rate through 14 guests, prices mileage only after 40 miles, and sends ferry or multi-day plans to the quote form
+- Estimator shows a simple planning range for local routes and sends ferry or multi-day plans to the quote form
 
 ## V1.5.3 (Draft) - Privacy Update
 

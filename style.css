@@ -654,7 +654,6 @@ a {
   gap: 0.82rem;
 }
 
-.estimate-baseline,
 .estimate-custom-note {
   margin: 0;
   color: var(--text-soft);
