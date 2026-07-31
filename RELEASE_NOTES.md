@@ -20,6 +20,8 @@
 - Added an Island Ferry Transfer menu option for Martha's Vineyard and Nantucket via Woods Hole or Hyannis
 - Expanded the FAQ with founder/driver, vehicle, multi-day itinerary, and island ferry planning details
 - Replaced the chip-style service footprint with a route-specific destination directory after the quote form
+- Added a family-friendly, non-alcoholic `Family Day Out` Trip Menu route with field-trip and family-outing planning options
+- Added White Stadium and Boston Legacy FC coverage to sporting-event copy, structured data, and the sporting-event guide
 
 ### Test Checklist
 - Version badge shows `V1.5.4` in the top-left corner
@@ -30,6 +32,8 @@
 - Fleet interior seating photo remains hidden until its right-side caret is opened
 - Bar Crawl, Mountain Weekend Run, and Team Offsite Transit each show their dedicated menu image
 - Every Trip Menu route appears in the destination directory with relevant example stops
+- Family Day Out appears in the Trip Menu, estimator, quote form, FAQ, and destination directory
+- White Stadium and Boston Legacy FC appear in sporting-event destination and guide coverage
 
 ## V1.5.3 (Draft) - Privacy Update
 

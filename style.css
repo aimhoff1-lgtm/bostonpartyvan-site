@@ -937,6 +937,10 @@ textarea:focus {
   --package-image: url("assets/images/td-garden-exterior.jpg");
 }
 
+.package-family {
+  --package-image: url("assets/images/td-garden-exterior.jpg");
+}
+
 .package-golf {
   --package-image: url("assets/images/golfgroup.jpg");
 }

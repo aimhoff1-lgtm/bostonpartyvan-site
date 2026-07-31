@@ -153,6 +153,7 @@ if (estimateForm && estimateResult) {
       airport: 145,
       wedding: 190,
       nightlife: 180,
+      family: 170,
       golf: 175,
       cape: 215,
       islandferry: 225,
