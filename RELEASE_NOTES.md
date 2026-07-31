@@ -1,5 +1,20 @@
 # Release Notes
 
+## V1.5.4 (Draft) - Trip Menu Guide Cleanup
+
+### Changed
+- Kept the persistent on-page version badge and bumped it to `V1.5.4`
+- Standardized public capacity copy to `Up to 14 guests`
+- Removed the repetitive homepage destination-guide grid
+- Added a `View guide` link inside each matching expanded Trip Menu card
+- Updated desktop, quick-action, and mobile navigation to point visitors to the Trip Menu
+
+### Test Checklist
+- Version badge shows `V1.5.4` in the top-left corner
+- All eight homepage guide links are visible only when their matching Trip Menu card is expanded
+- Every `View guide` link opens the correct guide page
+- No homepage navigation link targets the removed destination-guide section
+
 ## V1.5.3 (Draft) - Privacy Update
 
 ### Changed

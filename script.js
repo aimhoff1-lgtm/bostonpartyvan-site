@@ -108,7 +108,8 @@ if (packageCards.length) {
 
   packageCards.forEach((card) => {
     const toggle = card.querySelector("[data-package-toggle]");
-    card.addEventListener("click", () => {
+    card.addEventListener("click", (event) => {
+      if (event.target.closest(".package-guide-link")) return;
       togglePackageCard(card);
     });
 
