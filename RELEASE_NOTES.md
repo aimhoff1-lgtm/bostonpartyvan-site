@@ -8,12 +8,18 @@
 - Removed the repetitive homepage destination-guide grid
 - Added a `View guide` link inside each matching expanded Trip Menu card
 - Updated desktop, quick-action, and mobile navigation to point visitors to the Trip Menu
+- Replaced the two-vehicle fleet examples with a committed Mercedes-Benz Sprinter 2500 High Roof offering
+- Added a new dedicated Mercedes Sprinter fleet image and removed the duplicate Ford van asset
+- Added a collapsible interior-seating image to the Mercedes Sprinter vehicle card
+- Updated the corporate guide to use the same Mercedes Sprinter image
 
 ### Test Checklist
 - Version badge shows `V1.5.4` in the top-left corner
 - All eight homepage guide links are visible only when their matching Trip Menu card is expanded
 - Every `View guide` link opens the correct guide page
 - No homepage navigation link targets the removed destination-guide section
+- Homepage fleet area shows one Mercedes-Benz Sprinter 2500 High Roof vehicle card
+- Fleet interior seating photo remains hidden until its right-side caret is opened
 
 ## V1.5.3 (Draft) - Privacy Update
 
