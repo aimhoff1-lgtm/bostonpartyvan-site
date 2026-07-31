@@ -953,7 +953,7 @@ textarea:focus {
 }
 
 .package-white-mountains {
-  --package-image: linear-gradient(140deg, rgba(37, 67, 86, 0.95), rgba(22, 38, 55, 0.92));
+  --package-image: url("assets/images/mountain-apres-ski-party.jpg");
 }
 
 .package-wedding {
@@ -961,11 +961,15 @@ textarea:focus {
 }
 
 .package-corporate {
-  --package-image: linear-gradient(140deg, rgba(52, 60, 74, 0.95), rgba(28, 33, 44, 0.92));
+  --package-image: url("assets/images/team-offsite-transit.jpg");
 }
 
 .package-bachelorette {
   --package-image: url("assets/images/nightlife.jpg");
+}
+
+.package-bar-crawl {
+  --package-image: url("assets/images/boston-union-street-bar-crawl.jpg");
 }
 
 .package-concert {

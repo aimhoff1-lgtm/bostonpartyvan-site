@@ -157,6 +157,7 @@ if (estimateForm && estimateResult) {
       cape: 215,
       whitemountains: 235,
       bach: 195,
+      barcrawl: 195,
       local: 170,
       corporate: 165,
     };

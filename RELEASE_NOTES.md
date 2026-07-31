@@ -12,6 +12,8 @@
 - Added a new dedicated Mercedes Sprinter fleet image and removed the duplicate Ford van asset
 - Added a collapsible interior-seating image to the Mercedes Sprinter vehicle card
 - Updated the corporate guide to use the same Mercedes Sprinter image
+- Added a Boston Bar Crawl Trip Menu option with curated local-route messaging
+- Replaced the remaining White Mountains and corporate Trip Menu gradient backgrounds with dedicated images
 
 ### Test Checklist
 - Version badge shows `V1.5.4` in the top-left corner
@@ -20,6 +22,7 @@
 - No homepage navigation link targets the removed destination-guide section
 - Homepage fleet area shows one Mercedes-Benz Sprinter 2500 High Roof vehicle card
 - Fleet interior seating photo remains hidden until its right-side caret is opened
+- Bar Crawl, Mountain Weekend Run, and Team Offsite Transit each show their dedicated menu image
 
 ## V1.5.3 (Draft) - Privacy Update
 
