@@ -285,23 +285,6 @@ a {
   background: rgba(255, 255, 255, 0.03);
 }
 
-.hero-points {
-  margin: 1.3rem 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
-
-.hero-points li {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.45rem 0.7rem;
-  border-radius: 999px;
-  font-size: 0.88rem;
-}
-
 .hero-card {
   background: linear-gradient(135deg, rgba(14, 36, 54, 0.9), rgba(12, 26, 39, 0.93));
   border: 1px solid var(--line);
@@ -1355,8 +1338,7 @@ textarea:focus {
   }
 
   .hero h1,
-  .hero-sub,
-  .hero-points li {
+  .hero-sub {
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.72);
   }
 
@@ -1366,11 +1348,6 @@ textarea:focus {
 
   .hero-sub {
     color: #e7eef7;
-  }
-
-  .hero-points li {
-    background: rgba(4, 14, 25, 0.5);
-    color: #f4f8fc;
   }
 
   .package-card::before {

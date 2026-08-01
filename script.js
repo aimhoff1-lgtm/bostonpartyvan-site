@@ -66,6 +66,21 @@ if (menuToggle && mainNav) {
   });
 }
 
+const fleetSection = document.querySelector("#fleet");
+const bookingMapSection = document.querySelector(".process");
+const whyUsSection = document.querySelector("#why-us");
+const coverageSection = document.querySelector("#coverage");
+const faqSection = document.querySelector("#faq");
+const quoteSection = document.querySelector("#quote");
+
+if (fleetSection && whyUsSection) {
+  fleetSection.after(whyUsSection);
+}
+
+if (quoteSection && bookingMapSection && coverageSection && faqSection) {
+  quoteSection.after(bookingMapSection, coverageSection, faqSection);
+}
+
 const revealItems = document.querySelectorAll(".reveal");
 if ("IntersectionObserver" in window) {
   const io = new IntersectionObserver(
