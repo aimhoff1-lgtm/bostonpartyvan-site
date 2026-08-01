@@ -100,6 +100,9 @@ function setPackageCardExpanded(card, expanded) {
 }
 
 if (packageCards.length) {
+  const compactTripMenu = window.matchMedia("(max-width: 620px)");
+  const defaultPackageCard = packageCards[0];
+
   const togglePackageCard = (card) => {
     const isExpanded = card.classList.contains("is-active");
     packageCards.forEach((eachCard) => setPackageCardExpanded(eachCard, false));
@@ -122,8 +125,17 @@ if (packageCards.length) {
     }
   });
 
-  const activeCard = document.querySelector("[data-package-card].is-active");
-  packageCards.forEach((card) => setPackageCardExpanded(card, card === activeCard));
+  const resetPackageCardsForViewport = () => {
+    const activeCard = compactTripMenu.matches ? null : defaultPackageCard;
+    packageCards.forEach((card) => setPackageCardExpanded(card, card === activeCard));
+  };
+
+  resetPackageCardsForViewport();
+  if (compactTripMenu.addEventListener) {
+    compactTripMenu.addEventListener("change", resetPackageCardsForViewport);
+  } else {
+    compactTripMenu.addListener(resetPackageCardsForViewport);
+  }
 }
 
 const estimateForm = document.getElementById("estimateForm");
