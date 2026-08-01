@@ -1302,6 +1302,10 @@ textarea:focus {
 }
 
 @media (max-width: 620px) {
+  :root {
+    --content-width: calc(100% - 24px);
+  }
+
   html,
   body {
     background: #091420;
@@ -1316,6 +1320,14 @@ textarea:focus {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .version-tag {
+    top: 6px;
+    left: 6px;
+    padding: 1px 5px;
+    font-size: 9px;
+    letter-spacing: 0.04em;
   }
 
   .hero {

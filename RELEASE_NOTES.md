@@ -27,6 +27,7 @@
 - Strengthened mobile hero and Trip Menu image overlays, removed washed-out mobile background effects, and disabled mobile fade-ins so iPhone text stays readable
 - Reworked the phone Trip Menu into a compact two-column grid that expands one selected route across both columns
 - Added Estimate to the header menu so the mobile navigation includes every primary action
+- Reduced phone content gutters and the on-page version label footprint to improve mobile alignment
 - Added Family Day Out, Island Ferry Transfer, Boston Bar Crawl, and Boston Night Loop guides so every Trip Menu route now has a matching guide
 - Updated guide navigation to return to the active Trip Menu section
 
