@@ -30,6 +30,7 @@
 - Reduced phone content gutters and the on-page version label footprint to improve mobile alignment
 - Offset every anchored phone section so menu and action links land with their headings fully visible
 - Reordered homepage quick actions around the decision flow from trip ideas to rough estimate to personalized quote
+- Simplified the hero quote panel to its trip highlights and moved quote-planning context into the FAQ
 - Added Family Day Out, Island Ferry Transfer, Boston Bar Crawl, and Boston Night Loop guides so every Trip Menu route now has a matching guide
 - Updated guide navigation to return to the active Trip Menu section
 

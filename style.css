@@ -321,6 +321,14 @@ a {
   color: var(--text-soft);
 }
 
+.hero-stats-card {
+  padding: 0.85rem;
+}
+
+.hero-stats-card .special-stats {
+  margin-top: 0;
+}
+
 .special-stats {
   margin-top: 1rem;
   display: grid;
