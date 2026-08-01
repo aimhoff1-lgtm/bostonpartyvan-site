@@ -24,7 +24,7 @@
 - Added White Stadium and Boston Legacy FC coverage to sporting-event copy, structured data, and the sporting-event guide
 - Updated the estimator so same-day Island Ferry Transfers receive a planning range; multi-day roundtrip transport and stay-on-island services receive a custom quote
 - Added itinerary-gap consideration to the estimator without exposing a public rate formula
-- Strengthened mobile hero and Trip Menu image overlays so white text stays readable on iPhone-size screens
+- Strengthened mobile hero and Trip Menu image overlays, removed washed-out mobile background effects, and disabled mobile fade-ins so iPhone text stays readable
 - Added Family Day Out, Island Ferry Transfer, Boston Bar Crawl, and Boston Night Loop guides so every Trip Menu route now has a matching guide
 - Updated guide navigation to return to the active Trip Menu section
 

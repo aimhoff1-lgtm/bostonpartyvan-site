@@ -24,6 +24,7 @@
 
 html {
   scroll-behavior: smooth;
+  background: var(--bg-deep);
 }
 
 body {
@@ -1301,6 +1302,22 @@ textarea:focus {
 }
 
 @media (max-width: 620px) {
+  html,
+  body {
+    background: #091420;
+  }
+
+  .bg-orb,
+  .noise-layer {
+    display: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
   .hero {
     background-image:
       linear-gradient(
