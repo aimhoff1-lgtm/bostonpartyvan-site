@@ -1306,6 +1306,10 @@ textarea:focus {
     --content-width: calc(100% - 24px);
   }
 
+  #services {
+    scroll-margin-top: 4.5rem;
+  }
+
   html,
   body {
     background: #091420;
