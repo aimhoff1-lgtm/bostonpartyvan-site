@@ -28,7 +28,7 @@
 - Reworked the phone Trip Menu into a compact two-column grid that expands one selected route across both columns
 - Added Estimate to the header menu so the mobile navigation includes every primary action
 - Reduced phone content gutters and the on-page version label footprint to improve mobile alignment
-- Offset the phone Trip Menu anchor so mobile Trips links land with the Trip Menu label fully visible
+- Offset every anchored phone section so menu and action links land with their headings fully visible
 - Added Family Day Out, Island Ferry Transfer, Boston Bar Crawl, and Boston Night Loop guides so every Trip Menu route now has a matching guide
 - Updated guide navigation to return to the active Trip Menu section
 

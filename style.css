@@ -1306,7 +1306,7 @@ textarea:focus {
     --content-width: calc(100% - 24px);
   }
 
-  #services {
+  .section[id] {
     scroll-margin-top: 4.5rem;
   }
 
