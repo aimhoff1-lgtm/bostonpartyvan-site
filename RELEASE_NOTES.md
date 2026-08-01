@@ -34,6 +34,7 @@
 - Removed duplicate hero highlights and placed the post-submit booking map directly after the quote form
 - Added a Why Us? navigation link after Your Ride and reordered the homepage to end with the route directory and FAQ
 - Removed redundant hero actions and constrained phone form controls to prevent horizontal page scrolling
+- Limited stay-on-island service in the estimator to Island Ferry Transfer selections
 - Added Family Day Out, Island Ferry Transfer, Boston Bar Crawl, and Boston Night Loop guides so every Trip Menu route now has a matching guide
 - Updated guide navigation to return to the active Trip Menu section
 

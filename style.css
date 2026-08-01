@@ -702,7 +702,19 @@ textarea:focus {
 }
 
 .check input {
+  width: auto;
+  min-width: auto;
+  max-width: none;
   accent-color: var(--accent-hot);
+}
+
+.check-island.is-disabled {
+  color: rgba(169, 186, 205, 0.52);
+  cursor: not-allowed;
+}
+
+.check-island.is-disabled input {
+  cursor: not-allowed;
 }
 
 .estimate-result {

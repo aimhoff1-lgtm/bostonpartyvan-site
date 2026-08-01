@@ -165,6 +165,25 @@ function formatUsd(value) {
 }
 
 if (estimateForm && estimateResult) {
+  const tripTypeInput = estimateForm.querySelector('[name="tripType"]');
+  const stayOnIslandInput = estimateForm.querySelector('[name="stayOnIsland"]');
+  const stayOnIslandLabel = estimateForm.querySelector("[data-stay-on-island]");
+
+  function syncStayOnIslandAvailability() {
+    if (!tripTypeInput || !stayOnIslandInput || !stayOnIslandLabel) return;
+
+    const isIslandFerryTransfer = tripTypeInput.value === "islandferry";
+    stayOnIslandInput.disabled = !isIslandFerryTransfer;
+    if (!isIslandFerryTransfer) {
+      stayOnIslandInput.checked = false;
+    }
+    stayOnIslandLabel.classList.toggle("is-disabled", !isIslandFerryTransfer);
+    stayOnIslandLabel.setAttribute("aria-disabled", String(!isIslandFerryTransfer));
+  }
+
+  tripTypeInput?.addEventListener("change", syncStayOnIslandAvailability);
+  syncStayOnIslandAvailability();
+
   estimateForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
