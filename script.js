@@ -1,6 +1,10 @@
 const SITE_CONFIG = {
   // Paste your GA4 Measurement ID here when ready (example: "G-ABC123XYZ9").
   ga4MeasurementId: "",
+  // Google Ads tag for the Boston Party Van account.
+  googleAdsId: "AW-18371382829",
+  // Add the lead conversion label from Google Ads after the quote conversion is created.
+  googleAdsQuoteConversionLabel: "",
 };
 
 const GA4_MEASUREMENT_ID = (
@@ -11,8 +15,26 @@ const GA4_MEASUREMENT_ID = (
   .toString()
   .trim();
 
-function initGa4Tracking() {
-  if (!GA4_MEASUREMENT_ID) return false;
+const GOOGLE_ADS_ID = (
+  window.BPV_GOOGLE_ADS_ID ||
+  SITE_CONFIG.googleAdsId ||
+  ""
+)
+  .toString()
+  .trim();
+
+const GOOGLE_ADS_QUOTE_CONVERSION_LABEL = (
+  window.BPV_GOOGLE_ADS_QUOTE_CONVERSION_LABEL ||
+  SITE_CONFIG.googleAdsQuoteConversionLabel ||
+  ""
+)
+  .toString()
+  .trim();
+
+const GOOGLE_TAG_ID = GA4_MEASUREMENT_ID || GOOGLE_ADS_ID;
+
+function initGoogleTag() {
+  if (!GOOGLE_TAG_ID) return false;
 
   window.dataLayer = window.dataLayer || [];
   window.gtag =
@@ -22,31 +44,51 @@ function initGa4Tracking() {
     };
 
   const existingGaScript = document.querySelector(
-    `script[src*="googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}"]`
+    `script[src*="googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}"]`
   );
 
   if (!existingGaScript) {
     const gaScript = document.createElement("script");
     gaScript.async = true;
     gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(
-      GA4_MEASUREMENT_ID
+      GOOGLE_TAG_ID
     )}`;
     document.head.appendChild(gaScript);
   }
 
   window.gtag("js", new Date());
-  window.gtag("config", GA4_MEASUREMENT_ID, {
-    anonymize_ip: true,
-  });
+  if (GA4_MEASUREMENT_ID) {
+    window.gtag("config", GA4_MEASUREMENT_ID, {
+      anonymize_ip: true,
+    });
+  }
+  if (GOOGLE_ADS_ID) {
+    window.gtag("config", GOOGLE_ADS_ID);
+  }
 
   return true;
 }
 
-const isGa4Enabled = initGa4Tracking();
+const isGoogleTagEnabled = initGoogleTag();
 
 function trackGa4Event(eventName, params = {}) {
-  if (!isGa4Enabled || typeof window.gtag !== "function") return;
+  if (!isGoogleTagEnabled || typeof window.gtag !== "function") return;
   window.gtag("event", eventName, params);
+}
+
+function trackGoogleAdsQuoteConversion() {
+  if (
+    !isGoogleTagEnabled ||
+    !GOOGLE_ADS_ID ||
+    !GOOGLE_ADS_QUOTE_CONVERSION_LABEL ||
+    typeof window.gtag !== "function"
+  ) {
+    return;
+  }
+
+  window.gtag("event", "conversion", {
+    send_to: `${GOOGLE_ADS_ID}/${GOOGLE_ADS_QUOTE_CONVERSION_LABEL}`,
+  });
 }
 
 const menuToggle = document.querySelector(".menu-toggle");
@@ -566,6 +608,7 @@ if (quoteForm && quoteSuccess) {
         "success"
       );
       trackGa4Event("generate_lead", buildLeadEventParams(data));
+      trackGoogleAdsQuoteConversion();
       quoteForm.reset();
       populateAttributionFields(quoteForm, buildAttributionSnapshot());
       syncPhoneRequirement();
