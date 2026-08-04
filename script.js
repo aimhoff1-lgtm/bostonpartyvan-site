@@ -3,8 +3,7 @@ const SITE_CONFIG = {
   ga4MeasurementId: "",
   // Google Ads tag for the Boston Party Van account.
   googleAdsId: "AW-18371382829",
-  // Add the lead conversion label from Google Ads after the quote conversion is created.
-  googleAdsQuoteConversionLabel: "",
+  googleAdsQuoteConversionLabel: "wuR8CJecitwcEK2clLhE",
 };
 
 const GA4_MEASUREMENT_ID = (
@@ -88,6 +87,8 @@ function trackGoogleAdsQuoteConversion() {
 
   window.gtag("event", "conversion", {
     send_to: `${GOOGLE_ADS_ID}/${GOOGLE_ADS_QUOTE_CONVERSION_LABEL}`,
+    value: 1,
+    currency: "USD",
   });
 }
 
