@@ -33,36 +33,12 @@ const GOOGLE_ADS_QUOTE_CONVERSION_LABEL = (
 const GOOGLE_TAG_ID = GA4_MEASUREMENT_ID || GOOGLE_ADS_ID;
 
 function initGoogleTag() {
-  if (!GOOGLE_TAG_ID) return false;
+  if (!GOOGLE_TAG_ID || typeof window.gtag !== "function") return false;
 
-  window.dataLayer = window.dataLayer || [];
-  window.gtag =
-    window.gtag ||
-    function gtag() {
-      window.dataLayer.push(arguments);
-    };
-
-  const existingGaScript = document.querySelector(
-    `script[src*="googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}"]`
-  );
-
-  if (!existingGaScript) {
-    const gaScript = document.createElement("script");
-    gaScript.async = true;
-    gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(
-      GOOGLE_TAG_ID
-    )}`;
-    document.head.appendChild(gaScript);
-  }
-
-  window.gtag("js", new Date());
   if (GA4_MEASUREMENT_ID) {
     window.gtag("config", GA4_MEASUREMENT_ID, {
       anonymize_ip: true,
     });
-  }
-  if (GOOGLE_ADS_ID) {
-    window.gtag("config", GOOGLE_ADS_ID);
   }
 
   return true;
