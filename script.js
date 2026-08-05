@@ -40,9 +40,16 @@ const GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL = (
   .trim();
 
 const GOOGLE_TAG_ID = GA4_MEASUREMENT_ID || GOOGLE_ADS_ID;
+const isOwnerTestingMode = window.BPV_DISABLE_ANALYTICS === true;
 
 function initGoogleTag() {
-  if (!GOOGLE_TAG_ID || typeof window.gtag !== "function") return false;
+  if (
+    isOwnerTestingMode ||
+    !GOOGLE_TAG_ID ||
+    typeof window.gtag !== "function"
+  ) {
+    return false;
+  }
 
   if (GA4_MEASUREMENT_ID) {
     window.gtag("config", GA4_MEASUREMENT_ID, {

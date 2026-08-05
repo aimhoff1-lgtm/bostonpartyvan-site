@@ -265,14 +265,47 @@
         ]
       }
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18371382829"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        window.dataLayer.push(arguments);
+      (function () {
+        var ownerModeKey = "bpv_owner_testing_v1";
+        var params = new URLSearchParams(window.location.search);
+
+        try {
+          if (params.get("bpv_owner") === "1") {
+            window.localStorage.setItem(ownerModeKey, "true");
+          } else if (params.get("bpv_owner") === "0") {
+            window.localStorage.removeItem(ownerModeKey);
+          }
+
+          window.BPV_DISABLE_ANALYTICS =
+            window.localStorage.getItem(ownerModeKey) === "true";
+        } catch (error) {
+          window.BPV_DISABLE_ANALYTICS = false;
+        }
+
+        if (params.has("bpv_owner")) {
+          params.delete("bpv_owner");
+          var cleanUrl = window.location.pathname;
+          var query = params.toString();
+          if (query) cleanUrl += "?" + query;
+          cleanUrl += window.location.hash;
+          window.history.replaceState({}, "", cleanUrl);
+        }
+      })();
+
+      if (!window.BPV_DISABLE_ANALYTICS) {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () {
+          window.dataLayer.push(arguments);
+        };
+        window.gtag("js", new Date());
+        window.gtag("config", "AW-18371382829");
+
+        var googleTag = document.createElement("script");
+        googleTag.async = true;
+        googleTag.src = "https://www.googletagmanager.com/gtag/js?id=AW-18371382829";
+        document.head.appendChild(googleTag);
       }
-      gtag("js", new Date());
-      gtag("config", "AW-18371382829");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
