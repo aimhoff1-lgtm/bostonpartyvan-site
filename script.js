@@ -1,9 +1,10 @@
 const SITE_CONFIG = {
-  // Paste your GA4 Measurement ID here when ready (example: "G-ABC123XYZ9").
-  ga4MeasurementId: "",
+  // Analytics reporting for estimate and quote demand by trip type.
+  ga4MeasurementId: "G-3Q3CBMKWZP",
   // Google Ads tag for the Boston Party Van account.
   googleAdsId: "AW-18371382829",
   googleAdsQuoteConversionLabel: "wuR8CJecitwcEK2clLhE",
+  googleAdsEstimateConversionLabel: "2VhmCPb11dwcEK2clLhE",
 };
 
 const GA4_MEASUREMENT_ID = (
@@ -25,6 +26,14 @@ const GOOGLE_ADS_ID = (
 const GOOGLE_ADS_QUOTE_CONVERSION_LABEL = (
   window.BPV_GOOGLE_ADS_QUOTE_CONVERSION_LABEL ||
   SITE_CONFIG.googleAdsQuoteConversionLabel ||
+  ""
+)
+  .toString()
+  .trim();
+
+const GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL = (
+  window.BPV_GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL ||
+  SITE_CONFIG.googleAdsEstimateConversionLabel ||
   ""
 )
   .toString()
@@ -66,6 +75,50 @@ function trackGoogleAdsQuoteConversion() {
     value: 1,
     currency: "USD",
   });
+}
+
+function trackGoogleAdsEstimateConversion() {
+  if (
+    !isGoogleTagEnabled ||
+    !GOOGLE_ADS_ID ||
+    !GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL ||
+    typeof window.gtag !== "function"
+  ) {
+    return;
+  }
+
+  window.gtag("event", "conversion", {
+    send_to: `${GOOGLE_ADS_ID}/${GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL}`,
+  });
+}
+
+function normalizeTripType(value) {
+  const tripType = normalizeValue(value).toLowerCase();
+  const tripTypeMap = {
+    airport: "airport",
+    wedding: "wedding",
+    nightlife: "night_out",
+    family: "family_outing",
+    golf: "golf_outing",
+    cape: "cape_cod",
+    islandferry: "island_ferry",
+    "island-ferry": "island_ferry",
+    whitemountains: "white_mountains",
+    "white-mountains": "white_mountains",
+    bach: "bachelor_bachelorette",
+    bachelor: "bachelor_bachelorette",
+    bachelorette: "bachelor_bachelorette",
+    barcrawl: "bar_crawl",
+    "bar-crawl": "bar_crawl",
+    local: "local_day_route",
+    corporate: "corporate_outing",
+    concert: "concert",
+    birthday: "birthday",
+    "multi-day": "multi_day",
+    other: "other",
+  };
+
+  return tripTypeMap[tripType] || tripType || "unspecified";
 }
 
 const menuToggle = document.querySelector(".menu-toggle");
@@ -208,6 +261,7 @@ if (estimateForm && estimateResult) {
 
     const data = new FormData(estimateForm);
     const tripType = data.get("tripType");
+    const analyticsTripType = normalizeTripType(tripType);
     const hours = Number(data.get("hours"));
     const miles = Number(data.get("miles"));
     const passengers = Number(data.get("passengers"));
@@ -230,16 +284,17 @@ if (estimateForm && estimateResult) {
         "Multi-day roundtrip transport and stay-on-island services are confirmed in a personalized quote.";
       quoteLink.hidden = false;
       trackGa4Event("estimate_calculated", {
-        trip_type: tripType,
+        trip_type: analyticsTripType,
         hours,
         miles,
-        passengers,
+        passenger_count: passengers,
         multi_stop: hasMultiStop ? "true" : "false",
         multi_day: isMultiDay ? "true" : "false",
         stay_on_island: hasStayOnIsland ? "true" : "false",
-        outcome: "custom_quote",
+        estimate_outcome: "custom_quote",
         page_path: window.location.pathname,
       });
+      trackGoogleAdsEstimateConversion();
       return;
     }
 
@@ -266,17 +321,20 @@ if (estimateForm && estimateResult) {
     }
 
     trackGa4Event("estimate_calculated", {
-      trip_type: tripType,
+      trip_type: analyticsTripType,
       hours,
       miles,
-      passengers,
+      passenger_count: passengers,
       multi_stop: hasMultiStop ? "true" : "false",
       long_gap: hasLongGap ? "true" : "false",
       multi_day: isMultiDay ? "true" : "false",
       stay_on_island: hasStayOnIsland ? "true" : "false",
-      outcome: "planning_range",
+      estimate_outcome: "planning_range",
+      estimated_low: Math.round(low),
+      estimated_high: Math.round(high),
       page_path: window.location.pathname,
     });
+    trackGoogleAdsEstimateConversion();
   });
 }
 
@@ -456,7 +514,7 @@ function buildLeadEventParams(data) {
     form_name: "quote_form",
     lead_type: "quote_request",
     contact_preference: normalizeValue(data.get("contactPreference")),
-    trip_type: normalizeValue(data.get("eventType")),
+    trip_type: normalizeTripType(data.get("eventType")),
     page_path: window.location.pathname,
   };
 
