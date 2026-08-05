@@ -1186,6 +1186,10 @@ textarea:focus {
 }
 
 @media (max-width: 960px) {
+  .version-tag {
+    display: none;
+  }
+
   .menu-toggle {
     display: inline-flex;
     border: 1px solid var(--line);
@@ -1326,14 +1330,6 @@ textarea:focus {
     opacity: 1;
     transform: none;
     transition: none;
-  }
-
-  .version-tag {
-    top: 6px;
-    left: 6px;
-    padding: 1px 5px;
-    font-size: 9px;
-    letter-spacing: 0.04em;
   }
 
   .hero {
