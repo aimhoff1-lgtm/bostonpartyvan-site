@@ -1174,6 +1174,22 @@ textarea:focus {
   color: var(--accent-cool);
 }
 
+.site-footer .instagram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.instagram-link svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(16px);
