@@ -1014,9 +1014,6 @@ textarea:focus {
 }
 
 .custom-service-options {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.55rem 1rem;
   min-width: 0;
   margin: 0;
   padding: 0.8rem;
@@ -1024,10 +1021,42 @@ textarea:focus {
   border-radius: 8px;
 }
 
-.custom-service-options legend {
-  padding: 0 0.2rem;
+.custom-service-options summary {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
   color: var(--text-soft);
   font-size: 0.9rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.custom-service-options summary::-webkit-details-marker {
+  display: none;
+}
+
+.custom-service-options summary::after {
+  content: "+";
+  margin-left: auto;
+  color: var(--accent-cool);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.custom-service-options[open] summary::after {
+  content: "-";
+}
+
+.custom-service-options summary:focus-visible {
+  outline: 2px solid rgba(38, 214, 189, 0.55);
+  outline-offset: 3px;
+}
+
+.custom-service-option-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem 1rem;
+  margin-top: 0.75rem;
 }
 
 .custom-service-options .check {
@@ -1804,7 +1833,7 @@ textarea:focus {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .custom-service-options {
+  .custom-service-option-list {
     grid-template-columns: 1fr;
   }
 

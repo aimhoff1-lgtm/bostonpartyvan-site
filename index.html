@@ -857,6 +857,10 @@
         <div class="section-head">
           <p class="eyebrow">Quick planning tool</p>
           <h2>Estimate your ride in under 30 seconds</h2>
+          <p class="section-intro">
+            Explore potential pricing privately before you reach out. This no-pressure tool gives
+            you a ballpark for a straightforward trip, and nothing is sent to Boston Party Van.
+          </p>
         </div>
         <div class="estimator-wrap">
           <form id="estimateForm" class="estimate-form">
@@ -927,15 +931,15 @@
             <div class="estimate-pace">
               <div class="estimate-pace-head">
                 <div class="estimate-pace-label">
-                  <label for="activityLevel">Driving vs. waiting</label>
+                  <label for="activityLevel">Driving vs. standby</label>
                   <details class="estimate-help estimate-pace-help">
-                    <summary aria-label="How driving versus waiting affects your estimate">?</summary>
+                    <summary aria-label="How driving versus standby affects your estimate">?</summary>
                     <div class="estimate-help-popover estimate-pace-popover">
                       <button class="estimate-help-close" type="button" aria-label="Close explanation">&times;</button>
-                      <p><strong>More time enjoying the event can mean a lower estimate.</strong> Boston Party Van uses a customer-first approach for time when your group is at the game, dinner, concert, or venue instead of actively riding. Focus on enjoying your event while saving with reduced rates.</p>
+                      <p><strong>More time enjoying the event can mean a lower estimate.</strong> Boston Party Van uses a customer-first approach to standby time while your group is at the game, dinner, concert, or venue instead of actively riding. Focus on your event while saving with reduced standby rates.</p>
                       <p>Pick the closest fit for your day:</p>
                       <ul>
-                        <li><strong>25%:</strong> Mostly waiting while you enjoy one main event.</li>
+                        <li><strong>25%:</strong> Mostly idle while you enjoy one main event.</li>
                         <li><strong>50%:</strong> A balanced route with driving and event time.</li>
                         <li><strong>75%:</strong> Several stops or a longer route with more time on the move.</li>
                         <li><strong>100%:</strong> A long one-way trip leg or shuttle-style service with frequent guest transportation.</li>
@@ -956,7 +960,7 @@
                 value="50"
               />
               <div class="pace-scale" aria-hidden="true">
-                <span>25%<small>Mostly waiting</small></span>
+                <span>25%<small>Mostly idle</small></span>
                 <span>50%<small>Balanced</small></span>
                 <span>75%<small>On the move</small></span>
                 <span>100%<small>Long leg / shuttle</small></span>
@@ -1164,6 +1168,11 @@
         <div class="section-head">
           <p class="eyebrow">Let’s build your route</p>
           <h2>Request a custom quote</h2>
+          <p class="section-intro">
+            We're very glad that you would consider us for your trip. Send your date, route,
+            group size, and timing. We'll process your inquiry and build a personalized quote
+            around the actual plan.
+          </p>
         </div>
         <form id="quoteForm" class="quote-form">
           <input class="hp-field" type="text" name="_honey" tabindex="-1" autocomplete="off" />
@@ -1314,25 +1323,29 @@
             </select>
             <span class="field-hint" data-quote-sports-plan-hint></span>
           </label>
-          <fieldset class="custom-service-options full">
-            <legend>Custom service requests <span class="field-hint">(optional)</span></legend>
-            <label class="check">
-              <input type="checkbox" name="customServices" value="multi_day" />
-              Multi-day or overnight service
-            </label>
-            <label class="check">
-              <input type="checkbox" name="customServices" value="on_demand" />
-              On-demand or on-call service
-            </label>
-            <label class="check">
-              <input type="checkbox" name="customServices" value="stay_on_island" />
-              Stay-on-island service
-            </label>
-            <label class="check">
-              <input type="checkbox" name="customServices" value="multi_stop" />
-              Multi-stop itinerary
-            </label>
-          </fieldset>
+          <details class="custom-service-options full" data-custom-service-options>
+            <summary>
+              Custom service requests <span class="field-hint">(optional)</span>
+            </summary>
+            <div class="custom-service-option-list">
+              <label class="check">
+                <input type="checkbox" name="customServices" value="multi_day" />
+                Multi-day or overnight service
+              </label>
+              <label class="check">
+                <input type="checkbox" name="customServices" value="on_demand" />
+                On-demand or on-call service
+              </label>
+              <label class="check">
+                <input type="checkbox" name="customServices" value="stay_on_island" />
+                Stay-on-island service
+              </label>
+              <label class="check">
+                <input type="checkbox" name="customServices" value="multi_stop" />
+                Multi-stop itinerary
+              </label>
+            </div>
+          </details>
           <label data-custom-service-field="multi_day" hidden>
             Service end date
             <input type="date" name="serviceEndDate" />
@@ -1366,7 +1379,7 @@
               placeholder="Include your stop list, timing, special requests, ferry or overnight details, and any times you would like the van on call..."
             ></textarea>
             <span class="field-hint" data-custom-service-notes-hint hidden>
-              Please include the dates, service windows, overnight location, ferry details, and stop sequence that apply.
+              Required for custom service requests. Include the dates, service windows, overnight location, ferry details, and stop sequence that apply.
             </span>
           </label>
           <label>

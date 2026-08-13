@@ -453,7 +453,7 @@ if (estimateForm && estimateResult) {
   );
 
   const paceLabels = {
-    25: "Mostly waiting: 25% driving",
+    25: "Mostly idle: 25% driving",
     50: "Balanced: 50% driving",
     75: "On the move: 75% driving",
     100: "Long leg / shuttle: 100% driving",
@@ -785,9 +785,9 @@ if (estimateForm && estimateResult) {
         price.textContent = `${formatUsd(low)} - ${formatUsd(high)}`;
         breakdown.textContent =
           activityLevel <= 25
-            ? "Your planning range reflects a route with substantial downtime between driving."
+            ? "Your planning range reflects a route with substantial standby time between driving."
             : activityLevel <= 50
-              ? "Your planning range reflects a balanced mix of driving and downtime."
+              ? "Your planning range reflects a balanced mix of driving and standby time."
               : "Your planning range reflects a more active, shuttle-style ride.";
         note.textContent =
           tripType === "sports" && sportsPlan === "dropoff"
@@ -1235,6 +1235,7 @@ if (quoteForm && quoteSuccess) {
   const pickupTimeInput = quoteForm.querySelector('[name="pickupTime"]');
   const routeNotesInput = quoteForm.querySelector('[name="notes"]');
   const customServiceInputs = quoteForm.querySelectorAll('[name="customServices"]');
+  const customServiceOptions = quoteForm.querySelector("[data-custom-service-options]");
   const customServiceFields = quoteForm.querySelectorAll("[data-custom-service-field]");
   const serviceEndDateInput = quoteForm.querySelector('[name="serviceEndDate"]');
   const customServiceNotesHint = quoteForm.querySelector(
@@ -1395,6 +1396,9 @@ if (quoteForm && quoteSuccess) {
       .filter((input) => input.checked)
       .map((input) => input.value);
     const hasCustomService = selectedCustomServices.length > 0;
+    if (customServiceOptions) {
+      customServiceOptions.open = hasCustomService;
+    }
     customServiceFields.forEach((field) => {
       const service = field.dataset.customServiceField;
       const input = field.querySelector("input, select");
