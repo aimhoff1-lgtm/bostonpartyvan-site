@@ -394,18 +394,125 @@
         </div>
       </section>
 
+      <section id="offers" class="section reveal offer-section" aria-label="Current booking offers">
+        <div class="section-head">
+          <p class="eyebrow">Current booking offers</p>
+          <h2>Good reasons to lock in your date</h2>
+          <p class="section-intro">
+            A few simple perks for groups who already know the plan. Open a card for the details.
+          </p>
+        </div>
+        <div class="package-grid offer-grid" data-card-group="offers">
+          <article class="package-card offer-card offer-early-booking" data-package-card>
+            <button
+              type="button"
+              class="package-toggle"
+              data-package-toggle
+              aria-expanded="false"
+            >
+              <p class="package-label">Early booking</p>
+              <h3>10% off when you book ahead</h3>
+              <p>Reserve any trip one month ahead to receive 10% off your total.</p>
+              <span class="package-cta" data-package-cta data-collapsed-cta="Click for offer details">
+                Click for offer details
+              </span>
+            </button>
+            <div class="package-detail" data-package-detail>
+              <ul>
+                <li>10% off any trip reserved one month or more before pickup</li>
+                <li>Useful for concerts, nights out, celebrations, and day trips with a date already on the calendar</li>
+                <li>We confirm the route, timing, and availability before your reservation is finalized</li>
+              </ul>
+              <a class="package-guide-link" href="#quote" data-quote-trip="early-booking">Ask about early booking</a>
+            </div>
+          </article>
+
+          <article class="package-card offer-card offer-airport-transfer" data-package-card>
+            <button
+              type="button"
+              class="package-toggle"
+              data-package-toggle
+              aria-expanded="false"
+            >
+              <p class="package-label">Logan Airport</p>
+              <h3>$300 airport transfer</h3>
+              <p>Simple one-way group transportation to or from Logan.</p>
+              <span class="package-cta" data-package-cta data-collapsed-cta="Click for offer details">
+                Click for offer details
+              </span>
+            </button>
+            <div class="package-detail" data-package-detail>
+              <ul>
+                <li>$300 flat for one direct transfer to or from Logan Airport, for up to 14 guests</li>
+                <li>Available within 50 estimated miles of Logan</li>
+                <li>Ideal for airport pickups, group departures, and travel days without a complicated stop list</li>
+              </ul>
+              <a class="package-guide-link" href="#quote" data-quote-trip="airport-transfer">Plan your airport transfer</a>
+            </div>
+          </article>
+
+          <article class="package-card offer-card offer-game-day-dropoff" data-package-card>
+            <button
+              type="button"
+              class="package-toggle"
+              data-package-toggle
+              aria-expanded="false"
+            >
+              <p class="package-label">Boston sporting events</p>
+              <h3>$400 game-day drop-off</h3>
+              <p>Three hours for a local pickup, one bar stop, and a timed Boston venue arrival.</p>
+              <span class="package-cta" data-package-cta data-collapsed-cta="Click for offer details">
+                Click for offer details
+              </span>
+            </button>
+            <div class="package-detail" data-package-detail>
+              <ul>
+                <li>$400 flat for up to 14 guests, with a three-hour window and local pickup within 40 miles of Boston</li>
+                <li>One predetermined bar stop on the way, then direct drop-off timed for tip-off or first pitch</li>
+                <li>Drop-off only, ideal when your group has its own plans after the game</li>
+              </ul>
+              <a class="package-guide-link" href="#quote" data-quote-trip="sports-dropoff">Plan your game day</a>
+            </div>
+          </article>
+
+          <article class="package-card offer-card offer-wedding-hour" data-package-card>
+            <button
+              type="button"
+              class="package-toggle"
+              data-package-toggle
+              aria-expanded="false"
+            >
+              <p class="package-label">Weddings</p>
+              <h3>Book 5+ hours, get an extra hour free</h3>
+              <p>Give the day enough room for a smooth ceremony, reception, and return plan.</p>
+              <span class="package-cta" data-package-cta data-collapsed-cta="Click for offer details">
+                Click for offer details
+              </span>
+            </button>
+            <div class="package-detail" data-package-detail>
+              <ul>
+                <li>Book five or more wedding-shuttle hours and receive one extra hour free</li>
+                <li>Extra time for hotel pickup, ceremony-to-reception timing, or an end-of-night return loop</li>
+                <li>We will shape the final plan around your venues, guest count, and timeline</li>
+              </ul>
+              <a class="package-guide-link" href="#quote" data-quote-trip="wedding-offer">Build your wedding shuttle</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section id="services" class="section reveal">
         <div class="section-head">
           <p class="eyebrow">Trip menu</p>
           <h2>Pick your vibe and open a package route</h2>
         </div>
-        <div class="trip-menu-wrap">
+        <div class="trip-menu-wrap" data-card-group="trip-menu">
           <p class="trip-menu-note">
             Open any trip card for a sample route flow and timing notes, including
             family-friendly and alcohol-free group options.
           </p>
           <div class="package-grid">
-            <article class="package-card package-sports" data-package-card>
+            <article class="package-card package-sports" data-package-card data-default-collapsed>
               <button
                 type="button"
                 class="package-toggle"
@@ -423,9 +530,10 @@
                   <li>Arrival timed for TD Garden, Fenway, Gillette Stadium, or White Stadium</li>
                   <li>Post-game meetup zone and synchronized return</li>
                 </ul>
-                <a class="package-guide-link" href="guides/boston-sporting-event-transportation/">
-                  View guide
-                </a>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="sports">Plan this trip</a>
+                  <a class="package-guide-link" href="guides/boston-sporting-event-transportation/index.html">View guide</a>
+                </div>
               </div>
             </article>
             <article class="package-card package-family" data-package-card>
@@ -446,9 +554,10 @@
                   <li>Sporting events, museums, campus visits, and local attractions paced around your group</li>
                   <li>Tell us about accessibility, stroller, or timing needs when you request a quote</li>
                 </ul>
-                <a class="package-guide-link" href="guides/boston-family-outing-transportation/">
-                  View guide
-                </a>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="family">Plan this trip</a>
+                  <a class="package-guide-link" href="guides/boston-family-outing-transportation/index.html">View guide</a>
+                </div>
               </div>
             </article>
             <article class="package-card package-golf" data-package-card>
@@ -469,9 +578,10 @@
                   <li>Tee-time arrival plus post-round food stop option</li>
                   <li>Flexible return by one-time departure or staggered pickups</li>
                 </ul>
-                <a class="package-guide-link" href="guides/boston-golf-outing-transportation/">
-                  View guide
-                </a>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="golf">Plan this trip</a>
+                  <a class="package-guide-link" href="guides/boston-golf-outing-transportation/index.html">View guide</a>
+                </div>
               </div>
             </article>
             <article class="package-card package-cape" data-package-card>
@@ -492,9 +602,10 @@
                   <li>Hyannis, Falmouth, or custom town-to-town stops</li>
                   <li>Night return plan with optional dinner buffer stop</li>
                 </ul>
-                <a class="package-guide-link" href="guides/boston-to-cape-cod-group-transportation/">
-                  View guide
-                </a>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="cape">Plan this trip</a>
+                  <a class="package-guide-link" href="guides/boston-to-cape-cod-group-transportation/index.html">View guide</a>
+                </div>
               </div>
             </article>
             <article class="package-card package-island-ferry" data-package-card>
@@ -515,9 +626,10 @@
                   <li>Multi-day return options built around your chosen island schedule</li>
                   <li>Ask about bringing the Sprinter on the ferry for on-demand island service, subject to ferry reservation and vehicle availability</li>
                 </ul>
-                <a class="package-guide-link" href="guides/marthas-vineyard-nantucket-ferry-transfer/">
-                  View guide
-                </a>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="island-ferry">Plan this trip</a>
+                  <a class="package-guide-link" href="guides/marthas-vineyard-nantucket-ferry-transfer/index.html">View guide</a>
+                </div>
               </div>
             </article>
             <article class="package-card package-white-mountains" data-package-card>
@@ -538,12 +650,10 @@
                   <li>Northbound route planning for mountain-town arrivals and apres-ski plans</li>
                   <li>Return window set around your event or weekend checkout</li>
                 </ul>
-                <a
-                  class="package-guide-link"
-                  href="guides/white-mountains-northern-nh-transportation/"
-                >
-                  View guide
-                </a>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="white-mountains">Plan this trip</a>
+                  <a class="package-guide-link" href="guides/white-mountains-northern-nh-transportation/index.html">View guide</a>
+                </div>
               </div>
             </article>
             <article class="package-card package-wedding" data-package-card>
@@ -564,9 +674,10 @@
                   <li>Ceremony-to-reception transfer timing built in</li>
                   <li>End-of-night return loops for guests and wedding party</li>
                 </ul>
-                <a class="package-guide-link" href="guides/boston-wedding-shuttle-service/">
-                  View guide
-                </a>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="wedding">Plan this trip</a>
+                  <a class="package-guide-link" href="guides/boston-wedding-shuttle-service/index.html">View guide</a>
+                </div>
               </div>
             </article>
             <article class="package-card package-corporate" data-package-card>
@@ -587,9 +698,10 @@
                   <li>Agenda-aware stop timing for meetings, meals, and activities</li>
                   <li>Single return run or staggered evening return options</li>
                 </ul>
-                <a class="package-guide-link" href="guides/boston-corporate-outing-transportation/">
-                  View guide
-                </a>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="corporate">Plan this trip</a>
+                  <a class="package-guide-link" href="guides/boston-corporate-outing-transportation/index.html">View guide</a>
+                </div>
               </div>
             </article>
             <article class="package-card package-bachelorette" data-package-card>
@@ -610,12 +722,10 @@
                   <li>Two or three nightlife stops with wait-time planning</li>
                   <li>Late-night return loop built for full group regrouping</li>
                 </ul>
-                <a
-                  class="package-guide-link"
-                  href="guides/bachelor-bachelorette-party-transportation-boston/"
-                >
-                  View guide
-                </a>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="bach">Plan this trip</a>
+                  <a class="package-guide-link" href="guides/bachelor-bachelorette-party-transportation-boston/index.html">View guide</a>
+                </div>
               </div>
             </article>
             <article class="package-card package-bar-crawl" data-package-card>
@@ -636,9 +746,10 @@
                   <li>Several iconic Boston stops, sequenced thoughtfully for a smooth night</li>
                   <li>One planned pickup and return, so the full group stays together between stops</li>
                 </ul>
-                <a class="package-guide-link" href="guides/boston-bar-crawl-transportation/">
-                  View guide
-                </a>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="bar-crawl">Plan this trip</a>
+                  <a class="package-guide-link" href="guides/boston-bar-crawl-transportation/index.html">View guide</a>
+                </div>
               </div>
             </article>
             <article class="package-card package-concert" data-package-card>
@@ -659,9 +770,10 @@
                   <li>Pickup fallback points in case streets are closed</li>
                   <li>Direct ride home or one final food stop after the show</li>
                 </ul>
-                <a class="package-guide-link" href="guides/boston-concert-night-transportation/">
-                  View guide
-                </a>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="concert">Plan this trip</a>
+                  <a class="package-guide-link" href="guides/boston-concert-night-transportation/index.html">View guide</a>
+                </div>
               </div>
             </article>
             <article class="package-card package-local" data-package-card>
@@ -682,9 +794,10 @@
                   <li>Driver coordination for pacing and regroup times</li>
                   <li>One simple final return without rideshare split chaos</li>
                 </ul>
-                <a class="package-guide-link" href="guides/boston-night-loop-transportation/">
-                  View guide
-                </a>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="local">Plan this trip</a>
+                  <a class="package-guide-link" href="guides/boston-night-loop-transportation/index.html">View guide</a>
+                </div>
               </div>
             </article>
           </div>
@@ -751,63 +864,170 @@
               Trip type
               <select name="tripType">
                 <option value="airport">Airport Transfer</option>
-                <option value="wedding">Wedding</option>
-                <option value="nightlife">Night Out</option>
-                <option value="family">Family Outing / Field Trip</option>
-                <option value="golf">Golf Outing</option>
-                <option value="cape">Cape Cod Trip</option>
-                <option value="islandferry">Island Ferry Transfer (Drop-Off / Same-Day Pickup Only)</option>
-                <option value="whitemountains">White Mountains / Northern NH</option>
                 <option value="bach">Bachelor/Bachelorette</option>
                 <option value="barcrawl">Boston Bar Crawl</option>
-                <option value="local">Local Day Route</option>
+                <option value="birthday">Birthday Celebration</option>
+                <option value="cape">Cape Cod Trip</option>
+                <option value="concert">Concert Night</option>
                 <option value="corporate">Corporate Outing</option>
+                <option value="family">Family Outing / Field Trip</option>
+                <option value="golf">Golf Outing</option>
+                <option value="islandferry">Island Ferry Transfer (Drop-Off / Same-Day Pickup Only)</option>
+                <option value="local">Local Day Route</option>
+                <option value="nightlife">Night Out</option>
+                <option value="sports">Sporting Event / Game Day</option>
+                <option value="wedding">Wedding</option>
+                <option value="whitemountains">White Mountains / Northern NH</option>
+                <option value="other">&gt;&gt; Other (Custom Trip)</option>
               </select>
+            </label>
+            <fieldset class="trip-direction">
+              <legend>Trip direction</legend>
+              <div class="segment-control" role="radiogroup" aria-label="Trip direction">
+                <label class="segment-option">
+                  <input type="radio" name="tripDirection" value="oneWay" checked />
+                  <span>One way</span>
+                </label>
+                <label class="segment-option">
+                  <input type="radio" name="tripDirection" value="roundTrip" />
+                  <span>Round trip</span>
+                </label>
+              </div>
+            </fieldset>
+            <label class="sports-venue-field" data-estimate-sports-venue hidden>
+              Sports venue
+              <select name="sportsVenue">
+                <option value="">Select one</option>
+                <option value="td-garden">TD Garden</option>
+                <option value="fenway-park">Fenway Park</option>
+                <option value="gillette-stadium">Gillette Stadium</option>
+                <option value="white-stadium">White Stadium</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+            <label class="other-sports-venue-field" data-estimate-other-sports-venue hidden>
+              Other venue
+              <input type="text" name="otherSportsVenue" placeholder="Venue name" />
+            </label>
+            <label class="sports-plan-field" data-estimate-sports-plan hidden>
+              Game-day plan
+              <select name="sportsPlan">
+                <option value="">Select a venue first</option>
+              </select>
+              <span class="field-hint" data-estimate-sports-plan-hint></span>
             </label>
             <label>
               Hours needed
               <input type="number" min="3" max="14" step="1" value="4" name="hours" />
             </label>
-            <label>
+            <label id="estimateMilesLabel">
               Estimated mileage
-              <input type="number" min="10" max="300" step="5" value="40" name="miles" />
+              <input type="number" min="10" max="300" step="1" value="40" name="miles" />
             </label>
-            <label>
-              Guests
-              <input type="number" min="1" max="14" step="1" value="10" name="passengers" />
-            </label>
-            <label class="check">
-              <input type="checkbox" name="multiDay" />
-              Multi-day / overnight itinerary (custom quote)
-            </label>
-            <label class="check check-island is-disabled" data-stay-on-island aria-disabled="true">
-              <input type="checkbox" name="stayOnIsland" disabled />
-              Stay-on-island service (Island Ferry Transfer only)
-            </label>
-            <label class="check">
-              <input type="checkbox" name="multiStop" />
-              Multi-stop itinerary
-            </label>
-            <label class="check">
-              <input type="checkbox" name="longGap" />
-              Long gap between stops
-            </label>
+            <div class="estimate-pace">
+              <div class="estimate-pace-head">
+                <div class="estimate-pace-label">
+                  <label for="activityLevel">Driving vs. waiting</label>
+                  <details class="estimate-help estimate-pace-help">
+                    <summary aria-label="How driving versus waiting affects your estimate">?</summary>
+                    <div class="estimate-help-popover estimate-pace-popover">
+                      <button class="estimate-help-close" type="button" aria-label="Close explanation">&times;</button>
+                      <p><strong>More time enjoying the event can mean a lower estimate.</strong> Boston Party Van uses a customer-first approach for time when your group is at the game, dinner, concert, or venue instead of actively riding. Focus on enjoying your event while saving with reduced rates.</p>
+                      <p>Pick the closest fit for your day:</p>
+                      <ul>
+                        <li><strong>25%:</strong> Mostly waiting while you enjoy one main event.</li>
+                        <li><strong>50%:</strong> A balanced route with driving and event time.</li>
+                        <li><strong>75%:</strong> Several stops or a longer route with more time on the move.</li>
+                        <li><strong>100%:</strong> A long one-way trip leg or shuttle-style service with frequent guest transportation.</li>
+                      </ul>
+                      <p>For longer, higher-mileage, or shuttle-heavy plans, we estimate the route ahead of time so there are no surprises.</p>
+                    </div>
+                  </details>
+                </div>
+                <output for="activityLevel" data-pace-value>Balanced: 50% driving</output>
+              </div>
+              <input
+                id="activityLevel"
+                type="range"
+                name="activityLevel"
+                min="25"
+                max="100"
+                step="25"
+                value="50"
+              />
+              <div class="pace-scale" aria-hidden="true">
+                <span>25%<small>Mostly waiting</small></span>
+                <span>50%<small>Balanced</small></span>
+                <span>75%<small>On the move</small></span>
+                <span>100%<small>Long leg / shuttle</small></span>
+              </div>
+            </div>
+            <div class="estimate-custom-option">
+              <label class="check">
+                <input type="checkbox" name="multiDay" />
+                <span>Multi-day or white-glove service <small class="estimate-option-note">Detailed quote</small></span>
+              </label>
+              <details class="estimate-help estimate-option-help">
+                <summary aria-label="About multi-day and white-glove service">?</summary>
+                <div class="estimate-help-popover">
+                  <button class="estimate-help-close" type="button" aria-label="Close explanation">&times;</button>
+                  <p><strong>We are happy to accommodate more involved travel.</strong> That includes multi-day service, overnight trips, and white-glove transportation with the van on demand or on call when your group needs it.</p>
+                  <p>Request a detailed quote with your travel dates, overnight location, expected driving windows, stops, and when you would like the van available.</p>
+                  <a class="estimate-help-link" href="#quote" data-quote-service="multi_day">Start a detailed quote</a>
+                </div>
+              </details>
+            </div>
+            <div class="estimate-custom-option check-island is-disabled" data-stay-on-island aria-disabled="true">
+              <label class="check">
+                <input type="checkbox" name="stayOnIsland" disabled />
+                <span>Stay-on-island service <small class="estimate-option-note">Island Ferry Transfer only</small></span>
+              </label>
+              <details class="estimate-help estimate-option-help">
+                <summary aria-label="About stay-on-island service">?</summary>
+                <div class="estimate-help-popover">
+                  <button class="estimate-help-close" type="button" aria-label="Close explanation">&times;</button>
+                  <p><strong>Need more than a ferry drop-off?</strong> We can plan a polished, white-glove on-island service on Martha's Vineyard or Nantucket, with ferry coordination and transportation ready when your group needs it.</p>
+                  <p>Select Island Ferry Transfer above, then request a detailed quote with ferry times, accommodations, on-island plans, and return timing.</p>
+                  <a class="estimate-help-link" href="#quote" data-quote-service="stay_on_island" data-quote-event-type="islandferry">Start a detailed quote</a>
+                </div>
+              </details>
+            </div>
+            <div class="estimate-custom-option">
+              <label class="check">
+                <input type="checkbox" name="multiStop" />
+                <span>Multi-stop itinerary</span>
+              </label>
+              <details class="estimate-help estimate-option-help">
+                <summary aria-label="About multi-stop itineraries">?</summary>
+                <div class="estimate-help-popover">
+                  <button class="estimate-help-close" type="button" aria-label="Close explanation">&times;</button>
+                  <p><strong>Choose this for more than one pickup, destination, or planned stop.</strong> It is a good fit for hotel sweeps, restaurant or bar stops, and groups that need pickup or drop-off at different locations.</p>
+                  <p>We use it to preview a more realistic route, then confirm the full sequence and timing in your personalized quote.</p>
+                  <a class="estimate-help-link" href="#quote" data-quote-service="multi_stop">Start a detailed quote</a>
+                </div>
+              </details>
+            </div>
             <button type="submit" class="btn btn-primary">Calculate Estimate</button>
             <p class="estimate-custom-note">
-              * Custom quote needed for multi-day roundtrip transport or stay-on-island services.
-              <a href="#quote">Request a custom quote</a>.
+              More involved service plans receive a detailed custom quote after we review your itinerary.
             </p>
           </form>
           <div class="estimate-result" id="estimateResult" aria-live="polite">
             <p class="estimate-label">Estimated range</p>
             <p class="estimate-price">Build your estimate</p>
+            <p class="estimate-guest-cap" data-estimate-guest-cap hidden>For up to 14 guests</p>
             <p class="estimate-breakdown" id="estimateBreakdown">
               Enter your route details for a single-day planning range.
             </p>
             <p class="estimate-note">
               Add your route details to see a planning range.
             </p>
-            <a class="estimate-quote-link" href="#quote" hidden>Request a custom quote</a>
+            <div class="estimate-special" id="estimateSpecial" hidden>
+              <span class="estimate-special-label" data-estimate-special-label></span>
+              <strong data-estimate-special-title></strong>
+              <p data-estimate-special-copy></p>
+            </div>
+            <a class="estimate-quote-link" href="#quote" data-quote-service hidden>Build a detailed quote</a>
           </div>
         </div>
       </section>
@@ -952,12 +1172,19 @@
           <input type="hidden" name="utm_campaign" />
           <input type="hidden" name="utm_term" />
           <input type="hidden" name="utm_content" />
+          <input type="hidden" name="gclid" />
+          <input type="hidden" name="gbraid" />
+          <input type="hidden" name="wbraid" />
           <input type="hidden" name="lead_landing_page" />
           <input type="hidden" name="lead_referrer" />
           <input type="hidden" name="lead_submit_page" />
           <input type="hidden" name="lead_first_seen_at" />
           <input type="hidden" name="lead_last_touch_at" />
           <input type="hidden" name="lead_source_summary" />
+          <input type="hidden" name="tripPackage" />
+          <p class="quote-trip-selection full" data-quote-trip-selection hidden aria-live="polite">
+            Planning: <strong data-quote-trip-name></strong>
+          </p>
           <label>
             Full name
             <input type="text" name="name" required />
@@ -971,47 +1198,176 @@
             <input type="tel" name="phone" />
           </label>
           <label>
+            Event type
+            <select name="eventType" required>
+              <option value="">Select one</option>
+              <option value="airport">Airport Transfer</option>
+              <option value="bach">Bachelor/Bachelorette</option>
+              <option value="barcrawl">Boston Bar Crawl</option>
+              <option value="birthday">Birthday Celebration</option>
+              <option value="cape">Cape Cod Trip</option>
+              <option value="concert">Concert Night</option>
+              <option value="corporate">Corporate Outing</option>
+              <option value="family">Family Outing / Field Trip</option>
+              <option value="golf">Golf Outing</option>
+              <option value="islandferry">Island Ferry Transfer (Drop-Off / Same-Day Pickup Only)</option>
+              <option value="local">Local Day Route</option>
+              <option value="nightlife">Night Out</option>
+              <option value="sports">Sporting Event / Game Day</option>
+              <option value="wedding">Wedding</option>
+              <option value="whitemountains">White Mountains / Northern NH</option>
+              <option value="other">&gt;&gt; Other (Custom Trip)</option>
+            </select>
+          </label>
+          <fieldset class="trip-direction full quote-direction" data-quote-direction-field>
+            <legend>Trip direction</legend>
+            <div class="segment-control" role="radiogroup" aria-label="Trip direction">
+              <label class="segment-option">
+                <input type="radio" name="tripDirection" value="oneWay" required />
+                <span>One way</span>
+              </label>
+              <label class="segment-option">
+                <input type="radio" name="tripDirection" value="roundTrip" />
+                <span>Round trip</span>
+              </label>
+            </div>
+          </fieldset>
+          <label>
             Event date
-            <input type="date" name="date" required />
+            <input type="date" name="pickupDate" required />
+          </label>
+          <label>
+            Pickup time
+            <select name="pickupTime" data-time-select required>
+              <option value="">Select a time</option>
+            </select>
           </label>
           <label>
             Pickup location
             <input type="text" name="pickup" required />
           </label>
-          <label>
-            Drop-off location
+          <label data-quote-duration-field hidden>
+            Duration needed
+            <select name="durationHours">
+              <option value="">Select hours</option>
+              <option value="3">3 hours</option>
+              <option value="4">4 hours</option>
+              <option value="5">5 hours</option>
+              <option value="6">6 hours</option>
+              <option value="7">7 hours</option>
+              <option value="8">8 hours</option>
+              <option value="9">9 hours</option>
+              <option value="10">10 hours</option>
+              <option value="11">11 hours</option>
+              <option value="12">12 hours</option>
+              <option value="13">13 hours</option>
+              <option value="14">14 hours</option>
+            </select>
+          </label>
+          <label data-quote-scheduled-field>
+            <span data-dropoff-time-label>Destination drop-off time</span>
+            <select name="destinationDropoffTime" data-time-select required>
+              <option value="">Select a time</option>
+            </select>
+          </label>
+          <label data-quote-destination-location-field>
+            <span data-destination-location-label>Event location</span>
             <input type="text" name="dropoff" required />
           </label>
-          <label>
-            Event type
-            <select name="eventType" required>
+          <label data-quote-roundtrip-time hidden>
+            Return pickup time
+            <select name="destinationPickupTime" data-time-select>
+              <option value="">Select a time</option>
+            </select>
+          </label>
+          <label class="full" data-quote-final-location-field hidden>
+            Final drop-off location
+            <input
+              type="text"
+              name="finalDropoff"
+              placeholder="Only if different from pickup location"
+            />
+          </label>
+          <label class="check full" data-quote-final-location hidden>
+            <input type="checkbox" name="finalLocationSameAsPickup" checked />
+            Same as pickup location
+          </label>
+          <label class="quote-sports-venue" data-quote-sports-venue hidden>
+            Sports venue
+            <select name="sportsVenue">
               <option value="">Select one</option>
-              <option value="airport">Airport</option>
-              <option value="wedding">Wedding</option>
-              <option value="birthday">Birthday</option>
-              <option value="bachelor">Bachelor Party</option>
-              <option value="bachelorette">Bachelorette Party</option>
-              <option value="family">Family Outing / Field Trip</option>
-              <option value="bar-crawl">Boston Bar Crawl</option>
-              <option value="concert">Concert</option>
-              <option value="island-ferry">Island Ferry Transfer</option>
-              <option value="white-mountains">White Mountains / Northern NH</option>
-              <option value="multi-day">Multi-Day / Overnight Trip</option>
-              <option value="corporate">Corporate Outing</option>
+              <option value="td-garden">TD Garden</option>
+              <option value="fenway-park">Fenway Park</option>
+              <option value="gillette-stadium">Gillette Stadium</option>
+              <option value="white-stadium">White Stadium</option>
               <option value="other">Other</option>
             </select>
+          </label>
+          <label class="quote-other-venue" data-quote-other-venue hidden>
+            Other venue
+            <input type="text" name="otherSportsVenue" placeholder="Venue name" />
+          </label>
+          <label class="quote-sports-plan" data-quote-sports-plan hidden>
+            Game-day plan
+            <select name="sportsPlan">
+              <option value="">Select a venue first</option>
+            </select>
+            <span class="field-hint" data-quote-sports-plan-hint></span>
+          </label>
+          <fieldset class="custom-service-options full">
+            <legend>Custom service requests <span class="field-hint">(optional)</span></legend>
+            <label class="check">
+              <input type="checkbox" name="customServices" value="multi_day" />
+              Multi-day or overnight service
+            </label>
+            <label class="check">
+              <input type="checkbox" name="customServices" value="on_demand" />
+              On-demand or on-call service
+            </label>
+            <label class="check">
+              <input type="checkbox" name="customServices" value="stay_on_island" />
+              Stay-on-island service
+            </label>
+            <label class="check">
+              <input type="checkbox" name="customServices" value="multi_stop" />
+              Multi-stop itinerary
+            </label>
+          </fieldset>
+          <label data-custom-service-field="multi_day" hidden>
+            Service end date
+            <input type="date" name="serviceEndDate" />
+          </label>
+          <label data-custom-service-field="stay_on_island" hidden>
+            Island
+            <select name="islandDestination">
+              <option value="">Select one</option>
+              <option value="Martha's Vineyard">Martha's Vineyard</option>
+              <option value="Nantucket">Nantucket</option>
+              <option value="Other / undecided">Other / undecided</option>
+            </select>
+          </label>
+          <label class="full" data-custom-service-field="on_demand" hidden>
+            On-call availability window
+            <input
+              type="text"
+              name="onDemandWindow"
+              placeholder="Example: Available from 3pm through midnight, with rides on request"
+            />
           </label>
           <label>
             Guest count
             <input type="number" min="1" max="14" name="guestCount" required />
           </label>
           <label class="full">
-            Trip notes
+            Route and service details
             <textarea
               name="notes"
-              rows="4"
-              placeholder="Any stops, timing details, special requests..."
+              rows="5"
+              placeholder="Include your stop list, timing, special requests, ferry or overnight details, and any times you would like the van on call..."
             ></textarea>
+            <span class="field-hint" data-custom-service-notes-hint hidden>
+              Please include the dates, service windows, overnight location, ferry details, and stop sequence that apply.
+            </span>
           </label>
           <label>
             Best contact method
@@ -1182,6 +1538,6 @@
       <a class="mobile-tertiary" href="#services">Trips</a>
     </div>
 
-    <script src="script.js?v=1.5.6-trip-tracking"></script>
+    <script src="script.js?v=1.5.6-estimator-refresh"></script>
   </body>
 </html>
