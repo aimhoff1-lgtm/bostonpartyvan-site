@@ -510,6 +510,12 @@ if (estimateForm && estimateResult) {
     }
   }
 
+  function applyAirportTransferDefault() {
+    if (tripTypeInput?.value !== "airport" || !hoursInput) return;
+    selectTripDirection("oneWay");
+    hoursInput.value = "3";
+  }
+
   function clearEstimateSpecial() {
     if (!estimateSpecial) return;
     estimateSpecial.hidden = true;
@@ -629,7 +635,7 @@ if (estimateForm && estimateResult) {
 
   tripTypeInput?.addEventListener("change", () => {
     if (tripTypeInput.value === "airport") {
-      selectTripDirection("oneWay");
+      applyAirportTransferDefault();
     }
     syncStayOnIslandAvailability();
     syncEstimateHoursLimit();
@@ -662,6 +668,7 @@ if (estimateForm && estimateResult) {
   syncStayOnIslandAvailability();
   syncEstimateHoursLimit();
   syncSportsPlanAvailability();
+  applyAirportTransferDefault();
   applyTripTypePaceDefault();
   syncPaceValue();
   clearEstimateSpecial();
@@ -758,6 +765,7 @@ if (estimateForm && estimateResult) {
     const qualifiesForAirportTransfer =
       tripType === "airport" &&
       tripDirection === "oneWay" &&
+      reservedHours === 3 &&
       miles <= 50 &&
       !hasMultiStop;
 
@@ -778,9 +786,9 @@ if (estimateForm && estimateResult) {
       } else if (qualifiesForAirportTransfer) {
         price.textContent = "$300 flat";
         breakdown.textContent =
-          "One direct Logan Airport transfer for up to 14 guests, within 50 estimated miles of Logan.";
+          "Three hours for one direct, no-stop transfer between Logan Airport and one destination, for up to 14 guests.";
         note.textContent =
-          "For a simple one-way airport route. Final timing and availability are confirmed before booking.";
+          "Available within 50 estimated miles of Logan. Add time or stops to see a standard planning range.";
       } else {
         price.textContent = `${formatUsd(low)} - ${formatUsd(high)}`;
         breakdown.textContent =
@@ -815,7 +823,7 @@ if (estimateForm && estimateResult) {
       showEstimateSpecial({
         label: "Eligible special",
         title: "Your Logan airport transfer qualifies.",
-        copy: "Your estimate includes the $300 flat one-way airport transfer. We will confirm your flight timing and availability before booking.",
+        copy: "Your estimate includes the $300 flat three-hour, one-way airport transfer with no stops between Logan and one destination. We will confirm flight timing and availability before booking.",
       });
     } else if (tripType === "wedding" && reservedHours >= 5) {
       showEstimateSpecial({
