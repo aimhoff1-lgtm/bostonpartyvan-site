@@ -1,5 +1,3 @@
-const FORM_SUBMIT_ENDPOINT =
-  "https://formsubmit.co/ajax/902c76a22ec98900ac487ed64bc69c35";
 const DEFAULT_FROM = "Boston Party Van <bookings@bostonpartyvan.com>";
 const ALLOWED_ORIGINS = new Set([
   "https://www.bostonpartyvan.com",
@@ -116,72 +114,52 @@ function buildReceiptEmail(receipt) {
   return { subject: details.subject, text, html };
 }
 
-async function handleQuoteRequest(request, env) {
+async function handleQuoteReceipt(request, env) {
   const origin = request.headers.get("Origin");
   if (origin && !ALLOWED_ORIGINS.has(origin)) {
     return Response.json({ success: false, message: "Invalid request origin." }, { status: 403 });
   }
 
-  let payload;
+  let receipt;
   try {
-    payload = await request.json();
+    receipt = await request.json();
   } catch {
     return Response.json({ success: false, message: "Invalid request." }, { status: 400 });
   }
 
-  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+  if (!receipt || typeof receipt !== "object" || Array.isArray(receipt)) {
     return Response.json({ success: false, message: "Invalid request." }, { status: 400 });
   }
 
-  const receipt = payload._bpv_receipt;
-  delete payload._bpv_receipt;
-  if (!receipt || typeof receipt !== "object" || !receipt.email) {
+  if (!receipt.email) {
     return Response.json({ success: false, message: "Missing receipt details." }, { status: 400 });
   }
 
-  const formSubmitResponse = await fetch(FORM_SUBMIT_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-  const formSubmitResult = await formSubmitResponse.json().catch(() => ({}));
-  const submitted =
-    formSubmitResponse.ok &&
-    (formSubmitResult.success === true || formSubmitResult.success === "true");
-
-  if (!submitted) {
-    return Response.json(
-      { success: false, message: formSubmitResult.message || "Submission failed." },
-      { status: 502 }
-    );
+  if (!env.RESEND_API_KEY) {
+    console.warn("Quote receipt skipped: RESEND_API_KEY is not configured.");
+    return Response.json({ success: true });
   }
 
-  if (env.RESEND_API_KEY) {
-    const receiptEmail = buildReceiptEmail(receipt);
-    const resendResponse = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${env.RESEND_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: env.RESEND_FROM_EMAIL || DEFAULT_FROM,
-        to: [receipt.email],
-        subject: receiptEmail.subject,
-        html: receiptEmail.html,
-        text: receiptEmail.text,
-        reply_to: "aimhoff1@gmail.com",
-      }),
-    });
+  const receiptEmail = buildReceiptEmail(receipt);
+  const resendResponse = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: env.RESEND_FROM_EMAIL || DEFAULT_FROM,
+      to: [receipt.email],
+      subject: receiptEmail.subject,
+      html: receiptEmail.html,
+      text: receiptEmail.text,
+      reply_to: "aimhoff1@gmail.com",
+    }),
+  });
 
-    if (!resendResponse.ok) {
-      console.error("Quote receipt email failed", await resendResponse.text());
-    }
-  } else {
-    console.warn("Quote receipt skipped: RESEND_API_KEY is not configured.");
+  if (!resendResponse.ok) {
+    console.error("Quote receipt email failed", await resendResponse.text());
+    return Response.json({ success: false, message: "Confirmation email failed." }, { status: 502 });
   }
 
   return Response.json({ success: true });
@@ -197,8 +175,8 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
-    if (url.pathname === "/api/quote" && request.method === "POST") {
-      return handleQuoteRequest(request, env);
+    if (url.pathname === "/api/quote-receipt" && request.method === "POST") {
+      return handleQuoteReceipt(request, env);
     }
 
     return env.ASSETS.fetch(request);

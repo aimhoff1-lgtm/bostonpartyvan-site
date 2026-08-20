@@ -876,10 +876,9 @@ if (estimateForm && estimateResult) {
 
 const quoteForm = document.getElementById("quoteForm");
 const quoteSuccess = document.getElementById("quoteSuccess");
-const FORM_SUBMIT_ENDPOINT =
-  "https://formsubmit.co/ajax/902c76a22ec98900ac487ed64bc69c35";
 const INTAKE_ENDPOINT =
-  window.location.protocol === "file:" ? FORM_SUBMIT_ENDPOINT : "/api/quote";
+  "https://formsubmit.co/ajax/902c76a22ec98900ac487ed64bc69c35";
+const QUOTE_RECEIPT_ENDPOINT = "/api/quote-receipt";
 const ATTRIBUTION_STORAGE_KEY = "bpv_attribution_v1";
 const TRACKED_ATTRIBUTION_KEYS = [
   "utm_source",
@@ -1221,6 +1220,23 @@ function buildQuoteReceiptData(data) {
     eventTypeLabel: eventTypeLabels[eventType] || "Custom Trip",
     contactPreference: normalizeValue(data.get("contactPreference")),
   };
+}
+
+async function sendQuoteReceipt(receipt) {
+  if (window.location.protocol === "file:") return;
+
+  const response = await fetch(QUOTE_RECEIPT_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(receipt),
+  });
+
+  if (!response.ok) {
+    throw new Error("Quote confirmation could not be sent.");
+  }
 }
 
 function buildLeadEventParams(data) {
@@ -1902,10 +1918,8 @@ if (quoteForm && quoteSuccess) {
 
       setQuoteMessage("Sending your request...", "sending");
 
-      const payload = {
-        ...buildIntakePayload(data),
-        _bpv_receipt: buildQuoteReceiptData(data),
-      };
+      const payload = buildIntakePayload(data);
+      const receipt = buildQuoteReceiptData(data);
       const response = await fetch(INTAKE_ENDPOINT, {
         method: "POST",
         headers: {
@@ -1928,6 +1942,10 @@ if (quoteForm && quoteSuccess) {
         }
         throw new Error(result.message || "Submission failed");
       }
+
+      sendQuoteReceipt(receipt).catch((error) => {
+        console.error("Quote confirmation email failed", error);
+      });
 
       setQuoteMessage(
         `Thanks ${name || "there"}! Your request is in. We typically reply within 30-60 minutes between 8am-9pm ET (same day otherwise).`,
