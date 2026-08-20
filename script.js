@@ -876,8 +876,10 @@ if (estimateForm && estimateResult) {
 
 const quoteForm = document.getElementById("quoteForm");
 const quoteSuccess = document.getElementById("quoteSuccess");
-const INTAKE_ENDPOINT =
+const FORM_SUBMIT_ENDPOINT =
   "https://formsubmit.co/ajax/902c76a22ec98900ac487ed64bc69c35";
+const INTAKE_ENDPOINT =
+  window.location.protocol === "file:" ? FORM_SUBMIT_ENDPOINT : "/api/quote";
 const ATTRIBUTION_STORAGE_KEY = "bpv_attribution_v1";
 const TRACKED_ATTRIBUTION_KEYS = [
   "utm_source",
@@ -1188,6 +1190,36 @@ function buildIntakePayload(data) {
     _template: "table",
     _captcha: "false",
     _replyto: data.get("email") || "",
+  };
+}
+
+function buildQuoteReceiptData(data) {
+  const eventType = normalizeValue(data.get("eventType"));
+  const eventTypeLabels = {
+    airport: "Airport Transfer",
+    sports: "Sporting Event / Game Day",
+    wedding: "Wedding",
+    birthday: "Birthday Celebration",
+    nightlife: "Night Out",
+    family: "Family Outing / Field Trip",
+    golf: "Golf Outing",
+    cape: "Cape Cod Trip",
+    islandferry: "Island Ferry Transfer",
+    whitemountains: "White Mountains / Northern NH",
+    bach: "Bachelor/Bachelorette",
+    barcrawl: "Boston Bar Crawl",
+    local: "Local Day Route",
+    concert: "Concert Night",
+    corporate: "Corporate Outing",
+    other: "Custom Trip",
+  };
+
+  return {
+    name: normalizeValue(data.get("name")),
+    email: normalizeValue(data.get("email")),
+    eventType,
+    eventTypeLabel: eventTypeLabels[eventType] || "Custom Trip",
+    contactPreference: normalizeValue(data.get("contactPreference")),
   };
 }
 
@@ -1870,7 +1902,10 @@ if (quoteForm && quoteSuccess) {
 
       setQuoteMessage("Sending your request...", "sending");
 
-      const payload = buildIntakePayload(data);
+      const payload = {
+        ...buildIntakePayload(data),
+        _bpv_receipt: buildQuoteReceiptData(data),
+      };
       const response = await fetch(INTAKE_ENDPOINT, {
         method: "POST",
         headers: {
