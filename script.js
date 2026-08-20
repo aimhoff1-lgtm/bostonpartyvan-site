@@ -1188,6 +1188,7 @@ function buildIntakePayload(data) {
     _subject: `New Quote Request - ${name} - ${eventTypeLabel}`,
     _template: "table",
     _captcha: "false",
+    _cc: "bostonpartyvan@gmail.com",
     _replyto: data.get("email") || "",
   };
 }
