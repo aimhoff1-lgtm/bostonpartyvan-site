@@ -156,9 +156,9 @@ function buildReceiptEmail(receipt) {
     call: "phone call",
     email: "email",
   }[receipt.contactPreference];
-  const contactCopy = contactMethod
-    ? ` I will use ${contactMethod} when I follow up.`
-    : "";
+  const followUpCopy = contactMethod
+    ? `I will review the details and follow up soon via ${contactMethod}.`
+    : "I will review the details and follow up soon.";
   const safeName = htmlEscape(firstName);
   const text = [
     `Hi ${firstName},`,
@@ -166,7 +166,7 @@ function buildReceiptEmail(receipt) {
     "Thanks for reaching out to Boston Party Van. Your request is in.",
     "",
     details.copy,
-    `I will review the details and follow up soon.${contactCopy}`,
+    followUpCopy,
     "",
     "This is a confirmation of your inquiry, not a booking confirmation.",
     "",
@@ -174,7 +174,7 @@ function buildReceiptEmail(receipt) {
     "Boston Party Van",
     "(617) 515-3702",
   ].join("\n");
-  const html = `<!doctype html><html><body style="margin:0;background:#f4f7fb;color:#132232;font-family:Arial,sans-serif;"><div style="max-width:600px;margin:0 auto;padding:32px 20px;"><div style="padding:28px;background:#061725;border-radius:12px 12px 0 0;"><p style="margin:0;color:#35d2c3;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Boston Party Van</p><h1 style="margin:12px 0 0;color:#ffffff;font-size:28px;line-height:1.2;">Your request is in.</h1></div><div style="padding:28px;background:#ffffff;border-radius:0 0 12px 12px;"><p style="margin:0 0 18px;font-size:17px;line-height:1.6;">Hi ${safeName},</p><p style="margin:0 0 18px;font-size:17px;line-height:1.6;">Thanks for reaching out to Boston Party Van. I received your request.</p><p style="margin:0 0 18px;font-size:17px;line-height:1.6;">${htmlEscape(details.copy)}</p><p style="margin:0 0 18px;font-size:17px;line-height:1.6;">I will review the details and follow up soon.${htmlEscape(contactCopy)}</p><p style="margin:24px 0 0;padding-top:18px;border-top:1px solid #d9e1e8;color:#587083;font-size:14px;line-height:1.5;">This confirms your inquiry, not a booking confirmation.</p><p style="margin:24px 0 0;font-size:16px;line-height:1.6;">Andrew<br /><strong>Boston Party Van</strong><br />(617) 515-3702</p></div></div></body></html>`;
+  const html = `<!doctype html><html><body style="margin:0;background:#f4f7fb;color:#132232;font-family:Arial,sans-serif;"><div style="max-width:600px;margin:0 auto;padding:32px 20px;"><div style="padding:28px;background:#061725;border-radius:12px 12px 0 0;"><p style="margin:0;color:#35d2c3;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Boston Party Van</p><h1 style="margin:12px 0 0;color:#ffffff;font-size:28px;line-height:1.2;">Your request is in.</h1></div><div style="padding:28px;background:#ffffff;border-radius:0 0 12px 12px;"><p style="margin:0 0 18px;font-size:17px;line-height:1.6;">Hi ${safeName},</p><p style="margin:0 0 18px;font-size:17px;line-height:1.6;">Thanks for reaching out to Boston Party Van. I received your request.</p><p style="margin:0 0 18px;font-size:17px;line-height:1.6;">${htmlEscape(details.copy)}</p><p style="margin:0 0 18px;font-size:17px;line-height:1.6;">${htmlEscape(followUpCopy)}</p><p style="margin:24px 0 0;padding-top:18px;border-top:1px solid #d9e1e8;color:#587083;font-size:14px;line-height:1.5;">This confirms your inquiry, not a booking confirmation.</p><p style="margin:24px 0 0;font-size:16px;line-height:1.6;">Andrew<br /><strong>Boston Party Van</strong><br />(617) 515-3702</p></div></div></body></html>`;
 
   return { subject: details.subject, text, html };
 }
