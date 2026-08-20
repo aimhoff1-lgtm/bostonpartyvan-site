@@ -1218,6 +1218,8 @@ function buildQuoteReceiptData(data) {
     email: normalizeValue(data.get("email")),
     eventType,
     eventTypeLabel: eventTypeLabels[eventType] || "Custom Trip",
+    tripDirection: normalizeValue(data.get("tripDirection")),
+    sportsVenue: normalizeValue(data.get("sportsVenue")),
     contactPreference: normalizeValue(data.get("contactPreference")),
   };
 }
