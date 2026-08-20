@@ -1692,6 +1692,9 @@ if (quoteForm && quoteSuccess) {
       quoteFinalDropoffField.hidden = usesDuration || !isRoundTrip;
     }
     if (usesDuration) {
+      quoteDirectionInputs.forEach((input) => {
+        input.required = false;
+      });
       if (destinationPickupTimeInput) destinationPickupTimeInput.required = false;
       if (finalDropoffInput) finalDropoffInput.required = false;
     } else {
