@@ -132,6 +132,16 @@ function normalizeTripType(value) {
 
 const menuToggle = document.querySelector(".menu-toggle");
 const mainNav = document.querySelector(".main-nav");
+const siteHeader = document.querySelector(".site-header");
+
+if (siteHeader) {
+  const syncHeaderCompactState = () => {
+    siteHeader.classList.toggle("is-compact", window.scrollY > 24);
+  };
+
+  syncHeaderCompactState();
+  window.addEventListener("scroll", syncHeaderCompactState, { passive: true });
+}
 
 if (menuToggle && mainNav) {
   menuToggle.addEventListener("click", () => {
