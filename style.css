@@ -1191,10 +1191,92 @@ textarea:focus {
   color: var(--text-soft);
 }
 
+.main-nav .nav-current {
+  color: var(--accent-cool);
+}
+
+#reviews {
+  scroll-margin-top: 7.25rem;
+}
+
+.shop-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.shop-main {
+  width: var(--content-width);
+  flex: 1;
+  margin: 0 auto;
+  padding: 4.5rem 0 5rem;
+}
+
+.shop-product {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  min-height: calc(100vh - 12rem);
+}
+
+.shop-product-media {
+  display: grid;
+  min-height: 31rem;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(18, 46, 66, 0.9), rgba(8, 20, 32, 0.95));
+}
+
+.shop-product-media img {
+  display: block;
+  width: min(100%, 27rem);
+  height: auto;
+  object-fit: contain;
+}
+
+.shop-product-copy {
+  max-width: 37rem;
+}
+
+.shop-product-copy h1 {
+  max-width: 10ch;
+  font-size: 3.75rem;
+}
+
+.shop-product-copy .section-intro {
+  max-width: 47ch;
+  margin-top: 1rem;
+}
+
+.shop-sold-out {
+  margin-top: 1.6rem;
+  padding-left: 0.85rem;
+  border-left: 3px solid var(--accent-hot);
+  color: var(--text-main);
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.shop-product-note {
+  margin-top: 0.75rem;
+  color: var(--text-soft);
+}
+
 .reviews-section {
   margin-top: 2.25rem;
   padding-top: 2.25rem;
   border-top: 1px solid var(--line);
+}
+
+main > .reviews-section {
+  width: var(--content-width);
+  margin: 0 auto;
+  padding: 5.4rem 0 1rem;
+  border-top: 0;
 }
 
 .reviews-heading {
@@ -1792,6 +1874,24 @@ textarea:focus {
     grid-template-columns: 1fr;
   }
 
+  .shop-main {
+    padding-top: 2.35rem;
+  }
+
+  .shop-product {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    min-height: auto;
+  }
+
+  .shop-product-media {
+    min-height: 23rem;
+  }
+
+  .shop-product-copy h1 {
+    font-size: 2.9rem;
+  }
+
   .reviews-heading {
     grid-template-columns: 1fr;
     align-items: start;
@@ -1881,6 +1981,14 @@ textarea:focus {
     scroll-margin-top: 4.5rem;
   }
 
+  #reviews {
+    scroll-margin-top: 4.5rem;
+  }
+
+  main > .reviews-section {
+    padding: 4rem 0 1rem;
+  }
+
   html,
   body {
     background: #091420;
@@ -1916,6 +2024,26 @@ textarea:focus {
 
   .hero h1 {
     color: #ffffff;
+  }
+
+  .shop-main {
+    padding: 2rem 0 4.5rem;
+  }
+
+  .shop-product {
+    gap: 1.6rem;
+  }
+
+  .shop-product-media {
+    min-height: 19rem;
+  }
+
+  .shop-product-media img {
+    width: min(100%, 20rem);
+  }
+
+  .shop-product-copy h1 {
+    font-size: 2.3rem;
   }
 
   .hero-sub {

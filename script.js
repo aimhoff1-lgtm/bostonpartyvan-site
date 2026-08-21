@@ -150,11 +150,15 @@ if (menuToggle && mainNav) {
 const fleetSection = document.querySelector("#fleet");
 const bookingMapSection = document.querySelector(".process");
 const whyUsSection = document.querySelector("#why-us");
+const reviewsSection = document.querySelector("#reviews");
 const coverageSection = document.querySelector("#coverage");
 const faqSection = document.querySelector("#faq");
 const quoteSection = document.querySelector("#quote");
 
 if (fleetSection && whyUsSection) {
+  if (reviewsSection) {
+    fleetSection.before(reviewsSection);
+  }
   fleetSection.after(whyUsSection);
 }
 
