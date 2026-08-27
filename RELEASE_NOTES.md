@@ -1,5 +1,22 @@
 # Release Notes
 
+## V1.5.8 (Draft) - Small-Group Search Visibility
+
+### Changed
+- Repositioned the homepage around private Boston group transportation for up to 14 guests
+- Added clear homepage links to a dedicated 6–14 passenger transportation page without adding another navigation tab
+- Added a direct landing page for people searching for a party bus or private ride for 6, 8, 10, 12, or 14 people
+- Added small-group, vehicle, service-area, FAQ, review, and business contact information for search systems
+- Restored the public business phone number and added `bostonpartyvan@gmail.com` as the public business email
+- Added the new landing page to the sitemap
+
+### Test Checklist
+- Homepage headline immediately states Boston, private group transportation, and capacity up to 14
+- Homepage hero, fleet section, and footer link to the new small-group page
+- The new page directly answers both 10-person and 6–14-person transportation searches
+- Phone and business email links work on the homepage and new landing page
+- New landing page appears in the sitemap and has matching canonical and structured data URLs
+
 ## V1.5.4 (Draft) - Trip Menu Guide Cleanup
 
 ### Changed

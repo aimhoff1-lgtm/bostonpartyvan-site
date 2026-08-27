@@ -305,6 +305,20 @@ a {
   font-size: clamp(1rem, 1.6vw, 1.18rem);
 }
 
+.hero-copy .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1.25rem;
+}
+
+.hero-copy .hero-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .btn {
   border: 1px solid transparent;
   border-radius: 999px;
@@ -584,6 +598,11 @@ a {
   margin: 0 0 1rem;
   color: var(--text-soft);
   max-width: 70ch;
+}
+
+.fleet-note a {
+  color: var(--accent-cool);
+  font-weight: 700;
 }
 
 .fleet-card {
