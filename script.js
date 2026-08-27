@@ -121,6 +121,8 @@ function normalizeTripType(value) {
     "bar-crawl": "bar_crawl",
     local: "local_day_route",
     corporate: "corporate_outing",
+    shuttlehire: "shuttle_van_hire",
+    "shuttle-hire": "shuttle_van_hire",
     concert: "concert",
     birthday: "birthday",
     "multi-day": "multi_day",
@@ -425,6 +427,25 @@ function populateTimeSelects(form) {
 if (estimateForm && estimateResult) {
   const tripTypeInput = estimateForm.querySelector('[name="tripType"]');
   const hoursInput = estimateForm.querySelector('[name="hours"]');
+  const hoursLabel = estimateForm.querySelector("[data-estimate-hours-label]");
+  const shuttleHireTermField = estimateForm.querySelector(
+    "[data-estimate-shuttle-term]"
+  );
+  const shuttleHireTermInput = estimateForm.querySelector(
+    '[name="shuttleHireTerm"]'
+  );
+  const estimateDirectionField = estimateForm.querySelector(
+    "[data-estimate-direction-field]"
+  );
+  const estimateMilesField = estimateForm.querySelector(
+    "[data-estimate-miles-field]"
+  );
+  const estimatePaceField = estimateForm.querySelector(
+    "[data-estimate-pace-field]"
+  );
+  const estimateMultiDayOption = estimateForm.querySelector(
+    "[data-estimate-multi-day-option]"
+  );
   const tripDirectionInputs = estimateForm.querySelectorAll(
     '[name="tripDirection"]'
   );
@@ -433,6 +454,7 @@ if (estimateForm && estimateResult) {
   );
   const paceValue = estimateForm.querySelector("[data-pace-value]");
   const stayOnIslandInput = estimateForm.querySelector('[name="stayOnIsland"]');
+  const multiDayInput = estimateForm.querySelector('[name="multiDay"]');
   const stayOnIslandLabel = estimateForm.querySelector("[data-stay-on-island]");
   const estimateSpecial = document.getElementById("estimateSpecial");
   const estimateSpecialLabel = estimateResult.querySelector(
@@ -481,6 +503,7 @@ if (estimateForm && estimateResult) {
     cape: { oneWay: 100, roundTrip: 75 },
     concert: { oneWay: 75, roundTrip: 25 },
     corporate: { oneWay: 75, roundTrip: 50 },
+    shuttlehire: { oneWay: 100, roundTrip: 100 },
     family: { oneWay: 75, roundTrip: 50 },
     golf: { oneWay: 75, roundTrip: 50 },
     islandferry: { oneWay: 100, roundTrip: 75 },
@@ -517,11 +540,42 @@ if (estimateForm && estimateResult) {
   function syncEstimateHoursLimit() {
     if (!hoursInput) return;
 
-    const maximumHours = tripTypeInput?.value === "barcrawl" ? 7 : 14;
-    hoursInput.max = String(maximumHours);
-    if (Number(hoursInput.value) > maximumHours) {
-      hoursInput.value = String(maximumHours);
+    const isShuttleHire = tripTypeInput?.value === "shuttlehire";
+    const isLongTermShuttle =
+      isShuttleHire && shuttleHireTermInput?.value !== "single_day";
+    const maximumHours =
+      tripTypeInput?.value === "barcrawl" ? 7 : isLongTermShuttle ? null : 14;
+    if (maximumHours) {
+      hoursInput.max = String(maximumHours);
+      if (Number(hoursInput.value) > maximumHours) {
+        hoursInput.value = String(maximumHours);
+      }
+    } else {
+      hoursInput.removeAttribute("max");
     }
+    if (hoursLabel) {
+      hoursLabel.textContent = isLongTermShuttle
+        ? "Total reserved service hours"
+        : "Hours needed";
+    }
+  }
+
+  function syncShuttleHireFields() {
+    if (!tripTypeInput) return;
+
+    const isShuttleHire = tripTypeInput.value === "shuttlehire";
+    if (shuttleHireTermField) shuttleHireTermField.hidden = !isShuttleHire;
+    if (shuttleHireTermInput) shuttleHireTermInput.required = isShuttleHire;
+    if (estimateDirectionField) estimateDirectionField.hidden = isShuttleHire;
+    if (estimateMilesField) estimateMilesField.hidden = isShuttleHire;
+    if (estimatePaceField) estimatePaceField.hidden = isShuttleHire;
+    if (estimateMultiDayOption) estimateMultiDayOption.hidden = isShuttleHire;
+    if (multiDayInput && isShuttleHire) multiDayInput.checked = false;
+    if (isShuttleHire && activityLevelInput) {
+      activityLevelInput.value = "100";
+      syncPaceValue();
+    }
+    syncEstimateHoursLimit();
   }
 
   function applyAirportTransferDefault() {
@@ -652,9 +706,28 @@ if (estimateForm && estimateResult) {
       applyAirportTransferDefault();
     }
     syncStayOnIslandAvailability();
-    syncEstimateHoursLimit();
+    syncShuttleHireFields();
     syncSportsPlanAvailability();
     applyTripTypePaceDefault();
+    if (tripTypeInput.value === "shuttlehire" && activityLevelInput) {
+      activityLevelInput.value = "100";
+      syncPaceValue();
+    }
+    clearEstimateSpecial();
+  });
+  shuttleHireTermInput?.addEventListener("change", () => {
+    const defaultHoursByTerm = {
+      single_day: 4,
+      multi_day: 16,
+      weekly: 40,
+      monthly: 80,
+    };
+    if (hoursInput) {
+      hoursInput.value = String(
+        defaultHoursByTerm[shuttleHireTermInput.value] || 4
+      );
+    }
+    syncEstimateHoursLimit();
     clearEstimateSpecial();
   });
   tripDirectionInputs.forEach((input) => {
@@ -680,7 +753,7 @@ if (estimateForm && estimateResult) {
   estimateForm.addEventListener("input", clearEstimateSpecial);
   estimateForm.addEventListener("change", clearEstimateSpecial);
   syncStayOnIslandAvailability();
-  syncEstimateHoursLimit();
+  syncShuttleHireFields();
   syncSportsPlanAvailability();
   applyAirportTransferDefault();
   applyTripTypePaceDefault();
@@ -699,7 +772,11 @@ if (estimateForm && estimateResult) {
     const enteredTotalMiles = tripDirection === "roundTrip" ? miles * 2 : miles;
     const estimatedMileageBand = Math.ceil(enteredTotalMiles / 5) * 5;
     const activityLevel = Number(data.get("activityLevel")) || 50;
-    const isMultiDay = data.get("multiDay") === "on";
+    const shuttleHireTerm = data.get("shuttleHireTerm") || "single_day";
+    const isShuttleHire = tripType === "shuttlehire";
+    const isMultiDay =
+      data.get("multiDay") === "on" ||
+      (isShuttleHire && shuttleHireTerm !== "single_day");
     const hasStayOnIsland = data.get("stayOnIsland") === "on";
     const hasMultiStop = data.get("multiStop") === "on";
     const sportsPlan = data.get("sportsPlan") || "";
@@ -711,7 +788,8 @@ if (estimateForm && estimateResult) {
     const guestCap = estimateResult.querySelector("[data-estimate-guest-cap]");
     const quoteLink = estimateResult.querySelector(".estimate-quote-link");
     const needsCustomQuote =
-      isMultiDay || (tripType === "islandferry" && hasStayOnIsland);
+      (isMultiDay && !isShuttleHire) ||
+      (tripType === "islandferry" && hasStayOnIsland);
 
     if (needsCustomQuote && price && breakdown && note && quoteLink) {
       clearEstimateSpecial();
@@ -741,6 +819,43 @@ if (estimateForm && estimateResult) {
         multi_day: isMultiDay ? "true" : "false",
         stay_on_island: hasStayOnIsland ? "true" : "false",
         estimate_outcome: "custom_quote",
+        page_path: window.location.pathname,
+      });
+      trackGoogleAdsEstimateConversion();
+      return;
+    }
+
+    if (isShuttleHire && price && breakdown && note && quoteLink) {
+      const reservedHours = Math.max(hours, 3);
+      const shuttleBaseRate = 175;
+      const shuttleBase = reservedHours * shuttleBaseRate;
+      const termLabels = {
+        single_day: "single-day",
+        multi_day: "multi-day",
+        weekly: "weekly",
+        monthly: "monthly or ongoing",
+      };
+
+      price.textContent = `${formatUsd(shuttleBase)} base`;
+      breakdown.textContent = `${reservedHours} reserved service hours × $175/hour for the shuttle van and dedicated driver, for up to 14 passengers at a time.`;
+      note.textContent = `This is the base for a ${termLabels[shuttleHireTerm] || "custom"} shuttle plan. Mileage, tolls, parking, overnight requirements, driver relief, and route-specific operating costs are confirmed in the final quote.`;
+      if (guestCap) guestCap.hidden = false;
+      quoteLink.dataset.quoteService = isMultiDay ? "multi_day" : "";
+      quoteLink.dataset.quoteEventType = "shuttlehire";
+      quoteLink.hidden = false;
+      showEstimateSpecial({
+        label: "Shuttle service base rate",
+        title: "$175 per reserved hour",
+        copy: "Available for single-day, multi-day, weekly, monthly, and recurring shuttle requests. Send the schedule and route for a final operating quote.",
+      });
+      trackGa4Event("estimate_calculated", {
+        trip_type: analyticsTripType,
+        hours: reservedHours,
+        shuttle_hire_term: shuttleHireTerm,
+        multi_stop: hasMultiStop ? "true" : "false",
+        estimate_outcome: "shuttle_hire_base",
+        estimated_low: shuttleBase,
+        estimated_high: shuttleBase,
         page_path: window.location.pathname,
       });
       trackGoogleAdsEstimateConversion();
@@ -1060,6 +1175,7 @@ function buildIntakePayload(data) {
     local: "Local Day Route",
     concert: "Concert Night",
     corporate: "Corporate Outing",
+    shuttlehire: "Shuttle Van for Hire",
     other: "Custom Trip",
   };
   const directionLabels = {
@@ -1159,6 +1275,21 @@ function buildIntakePayload(data) {
     );
   }
 
+  if (eventType === "shuttlehire") {
+    const shuttleTermLabels = {
+      single_day: "Single day",
+      multi_day: "Multi-day",
+      weekly: "Weekly hire",
+      monthly: "Monthly / ongoing",
+    };
+    addIfPresent(
+      payload,
+      "Shuttle service term",
+      shuttleTermLabels[data.get("shuttleHireTerm")] || data.get("shuttleHireTerm")
+    );
+    addIfPresent(payload, "Expected shuttle schedule", data.get("shuttleSchedule"));
+  }
+
   addIfPresent(payload, "Trip menu selection", data.get("tripPackage"));
   const customServiceLabels = {
     multi_day: "Multi-day or overnight service",
@@ -1225,6 +1356,7 @@ function buildQuoteReceiptData(data) {
     local: "Local Day Route",
     concert: "Concert Night",
     corporate: "Corporate Outing",
+    shuttlehire: "Shuttle Van for Hire",
     other: "Custom Trip",
   };
 
@@ -1300,6 +1432,11 @@ function buildLeadEventParams(data) {
     eventParams.custom_services = customServices.join("|");
   }
 
+  const shuttleHireTerm = normalizeValue(data.get("shuttleHireTerm"));
+  if (shuttleHireTerm) {
+    eventParams.shuttle_hire_term = shuttleHireTerm;
+  }
+
   return eventParams;
 }
 
@@ -1358,6 +1495,18 @@ if (quoteForm && quoteSuccess) {
   const phoneInput = quoteForm.querySelector('input[name="phone"]');
   const phoneHint = quoteForm.querySelector("[data-phone-hint]");
   const eventTypeInput = quoteForm.querySelector('select[name="eventType"]');
+  const quoteShuttleTermField = quoteForm.querySelector(
+    "[data-quote-shuttle-term]"
+  );
+  const quoteShuttleTermInput = quoteForm.querySelector(
+    'select[name="shuttleHireTerm"]'
+  );
+  const quoteShuttleScheduleField = quoteForm.querySelector(
+    "[data-quote-shuttle-schedule]"
+  );
+  const quoteShuttleScheduleInput = quoteForm.querySelector(
+    '[name="shuttleSchedule"]'
+  );
   const quoteSportsPlanField = quoteForm.querySelector(
     "[data-quote-sports-plan]"
   );
@@ -1422,6 +1571,11 @@ if (quoteForm && quoteSuccess) {
       eventType: "wedding",
     },
     corporate: { packageName: "Team Offsite Transit", eventType: "corporate" },
+    shuttlehire: {
+      packageName: "Shuttle Van for Hire",
+      eventType: "shuttlehire",
+      tripDirection: "roundTrip",
+    },
     bach: { packageName: "Weekend Party Circuit", eventType: "bach" },
     "bar-crawl": { packageName: "Boston Bar Crawl", eventType: "barcrawl" },
     concert: { packageName: "Showtime Shuttle", eventType: "concert" },
@@ -1664,9 +1818,27 @@ if (quoteForm && quoteSuccess) {
 
   function syncQuoteTripFields() {
     const usesDuration = isDurationTrip(eventTypeInput?.value || "");
+    const isShuttleHire = eventTypeInput?.value === "shuttlehire";
     const isRoundTrip =
       Array.from(quoteDirectionInputs).find((input) => input.checked)?.value ===
       "roundTrip";
+
+    if (quoteShuttleTermField) quoteShuttleTermField.hidden = !isShuttleHire;
+    if (quoteShuttleTermInput) {
+      quoteShuttleTermInput.required = isShuttleHire;
+      if (isShuttleHire && !quoteShuttleTermInput.value) {
+        quoteShuttleTermInput.value = "single_day";
+      } else if (!isShuttleHire) {
+        quoteShuttleTermInput.value = "";
+      }
+    }
+    if (quoteShuttleScheduleField) {
+      quoteShuttleScheduleField.hidden = !isShuttleHire;
+    }
+    if (quoteShuttleScheduleInput) {
+      quoteShuttleScheduleInput.required = isShuttleHire;
+      if (!isShuttleHire) quoteShuttleScheduleInput.value = "";
+    }
 
     if (quoteDirectionField) quoteDirectionField.hidden = usesDuration;
     quoteScheduledFields.forEach((field) => {

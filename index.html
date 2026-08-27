@@ -6,11 +6,11 @@
     <title>Boston Party Van | Private Group Transportation for Up to 14</title>
     <meta
       name="description"
-      content="Private Mercedes-Benz Sprinter transportation with a dedicated driver for groups of up to 14 in Greater Boston. Game days, concerts, corporate outings, weddings, and nights out."
+      content="Private Mercedes-Benz Sprinter transportation and shuttle van hire for groups of up to 14 in Greater Boston. Events, corporate routes, recurring service, and custom trips."
     />
     <meta
       name="keywords"
-      content="Boston party van, Boston party bus for small groups, Boston sprinter van, Boston group transportation, transportation for 6 to 14 passengers, TD Garden transportation, Fenway Park shuttle, White Stadium transportation, Boston Legacy FC transportation, Gillette Stadium transportation, family outing transportation, Cape Cod group transportation, wedding shuttle Boston, corporate outing transportation"
+      content="Boston party van, Boston party bus for small groups, Boston sprinter van, Boston shuttle van for hire, shuttle van service Boston, corporate shuttle service, recurring office shuttle, Boston group transportation, transportation for 6 to 14 passengers, TD Garden transportation, Fenway Park shuttle, Gillette Stadium transportation, wedding shuttle Boston, corporate outing transportation"
     />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png?v=1.5.6-van-tight" />
@@ -25,7 +25,7 @@
     />
     <meta
       property="og:description"
-      content="A private Mercedes-Benz Sprinter and dedicated driver for Boston groups of up to 14."
+      content="A private Mercedes-Benz Sprinter and dedicated driver for Boston groups of up to 14, including event transportation and shuttle van hire."
     />
     <meta property="og:url" content="https://www.bostonpartyvan.com/" />
     <meta
@@ -39,7 +39,7 @@
     />
     <meta
       name="twitter:description"
-      content="A private Mercedes-Benz Sprinter and dedicated driver for Boston groups of up to 14."
+      content="A private Mercedes-Benz Sprinter and dedicated driver for Boston groups of up to 14, including event transportation and shuttle van hire."
     />
     <meta
       name="twitter:image"
@@ -56,7 +56,7 @@
             "url": "https://www.bostonpartyvan.com/",
             "telephone": "+1-617-515-3702",
             "email": "bostonpartyvan@gmail.com",
-            "description": "Private Mercedes-Benz Sprinter transportation with a dedicated driver for groups of up to 14 in Greater Boston and on custom New England routes.",
+            "description": "Private Mercedes-Benz Sprinter transportation and shuttle van hire with a dedicated driver for groups of up to 14 in Greater Boston and on custom New England routes.",
             "image": "https://www.bostonpartyvan.com/assets/images/MBenzSprinter14PAX-Exterior0.jpg",
             "logo": "https://www.bostonpartyvan.com/assets/images/PartyvanLogo-cleaned.png",
             "sameAs": [
@@ -96,8 +96,8 @@
           {
             "@type": "Service",
             "@id": "https://www.bostonpartyvan.com/#services",
-            "name": "Private Sprinter Transportation for Groups Up to 14",
-            "serviceType": "Private Mercedes-Benz Sprinter and small-group transportation with a dedicated driver",
+            "name": "Private Sprinter Transportation and Shuttle Van Hire for Groups Up to 14",
+            "serviceType": "Private Mercedes-Benz Sprinter transportation, shuttle van hire, and recurring small-group shuttle service with a dedicated driver",
             "provider": {
               "@id": "https://www.bostonpartyvan.com/#business"
             },
@@ -115,6 +115,15 @@
               "@type": "OfferCatalog",
               "name": "Transportation Services",
               "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Shuttle Van for Hire",
+                    "url": "https://www.bostonpartyvan.com/services/shuttle-van-for-hire/",
+                    "description": "Single-day, multi-day, weekly, monthly, and recurring shuttle van service for up to 14 passengers, starting at a $175 hourly base rate."
+                  }
+                },
                 {
                   "@type": "Offer",
                   "itemOffered": {
@@ -273,6 +282,14 @@
                   "@type": "Answer",
                   "text": "Yes. We can coordinate Woods Hole or Hyannis pickup and drop-off, multi-day return timing, and discuss bringing the Sprinter on the ferry for on-demand island service, subject to ferry reservation and vehicle availability."
                 }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I hire the shuttle van for corporate, recurring, or contract service?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Boston Party Van accepts private, corporate, and public-sector shuttle requests for single-day, multi-day, weekly, monthly, and recurring service. Shuttle-style service for up to 14 passengers starts at a $175 hourly base rate, with final pricing based on the route and operating requirements."
+                }
               }
             ]
           }
@@ -327,13 +344,13 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=1.5.8-small-groups" />
+    <link rel="stylesheet" href="style.css?v=1.5.9-shuttle-hire" />
   </head>
   <body>
     <div class="bg-orb bg-orb-a"></div>
     <div class="bg-orb bg-orb-b"></div>
     <div class="noise-layer"></div>
-    <div class="version-tag" title="Site version">V1.5.8</div>
+    <div class="version-tag" title="Site version">V1.5.9</div>
 
     <header class="site-header">
       <div class="top-strip">
@@ -375,7 +392,7 @@
           <h1>Private Boston group transportation for up to 14.</h1>
           <p class="hero-sub">
             Your own Mercedes-Benz Sprinter and dedicated driver for game days, concerts,
-            corporate outings, weddings, nights out, and custom New England routes.
+            corporate outings, shuttle service, weddings, nights out, and custom New England routes.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#quote">Request a Quote</a>
@@ -708,6 +725,30 @@
                 </div>
               </div>
             </article>
+            <article class="package-card package-shuttle" data-package-card>
+              <button
+                type="button"
+                class="package-toggle"
+                data-package-toggle
+                aria-expanded="false"
+              >
+                <p class="package-label">Corporate, private + public-sector</p>
+                <h3>Shuttle Van for Hire</h3>
+                <p>Dedicated shuttle service for a single day, recurring route, week, or monthly engagement.</p>
+                <span class="package-cta" data-package-cta>Click for service details</span>
+              </button>
+              <div class="package-detail" data-package-detail>
+                <ul>
+                  <li>Office-to-office, hotel, venue, campus, employee, and event shuttle routes</li>
+                  <li>Scheduled loops, on-demand windows, and recurring service for up to 14 passengers at a time</li>
+                  <li>Shuttle-style service starts at a $175 hourly base rate, with contract and bid requests welcome</li>
+                </ul>
+                <div class="package-detail-actions">
+                  <a class="package-guide-link" href="#quote" data-quote-trip="shuttlehire">Plan shuttle service</a>
+                  <a class="package-guide-link" href="services/shuttle-van-for-hire/">View service details</a>
+                </div>
+              </div>
+            </article>
             <article class="package-card package-corporate" data-package-card>
               <button
                 type="button"
@@ -913,6 +954,7 @@
                 <option value="cape">Cape Cod Trip</option>
                 <option value="concert">Concert Night</option>
                 <option value="corporate">Corporate Outing</option>
+                <option value="shuttlehire">Shuttle Van for Hire</option>
                 <option value="family">Family Outing / Field Trip</option>
                 <option value="golf">Golf Outing</option>
                 <option value="islandferry">Island Ferry Transfer (Drop-Off / Same-Day Pickup Only)</option>
@@ -924,7 +966,16 @@
                 <option value="other">&gt;&gt; Other (Custom Trip)</option>
               </select>
             </label>
-            <fieldset class="trip-direction">
+            <label data-estimate-shuttle-term hidden>
+              Service term
+              <select name="shuttleHireTerm">
+                <option value="single_day">Single day</option>
+                <option value="multi_day">Multi-day</option>
+                <option value="weekly">Weekly hire</option>
+                <option value="monthly">Monthly / ongoing</option>
+              </select>
+            </label>
+            <fieldset class="trip-direction" data-estimate-direction-field>
               <legend>Trip direction</legend>
               <div class="segment-control" role="radiogroup" aria-label="Trip direction">
                 <label class="segment-option">
@@ -960,14 +1011,14 @@
               <span class="field-hint" data-estimate-sports-plan-hint></span>
             </label>
             <label>
-              Hours needed
+              <span data-estimate-hours-label>Hours needed</span>
               <input type="number" min="3" max="14" step="1" value="4" name="hours" />
             </label>
-            <label id="estimateMilesLabel">
+            <label id="estimateMilesLabel" data-estimate-miles-field>
               Estimated mileage
               <input type="number" min="10" max="300" step="1" value="40" name="miles" />
             </label>
-            <div class="estimate-pace">
+            <div class="estimate-pace" data-estimate-pace-field>
               <div class="estimate-pace-head">
                 <div class="estimate-pace-label">
                   <label for="activityLevel">Driving vs. standby</label>
@@ -1005,7 +1056,7 @@
                 <span>100%<small>Long leg / shuttle</small></span>
               </div>
             </div>
-            <div class="estimate-custom-option">
+            <div class="estimate-custom-option" data-estimate-multi-day-option>
               <label class="check">
                 <input type="checkbox" name="multiDay" />
                 <span>Multi-day or white-glove service <small class="estimate-option-note">Detailed quote</small></span>
@@ -1244,6 +1295,15 @@
               availability.
             </p>
           </details>
+          <details>
+            <summary>Can I hire the shuttle van for corporate, recurring, or contract service?</summary>
+            <p>
+              Yes. We accept private, corporate, and public-sector shuttle requests for
+              single-day, multi-day, weekly, monthly, and recurring service. Shuttle-style
+              service for up to 14 passengers starts at a $175 hourly base rate, with final
+              pricing based on the route and operating requirements.
+            </p>
+          </details>
         </div>
       </section>
 
@@ -1300,6 +1360,7 @@
               <option value="cape">Cape Cod Trip</option>
               <option value="concert">Concert Night</option>
               <option value="corporate">Corporate Outing</option>
+              <option value="shuttlehire">Shuttle Van for Hire</option>
               <option value="family">Family Outing / Field Trip</option>
               <option value="golf">Golf Outing</option>
               <option value="islandferry">Island Ferry Transfer (Drop-Off / Same-Day Pickup Only)</option>
@@ -1310,6 +1371,24 @@
               <option value="whitemountains">White Mountains / Northern NH</option>
               <option value="other">&gt;&gt; Other (Custom Trip)</option>
             </select>
+          </label>
+          <label data-quote-shuttle-term hidden>
+            Shuttle service term
+            <select name="shuttleHireTerm">
+              <option value="">Select one</option>
+              <option value="single_day">Single day</option>
+              <option value="multi_day">Multi-day</option>
+              <option value="weekly">Weekly hire</option>
+              <option value="monthly">Monthly / ongoing</option>
+            </select>
+          </label>
+          <label data-quote-shuttle-schedule hidden>
+            Expected shuttle schedule
+            <input
+              type="text"
+              name="shuttleSchedule"
+              placeholder="Example: Monday–Friday, 7–10am and 3–6pm"
+            />
           </label>
           <fieldset class="trip-direction full quote-direction" data-quote-direction-field>
             <legend>Trip direction</legend>
@@ -1575,6 +1654,11 @@
             <p>Seaport, Back Bay, Kendall Square, Waltham, Burlington, and Newton.</p>
           </article>
           <article class="destination-group">
+            <p class="destination-category">Shuttle van hire</p>
+            <h3>Dedicated Shuttle Service</h3>
+            <p>Office-to-office routes, hotel and venue loops, campuses, employee transportation, and recurring schedules.</p>
+          </article>
+          <article class="destination-group">
             <p class="destination-category">Bachelor / bachelorette</p>
             <h3>Weekend Party Circuit</h3>
             <p>Seaport, Back Bay, South Boston, the North End, Foxborough, and Salem.</p>
@@ -1606,6 +1690,7 @@
       <div>
         <p><a href="#quote">Request a Quote</a></p>
         <p><a href="boston/party-bus-6-to-14-passengers/">Transportation for 6–14 Guests</a></p>
+        <p><a href="services/shuttle-van-for-hire/">Shuttle Van for Hire</a></p>
         <p><a href="shop.html">Store</a></p>
         <p><a href="photos.html">Photos</a></p>
         <p>Private inquiries through our secure form</p>
@@ -1639,6 +1724,6 @@
       <a class="mobile-tertiary" href="tel:+16175153702">Call</a>
     </div>
 
-    <script src="script.js?v=1.5.7-photos-tab"></script>
+    <script src="script.js?v=1.5.9-shuttle-hire"></script>
   </body>
 </html>

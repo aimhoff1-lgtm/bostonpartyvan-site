@@ -1,5 +1,24 @@
 # Release Notes
 
+## V1.5.9 (Draft) - Shuttle Van for Hire
+
+### Changed
+- Added Shuttle Van for Hire as a major Trip Menu offering for corporate, private, nonprofit, institutional, municipal, and public-sector requests
+- Added a dedicated search page for Boston shuttle van service, office-to-office routes, recurring schedules, and contract or bid requests
+- Added single-day, multi-day, weekly, monthly, and ongoing service terms to shuttle estimating and quote intake
+- Added a transparent shuttle base rate of `$175 per reserved service hour` for the van and dedicated driver
+- Added shuttle-specific structured service, pricing, audience, vehicle, and FAQ information
+- Reworked the small-group capacity examples into a concise bullet while preserving an exact 10-person answer
+- Added the shuttle page to the sitemap and linked it from the Trip Menu, route directory, and footer
+
+### Test Checklist
+- Shuttle Van for Hire appears in the Trip Menu and opens the correct service page
+- Estimator shows the shuttle term selector and calculates exactly `$175 × reserved hours`
+- Weekly and monthly estimate terms accept total reserved service hours beyond one day
+- Quote form shows and requires shuttle term and expected schedule fields
+- Homepage and shuttle page structured data are valid
+- Small-group page no longer uses the 6, 8, 10, 12, 14 phrase as paragraph copy
+
 ## V1.5.8 (Draft) - Small-Group Search Visibility
 
 ### Changed

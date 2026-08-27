@@ -1762,6 +1762,11 @@ main > .reviews-section {
   --package-image: url("assets/images/team-offsite-transit.jpg");
 }
 
+.package-shuttle {
+  --package-image: url("assets/images/MBenzSprinter14PAX-Exterior0.jpg");
+  --package-position: center;
+}
+
 .package-bachelorette {
   --package-image: url("assets/images/nightlife.jpg");
 }
