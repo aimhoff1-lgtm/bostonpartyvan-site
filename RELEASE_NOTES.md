@@ -1,5 +1,20 @@
 # Release Notes
 
+## V1.5.10 (Draft) - Shuttle Volume Pricing
+
+### Changed
+- Renamed the estimator and quote option to `Shuttle Van Service / Hire` for a direct match
+- Added automatic shuttle base-rate discounts: 10% at 16 hours, 15% at 20 hours, and 20% at 40 or more hours
+- Added transparent 8-, 16-, 20-, and 40-hour examples to the shuttle service page
+- Made shuttle service-page estimate links preselect the correct estimator trip type
+
+### Test Checklist
+- 8 reserved hours estimates at `$1,400`
+- 16 reserved hours estimates at `$2,520` after 10% off
+- 20 reserved hours estimates at `$2,975` after 15% off
+- 40 reserved hours estimates at `$5,600` after 20% off
+- Shuttle service-page estimate links preselect `Shuttle Van Service / Hire`
+
 ## V1.5.9 (Draft) - Shuttle Van for Hire
 
 ### Changed

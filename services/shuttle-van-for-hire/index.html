@@ -97,7 +97,7 @@
                 "price": "175",
                 "priceCurrency": "USD",
                 "unitText": "HOUR",
-                "description": "Base rate per reserved shuttle service hour. Final pricing reflects mileage and route-specific operating requirements."
+                "description": "Base rate per reserved shuttle service hour. Automatic discounts apply at 16 hours (10%), 20 hours (15%), and 40 or more hours (20%). Final pricing reflects mileage and route-specific operating requirements."
               }
             }
           },
@@ -134,7 +134,7 @@
                 "name": "How much does Boston shuttle van service cost?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Shuttle-style service starts at a $175 hourly base rate for the van and dedicated driver. Mileage, tolls, parking, overnight requirements, driver relief, and route-specific operating costs are confirmed in the final quote."
+                  "text": "Shuttle-style service starts at a $175 hourly base rate for the van and dedicated driver. The base receives 10% off at 16 hours, 15% off at 20 hours, and 20% off at 40 or more hours. Mileage, tolls, parking, overnight requirements, driver relief, and route-specific operating costs are confirmed in the final quote."
                 }
               },
               {
@@ -173,10 +173,10 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../guides/guides.css?v=1.5.9-shuttle-hire" />
+    <link rel="stylesheet" href="../../guides/guides.css?v=1.5.10-shuttle-pricing" />
   </head>
   <body>
-    <div class="version-tag">V1.5.9</div>
+    <div class="version-tag">V1.5.10</div>
     <header class="topbar">
       <div class="topbar-inner">
         <a class="brand" href="../../index.html">
@@ -206,7 +206,7 @@
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="../../index.html?trip=shuttlehire#quote">Request Shuttle Pricing</a>
-          <a class="btn btn-ghost" href="../../index.html#pricing">Estimate at $175/Hour</a>
+          <a class="btn btn-ghost" href="../../index.html?estimate=shuttlehire#pricing">Estimate Shuttle Service</a>
         </div>
       </section>
 
@@ -254,12 +254,21 @@
         <h2>$175 per reserved shuttle service hour</h2>
         <p>
           The base rate covers the shuttle van and dedicated driver for up to 14 passengers
-          at a time. Use the homepage estimator to multiply the number of reserved service
-          hours by $175. Your final operating quote will account for mileage, tolls, parking,
-          overnight requirements, driver relief, and any unusual route or procurement needs.
+          at a time. The estimator automatically applies 10% off at 16 hours, 15% off at
+          20 hours, and 20% off at 40 or more hours.
+        </p>
+        <ul class="checklist">
+          <li>8 hours: $1,400 base</li>
+          <li>16 hours: $2,520 base after 10% off</li>
+          <li>20 hours: $2,975 base after 15% off</li>
+          <li>40 hours: $5,600 base after 20% off</li>
+        </ul>
+        <p>
+          Your final operating quote will account for mileage, tolls, parking, overnight
+          requirements, driver relief, and any unusual route or procurement needs.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="../../index.html#pricing">Build a Shuttle Estimate</a>
+          <a class="btn btn-primary" href="../../index.html?estimate=shuttlehire#pricing">Build a Shuttle Estimate</a>
           <a class="btn btn-ghost" href="tel:+16175153702">Call (617) 515-3702</a>
         </div>
       </section>
@@ -307,7 +316,8 @@
           <summary>How much does Boston shuttle van service cost?</summary>
           <p>
             Shuttle-style service starts at a $175 hourly base rate for the van and dedicated
-            driver. Route-specific operating costs are confirmed in the final quote.
+            driver. The base receives 10% off at 16 hours, 15% off at 20 hours, and 20% off
+            at 40 or more hours. Route-specific operating costs are confirmed in the final quote.
           </p>
         </details>
         <details>
@@ -341,6 +351,6 @@
       </p>
     </footer>
 
-    <script src="../../script.js?v=1.5.9-shuttle-hire"></script>
+    <script src="../../script.js?v=1.5.10-shuttle-pricing"></script>
   </body>
 </html>

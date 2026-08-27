@@ -760,6 +760,20 @@ if (estimateForm && estimateResult) {
   syncPaceValue();
   clearEstimateSpecial();
 
+  const estimateTripFromUrl = new URLSearchParams(window.location.search).get(
+    "estimate"
+  );
+  if (
+    estimateTripFromUrl &&
+    tripTypeInput &&
+    Array.from(tripTypeInput.options).some(
+      (option) => option.value === estimateTripFromUrl
+    )
+  ) {
+    tripTypeInput.value = estimateTripFromUrl;
+    tripTypeInput.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+
   estimateForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -828,7 +842,12 @@ if (estimateForm && estimateResult) {
     if (isShuttleHire && price && breakdown && note && quoteLink) {
       const reservedHours = Math.max(hours, 3);
       const shuttleBaseRate = 175;
-      const shuttleBase = reservedHours * shuttleBaseRate;
+      const shuttleGross = reservedHours * shuttleBaseRate;
+      const shuttleDiscountRate =
+        reservedHours >= 40 ? 0.2 : reservedHours >= 20 ? 0.15 : reservedHours >= 16 ? 0.1 : 0;
+      const shuttleDiscount = shuttleGross * shuttleDiscountRate;
+      const shuttleBase = shuttleGross - shuttleDiscount;
+      const shuttleDiscountPercent = Math.round(shuttleDiscountRate * 100);
       const termLabels = {
         single_day: "single-day",
         multi_day: "multi-day",
@@ -837,16 +856,20 @@ if (estimateForm && estimateResult) {
       };
 
       price.textContent = `${formatUsd(shuttleBase)} base`;
-      breakdown.textContent = `${reservedHours} reserved service hours × $175/hour for the shuttle van and dedicated driver, for up to 14 passengers at a time.`;
+      breakdown.textContent = shuttleDiscountRate
+        ? `${reservedHours} reserved service hours × $175/hour = ${formatUsd(shuttleGross)}. ${shuttleDiscountPercent}% multi-hour discount: -${formatUsd(shuttleDiscount)}.`
+        : `${reservedHours} reserved service hours × $175/hour for the shuttle van and dedicated driver, for up to 14 passengers at a time.`;
       note.textContent = `This is the base for a ${termLabels[shuttleHireTerm] || "custom"} shuttle plan. Mileage, tolls, parking, overnight requirements, driver relief, and route-specific operating costs are confirmed in the final quote.`;
       if (guestCap) guestCap.hidden = false;
       quoteLink.dataset.quoteService = isMultiDay ? "multi_day" : "";
       quoteLink.dataset.quoteEventType = "shuttlehire";
       quoteLink.hidden = false;
       showEstimateSpecial({
-        label: "Shuttle service base rate",
-        title: "$175 per reserved hour",
-        copy: "Available for single-day, multi-day, weekly, monthly, and recurring shuttle requests. Send the schedule and route for a final operating quote.",
+        label: shuttleDiscountRate ? "Multi-hour shuttle discount" : "Shuttle service base rate",
+        title: shuttleDiscountRate
+          ? `${shuttleDiscountPercent}% discount applied`
+          : "$175 per reserved hour",
+        copy: "Automatic base-rate discounts apply at 16 hours (10%), 20 hours (15%), and 40 or more hours (20%). Send the schedule and route for a final operating quote.",
       });
       trackGa4Event("estimate_calculated", {
         trip_type: analyticsTripType,
@@ -854,6 +877,8 @@ if (estimateForm && estimateResult) {
         shuttle_hire_term: shuttleHireTerm,
         multi_stop: hasMultiStop ? "true" : "false",
         estimate_outcome: "shuttle_hire_base",
+        estimated_gross: shuttleGross,
+        discount_percent: shuttleDiscountPercent,
         estimated_low: shuttleBase,
         estimated_high: shuttleBase,
         page_path: window.location.pathname,
@@ -1175,7 +1200,7 @@ function buildIntakePayload(data) {
     local: "Local Day Route",
     concert: "Concert Night",
     corporate: "Corporate Outing",
-    shuttlehire: "Shuttle Van for Hire",
+    shuttlehire: "Shuttle Van Service / Hire",
     other: "Custom Trip",
   };
   const directionLabels = {
@@ -1356,7 +1381,7 @@ function buildQuoteReceiptData(data) {
     local: "Local Day Route",
     concert: "Concert Night",
     corporate: "Corporate Outing",
-    shuttlehire: "Shuttle Van for Hire",
+    shuttlehire: "Shuttle Van Service / Hire",
     other: "Custom Trip",
   };
 

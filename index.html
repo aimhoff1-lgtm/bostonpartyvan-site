@@ -121,7 +121,7 @@
                     "@type": "Service",
                     "name": "Shuttle Van for Hire",
                     "url": "https://www.bostonpartyvan.com/services/shuttle-van-for-hire/",
-                    "description": "Single-day, multi-day, weekly, monthly, and recurring shuttle van service for up to 14 passengers, starting at a $175 hourly base rate."
+                    "description": "Single-day, multi-day, weekly, monthly, and recurring shuttle van service for up to 14 passengers, starting at a $175 hourly base rate with automatic discounts at 16, 20, and 40 reserved hours."
                   }
                 },
                 {
@@ -288,7 +288,7 @@
                 "name": "Can I hire the shuttle van for corporate, recurring, or contract service?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes. Boston Party Van accepts private, corporate, and public-sector shuttle requests for single-day, multi-day, weekly, monthly, and recurring service. Shuttle-style service for up to 14 passengers starts at a $175 hourly base rate, with final pricing based on the route and operating requirements."
+                  "text": "Yes. Boston Party Van accepts private, corporate, and public-sector shuttle requests for single-day, multi-day, weekly, monthly, and recurring service. The base rate is $175 per reserved hour, with 10% off at 16 hours, 15% off at 20 hours, and 20% off at 40 or more hours. Final pricing also reflects the route and operating requirements."
                 }
               }
             ]
@@ -344,13 +344,13 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=1.5.9-shuttle-hire" />
+    <link rel="stylesheet" href="style.css?v=1.5.10-shuttle-pricing" />
   </head>
   <body>
     <div class="bg-orb bg-orb-a"></div>
     <div class="bg-orb bg-orb-b"></div>
     <div class="noise-layer"></div>
-    <div class="version-tag" title="Site version">V1.5.9</div>
+    <div class="version-tag" title="Site version">V1.5.10</div>
 
     <header class="site-header">
       <div class="top-strip">
@@ -741,7 +741,7 @@
                 <ul>
                   <li>Office-to-office, hotel, venue, campus, employee, and event shuttle routes</li>
                   <li>Scheduled loops, on-demand windows, and recurring service for up to 14 passengers at a time</li>
-                  <li>Shuttle-style service starts at a $175 hourly base rate, with contract and bid requests welcome</li>
+                  <li>$175 hourly base rate, with automatic multi-hour discounts and contract or bid requests welcome</li>
                 </ul>
                 <div class="package-detail-actions">
                   <a class="package-guide-link" href="#quote" data-quote-trip="shuttlehire">Plan shuttle service</a>
@@ -954,7 +954,7 @@
                 <option value="cape">Cape Cod Trip</option>
                 <option value="concert">Concert Night</option>
                 <option value="corporate">Corporate Outing</option>
-                <option value="shuttlehire">Shuttle Van for Hire</option>
+                <option value="shuttlehire">Shuttle Van Service / Hire</option>
                 <option value="family">Family Outing / Field Trip</option>
                 <option value="golf">Golf Outing</option>
                 <option value="islandferry">Island Ferry Transfer (Drop-Off / Same-Day Pickup Only)</option>
@@ -1300,8 +1300,9 @@
             <p>
               Yes. We accept private, corporate, and public-sector shuttle requests for
               single-day, multi-day, weekly, monthly, and recurring service. Shuttle-style
-              service for up to 14 passengers starts at a $175 hourly base rate, with final
-              pricing based on the route and operating requirements.
+              service for up to 14 passengers starts at a $175 hourly base rate. The base
+              receives 10% off at 16 hours, 15% off at 20 hours, and 20% off at 40 or more
+              hours, with final pricing also based on route and operating requirements.
             </p>
           </details>
         </div>
@@ -1360,7 +1361,7 @@
               <option value="cape">Cape Cod Trip</option>
               <option value="concert">Concert Night</option>
               <option value="corporate">Corporate Outing</option>
-              <option value="shuttlehire">Shuttle Van for Hire</option>
+              <option value="shuttlehire">Shuttle Van Service / Hire</option>
               <option value="family">Family Outing / Field Trip</option>
               <option value="golf">Golf Outing</option>
               <option value="islandferry">Island Ferry Transfer (Drop-Off / Same-Day Pickup Only)</option>
@@ -1724,6 +1725,6 @@
       <a class="mobile-tertiary" href="tel:+16175153702">Call</a>
     </div>
 
-    <script src="script.js?v=1.5.9-shuttle-hire"></script>
+    <script src="script.js?v=1.5.10-shuttle-pricing"></script>
   </body>
 </html>
