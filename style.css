@@ -651,10 +651,20 @@ a {
   transform: rotate(225deg) translateY(-0.18rem);
 }
 
-.fleet-interior-media {
+.fleet-interior-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
   margin: 0 0 1rem;
-  height: clamp(210px, 31vw, 360px);
+}
+
+.fleet-interior-media {
+  margin: 0;
+  height: clamp(230px, 30vw, 360px);
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(4, 14, 25, 0.35);
 }
 
 .fleet-interior-media img {
@@ -1260,7 +1270,8 @@ textarea:focus {
   flex-direction: column;
 }
 
-.shop-main {
+.shop-main,
+.photos-main {
   width: var(--content-width);
   flex: 1;
   margin: 0 auto;
@@ -1320,6 +1331,78 @@ textarea:focus {
 .shop-product-note {
   margin-top: 0.75rem;
   color: var(--text-soft);
+}
+
+.photos-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.photos-coming-soon {
+  position: relative;
+  display: grid;
+  min-height: calc(100vh - 13rem);
+  place-items: center;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.photos-coming-soon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 193, 73, 0.18), transparent 42%),
+    radial-gradient(circle at 80% 18%, rgba(38, 214, 189, 0.18), transparent 34%),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: auto, auto, 54px 54px, 54px 54px;
+  opacity: 0.95;
+}
+
+.photos-watermark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min-content;
+  color: rgba(231, 238, 247, 0.08);
+  font-family: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  font-size: clamp(4.4rem, 16vw, 12rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.78;
+  text-align: center;
+  text-transform: uppercase;
+  transform: translate(-50%, -50%) rotate(-9deg);
+  user-select: none;
+  white-space: normal;
+}
+
+.photos-coming-soon-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 46rem;
+  padding: clamp(4rem, 9vw, 7rem) 0;
+  text-align: center;
+}
+
+.photos-coming-soon-inner h1 {
+  font-size: clamp(3.25rem, 9vw, 6.75rem);
+  letter-spacing: 0;
+}
+
+.photos-coming-soon-inner .section-intro {
+  margin: 1.1rem auto 0;
+  max-width: 40rem;
+}
+
+.photos-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 2rem;
 }
 
 .reviews-section {
@@ -1935,6 +2018,10 @@ main > .reviews-section {
 
   .shop-main {
     padding-top: 2.35rem;
+  }
+
+  .fleet-interior-gallery {
+    grid-template-columns: 1fr;
   }
 
   .shop-product {

@@ -2,9 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.bostonpartyvan.com/</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.bostonpartyvan.com/photos.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.62</priority>
   </url>
   <url>
     <loc>https://www.bostonpartyvan.com/guides/boston-sporting-event-transportation/</loc>
