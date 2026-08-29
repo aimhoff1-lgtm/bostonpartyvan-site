@@ -1194,7 +1194,7 @@ function buildIntakePayload(data) {
     golf: "Golf Outing",
     cape: "Cape Cod Trip",
     islandferry: "Island Ferry Transfer",
-    whitemountains: "White Mountains / Northern NH",
+    whitemountains: "New England Mountain / Fall Foliage",
     bach: "Bachelor/Bachelorette",
     barcrawl: "Boston Bar Crawl",
     local: "Local Day Route",
@@ -1375,7 +1375,7 @@ function buildQuoteReceiptData(data) {
     golf: "Golf Outing",
     cape: "Cape Cod Trip",
     islandferry: "Island Ferry Transfer",
-    whitemountains: "White Mountains / Northern NH",
+    whitemountains: "New England Mountain / Fall Foliage",
     bach: "Bachelor/Bachelorette",
     barcrawl: "Boston Bar Crawl",
     local: "Local Day Route",
@@ -1584,7 +1584,7 @@ if (quoteForm && quoteSuccess) {
       eventType: "islandferry",
     },
     "white-mountains": {
-      packageName: "Mountain Weekend Run",
+      packageName: "New England Mountain Run",
       eventType: "whitemountains",
     },
     wedding: {

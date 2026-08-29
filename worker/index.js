@@ -103,8 +103,8 @@ function receiptDetails(receipt) {
     whitemountains: {
       subject: "Your New England trip request is in",
       copy: receipt.tripDirection === "roundTrip"
-        ? "I have your White Mountains round-trip request, including both directions of travel."
-        : "I have your White Mountains transportation request and the route details you shared.",
+        ? "I have your mountain or fall foliage round-trip request and the route details you shared."
+        : "I have your mountain or fall foliage transportation request and the route details you shared.",
     },
     bach: {
       subject: "Your celebration ride request is in",
