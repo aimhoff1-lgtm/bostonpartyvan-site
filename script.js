@@ -1552,6 +1552,7 @@ if (quoteForm && quoteSuccess) {
   const quoteTripPackageInput = quoteForm.querySelector('[name="tripPackage"]');
   const quoteTripSelection = quoteForm.querySelector("[data-quote-trip-selection]");
   const quoteTripName = quoteForm.querySelector("[data-quote-trip-name]");
+  const quoteDetails = quoteForm.querySelector("[data-quote-details]");
   let isApplyingQuoteTripPrefill = false;
   let previousEventType = eventTypeInput?.value || "";
   let hasTrackedQuoteFormStart = false;
@@ -1648,6 +1649,9 @@ if (quoteForm && quoteSuccess) {
       .filter((input) => input.checked)
       .map((input) => input.value);
     const hasCustomService = selectedCustomServices.length > 0;
+    if (hasCustomService && quoteDetails) {
+      quoteDetails.open = true;
+    }
     if (customServiceOptions) {
       customServiceOptions.open = hasCustomService;
     }
@@ -1835,7 +1839,7 @@ if (quoteForm && quoteSuccess) {
     }
     syncFinalDropoffLocation();
     if (destinationPickupTimeInput) {
-      destinationPickupTimeInput.required = !usesDuration && isRoundTrip;
+      destinationPickupTimeInput.required = false;
     }
     syncQuoteSportsPlanAvailability();
     syncQuoteTimingValidity();
@@ -1861,7 +1865,7 @@ if (quoteForm && quoteSuccess) {
       quoteShuttleScheduleField.hidden = !isShuttleHire;
     }
     if (quoteShuttleScheduleInput) {
-      quoteShuttleScheduleInput.required = isShuttleHire;
+      quoteShuttleScheduleInput.required = false;
       if (!isShuttleHire) quoteShuttleScheduleInput.value = "";
     }
 
@@ -1870,7 +1874,7 @@ if (quoteForm && quoteSuccess) {
       field.hidden = usesDuration;
     });
     if (destinationDropoffTimeInput) {
-      destinationDropoffTimeInput.required = !usesDuration;
+      destinationDropoffTimeInput.required = false;
     }
     if (quoteDurationField) quoteDurationField.hidden = !usesDuration;
     if (durationHoursInput) {
