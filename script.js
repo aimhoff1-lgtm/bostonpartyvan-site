@@ -350,6 +350,10 @@ function isDurationTrip(type) {
   return DURATION_TRIP_TYPES.has(type);
 }
 
+function hasQuoteDuration(type) {
+  return isDurationTrip(type) || type === "wedding";
+}
+
 function isSportsSpecialVenue(venue) {
   return SPORTS_SPECIAL_VENUES.has(venue);
 }
@@ -1246,7 +1250,8 @@ function buildIntakePayload(data) {
         ? `Google Ads (${campaign})`
         : "Google Ads"
       : data.get("lead_source_summary") || "Direct website visit";
-  const usesDuration = isDurationTrip(eventType);
+  const usesDurationOnly = isDurationTrip(eventType);
+  const includesDuration = hasQuoteDuration(eventType);
   const payload = {
     Name: data.get("name") || "",
     Email: data.get("email") || "",
@@ -1260,13 +1265,15 @@ function buildIntakePayload(data) {
     "Pickup location": data.get("pickup") || "",
   };
 
-  if (usesDuration) {
+  if (includesDuration) {
     addIfPresent(
       payload,
       "Duration",
       data.get("durationHours") && `${data.get("durationHours")} hours`
     );
-  } else {
+  }
+
+  if (!usesDurationOnly) {
     const isRoundTrip = data.get("tripDirection") === "roundTrip";
     addIfPresent(
       payload,
@@ -1285,7 +1292,7 @@ function buildIntakePayload(data) {
     );
   }
 
-  if (!usesDuration && data.get("tripDirection") === "roundTrip") {
+  if (!usesDurationOnly && data.get("tripDirection") === "roundTrip") {
     addIfPresent(
       payload,
       "Return pickup time",
@@ -1416,13 +1423,14 @@ async function sendQuoteReceipt(receipt) {
 function buildLeadEventParams(data) {
   const passengerCount = Number(data.get("guestCount"));
   const eventType = data.get("eventType");
-  const isDurationQuote = isDurationTrip(eventType);
+  const isDurationOnly = isDurationTrip(eventType);
+  const includesDuration = hasQuoteDuration(eventType);
   const eventParams = {
     form_name: "quote_form",
     lead_type: "quote_request",
     contact_preference: normalizeValue(data.get("contactPreference")),
     trip_type: normalizeTripType(eventType),
-    trip_direction: isDurationQuote
+    trip_direction: isDurationOnly
       ? "duration"
       : data.get("tripDirection") || "unspecified",
     page_path: window.location.pathname,
@@ -1433,7 +1441,7 @@ function buildLeadEventParams(data) {
   }
 
   const durationHours = Number(data.get("durationHours"));
-  if (isDurationQuote && Number.isFinite(durationHours) && durationHours > 0) {
+  if (includesDuration && Number.isFinite(durationHours) && durationHours > 0) {
     eventParams.duration_hours = durationHours;
   }
 
@@ -1846,8 +1854,10 @@ if (quoteForm && quoteSuccess) {
   }
 
   function syncQuoteTripFields() {
-    const usesDuration = isDurationTrip(eventTypeInput?.value || "");
-    const isShuttleHire = eventTypeInput?.value === "shuttlehire";
+    const eventType = eventTypeInput?.value || "";
+    const usesDurationOnly = isDurationTrip(eventType);
+    const includesDuration = hasQuoteDuration(eventType);
+    const isShuttleHire = eventType === "shuttlehire";
     const isRoundTrip =
       Array.from(quoteDirectionInputs).find((input) => input.checked)?.value ===
       "roundTrip";
@@ -1869,19 +1879,19 @@ if (quoteForm && quoteSuccess) {
       if (!isShuttleHire) quoteShuttleScheduleInput.value = "";
     }
 
-    if (quoteDirectionField) quoteDirectionField.hidden = usesDuration;
+    if (quoteDirectionField) quoteDirectionField.hidden = usesDurationOnly;
     quoteScheduledFields.forEach((field) => {
-      field.hidden = usesDuration;
+      field.hidden = usesDurationOnly;
     });
     if (destinationDropoffTimeInput) {
       destinationDropoffTimeInput.required = false;
     }
-    if (quoteDurationField) quoteDurationField.hidden = !usesDuration;
+    if (quoteDurationField) quoteDurationField.hidden = !includesDuration;
     if (durationHoursInput) {
       const selectedDuration = durationHoursInput.value;
       setSelectOptions(
         durationHoursInput,
-        getDurationHourOptions(eventTypeInput?.value || "")
+        getDurationHourOptions(eventType)
       );
       if (
         Array.from(durationHoursInput.options).some(
@@ -1890,24 +1900,25 @@ if (quoteForm && quoteSuccess) {
       ) {
         durationHoursInput.value = selectedDuration;
       }
-      durationHoursInput.required = usesDuration;
+      durationHoursInput.required = includesDuration;
+      durationHoursInput.disabled = !includesDuration;
     }
     if (quoteDestinationLocationField) {
-      quoteDestinationLocationField.hidden = usesDuration;
+      quoteDestinationLocationField.hidden = usesDurationOnly;
     }
     const dropoffInput = quoteForm.querySelector('[name="dropoff"]');
-    if (dropoffInput) dropoffInput.required = !usesDuration;
+    if (dropoffInput) dropoffInput.required = !usesDurationOnly;
 
     quoteRoundTripTimeFields.forEach((field) => {
-      field.hidden = usesDuration || !isRoundTrip;
+      field.hidden = usesDurationOnly || !isRoundTrip;
     });
     if (quoteFinalLocationField) {
-      quoteFinalLocationField.hidden = usesDuration || !isRoundTrip;
+      quoteFinalLocationField.hidden = usesDurationOnly || !isRoundTrip;
     }
     if (quoteFinalDropoffField) {
-      quoteFinalDropoffField.hidden = usesDuration || !isRoundTrip;
+      quoteFinalDropoffField.hidden = usesDurationOnly || !isRoundTrip;
     }
-    if (usesDuration) {
+    if (usesDurationOnly) {
       quoteDirectionInputs.forEach((input) => {
         input.required = false;
       });

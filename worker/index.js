@@ -4,6 +4,17 @@ const ALLOWED_ORIGINS = new Set([
   "https://bostonpartyvan.com",
 ]);
 
+const LEGACY_REDIRECTS = new Map([
+  [
+    "/boston/group-rides",
+    "/boston/party-bus-6-to-14-passengers/",
+  ],
+  [
+    "/boston/group-rides/",
+    "/boston/party-bus-6-to-14-passengers/",
+  ],
+]);
+
 function htmlEscape(value) {
   return String(value || "")
     .replace(/&/g, "&amp;")
@@ -237,6 +248,12 @@ export default {
     if (url.hostname === "bostonpartyvan.com") {
       url.hostname = "www.bostonpartyvan.com";
       url.protocol = "https:";
+      return Response.redirect(url.toString(), 301);
+    }
+
+    const legacyDestination = LEGACY_REDIRECTS.get(url.pathname);
+    if (legacyDestination) {
+      url.pathname = legacyDestination;
       return Response.redirect(url.toString(), 301);
     }
 
