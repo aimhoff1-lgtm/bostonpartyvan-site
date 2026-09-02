@@ -39,22 +39,56 @@ const GOOGLE_ADS_ESTIMATE_CONVERSION_LABEL = (
   .toString()
   .trim();
 
-const GOOGLE_TAG_ID = GA4_MEASUREMENT_ID || GOOGLE_ADS_ID;
-const isOwnerTestingMode = window.BPV_DISABLE_ANALYTICS === true;
+const GOOGLE_TAG_ID = GOOGLE_ADS_ID || GA4_MEASUREMENT_ID;
+const OWNER_TESTING_STORAGE_KEY = "bpv_owner_testing_v1";
+
+function isOwnerTestingEnabled() {
+  if (window.BPV_DISABLE_ANALYTICS === true) return true;
+
+  try {
+    return window.localStorage.getItem(OWNER_TESTING_STORAGE_KEY) === "true";
+  } catch (error) {
+    return false;
+  }
+}
+
+const isOwnerTestingMode = isOwnerTestingEnabled();
 
 function initGoogleTag() {
-  if (
-    isOwnerTestingMode ||
-    !GOOGLE_TAG_ID ||
-    typeof window.gtag !== "function"
-  ) {
-    return false;
+  if (isOwnerTestingMode || !GOOGLE_TAG_ID) return false;
+
+  const alreadyInitialized = typeof window.gtag === "function";
+  window.dataLayer = window.dataLayer || [];
+  window.gtag =
+    window.gtag ||
+    function () {
+      window.dataLayer.push(arguments);
+    };
+
+  if (!alreadyInitialized) {
+    window.gtag("js", new Date());
+  }
+
+  const hasGoogleTagScript = document.querySelector(
+    'script[src*="googletagmanager.com/gtag/js"]'
+  );
+  if (!hasGoogleTagScript) {
+    const googleTag = document.createElement("script");
+    googleTag.async = true;
+    googleTag.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(
+      GOOGLE_TAG_ID
+    )}`;
+    document.head.appendChild(googleTag);
   }
 
   if (GA4_MEASUREMENT_ID) {
     window.gtag("config", GA4_MEASUREMENT_ID, {
       anonymize_ip: true,
     });
+  }
+
+  if (GOOGLE_ADS_ID) {
+    window.gtag("config", GOOGLE_ADS_ID);
   }
 
   return true;
@@ -1063,12 +1097,14 @@ function setupContactClickTracking() {
   const links = document.querySelectorAll("a[href]");
   links.forEach((link) => {
     const href = (link.getAttribute("href") || "").trim().toLowerCase();
-    if (!href.includes("#quote")) return;
+    const isQuoteLink = href.includes("#quote");
+    const isPhoneLink = href.startsWith("tel:");
+    if (!isQuoteLink && !isPhoneLink) return;
 
     link.addEventListener("click", () => {
       const label = normalizeValue(link.textContent).replace(/\s+/g, " ");
       trackGa4Event("contact_click", {
-        contact_type: "quote",
+        contact_type: isPhoneLink ? "phone" : "quote",
         link_url: href,
         link_label: label || "n/a",
         page_path: window.location.pathname,

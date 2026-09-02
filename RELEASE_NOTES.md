@@ -1,5 +1,19 @@
 # Release Notes
 
+## V1.5.11 (Draft) - Complete Funnel Tracking
+
+### Changed
+- Extended Google Analytics and Google Ads tracking across every trip guide and search landing page
+- Preserved owner-testing exclusions when browsing beyond the homepage
+- Added separate tracking for phone-link clicks and quote-link clicks
+- Refreshed the shared script version so visitors receive the updated tracking immediately
+
+### Test Checklist
+- Homepage, trip guides, and search landing pages load without console errors
+- Owner-testing mode suppresses analytics throughout the site
+- Quote links report as quote contact clicks and phone links report as phone contact clicks
+- Existing estimator and successful quote-submission conversion events remain unchanged
+
 ## V1.5.10 (Draft) - Shuttle Volume Pricing
 
 ### Changed
