@@ -11,6 +11,17 @@
     "binding": "ASSETS",
     "run_worker_first": true
   },
+  "d1_databases": [
+    {
+      "binding": "EVENTS_DB",
+      "database_name": "bostonpartyvan-events",
+      "database_id": "1337e27f-a839-4f54-a01f-4d96d3405917"
+    }
+  ],
+  "vars": {
+    "PUBLIC_SITE_URL": "https://www.bostonpartyvan.com",
+    "BOOKING_NOTIFICATION_EMAIL": "bostonpartyvan@gmail.com"
+  },
   "compatibility_flags": [
     "nodejs_compat"
   ]

@@ -1,3 +1,5 @@
+import { handleEventApi } from "./event-bookings.js";
+
 const DEFAULT_FROM = "Boston Party Van <bookings@bostonpartyvan.com>";
 const ALLOWED_ORIGINS = new Set([
   "https://www.bostonpartyvan.com",
@@ -242,7 +244,7 @@ async function handleQuoteReceipt(request, env) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
     if (url.hostname === "bostonpartyvan.com") {
@@ -260,6 +262,9 @@ export default {
     if (url.pathname === "/api/quote-receipt" && request.method === "POST") {
       return handleQuoteReceipt(request, env);
     }
+
+    const eventApiResponse = await handleEventApi(request, env, ctx, url);
+    if (eventApiResponse) return eventApiResponse;
 
     return env.ASSETS.fetch(request);
   },

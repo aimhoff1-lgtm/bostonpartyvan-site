@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Rides &amp; Seat Selection | Boston Party Van</title>
+    <meta
+      name="description"
+      content="Choose a Boston special-event ride, select available seats in the Boston Party Van, and reserve your group together."
+    />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../style.css?v=1.5.11-tracking" />
+    <link rel="stylesheet" href="events.css?v=1.0-checkout" />
+  </head>
+  <body class="event-rides-page">
+    <header class="site-header">
+      <div class="top-strip">
+        <p>Shared rides to select Boston events</p>
+      </div>
+      <div class="nav-wrap">
+        <a class="brand" href="../index.html" aria-label="Boston Party Van home">
+          <span class="brand-lockup">
+            <img
+              src="../assets/images/bpv-header-mark.png"
+              alt=""
+              aria-hidden="true"
+              class="brand-logo"
+            />
+            <span class="brand-wordmark">Boston Party Van</span>
+          </span>
+        </a>
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+        <nav class="main-nav">
+          <a href="../index.html#services">Trip Menu</a>
+          <a class="nav-current" href="./" aria-current="page">Event Rides</a>
+          <a href="../index.html#pricing">Estimate</a>
+          <a href="../photos.html">Photos</a>
+          <a href="../index.html#faq">FAQ</a>
+          <a class="nav-cta" href="../index.html#quote">Private Trip Quote</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="event-rides-main">
+      <section class="event-rides-intro" aria-labelledby="event-rides-heading">
+        <div>
+          <p class="eyebrow">Seat reservations</p>
+          <h1 id="event-rides-heading">Event rides</h1>
+        </div>
+        <div id="previewNotice" class="preview-notice" role="note" hidden>
+          Preview only. No payment will be taken.
+        </div>
+      </section>
+
+      <section class="event-browser" aria-labelledby="choose-event-heading">
+        <div class="featured-rides">
+          <div class="featured-rides-heading">
+            <h2>Upcoming</h2>
+            <span>Choose a ride</span>
+          </div>
+          <div id="featuredEventList" class="featured-event-list"></div>
+        </div>
+
+        <div class="event-picker">
+          <label class="event-select-field" for="eventSelect">
+            <span id="choose-event-heading">All events</span>
+            <select id="eventSelect" disabled>
+              <option>Loading events...</option>
+            </select>
+          </label>
+          <label class="event-date-field" for="eventDatePicker">
+            <span>Date</span>
+            <input id="eventDatePicker" type="date" />
+          </label>
+          <p id="eventDateStatus" class="event-date-status" aria-live="polite"></p>
+        </div>
+
+        <div id="eventEmptyState" class="event-empty-state" hidden>
+          <h2>No rides scheduled.</h2>
+          <p>Check back for the next event.</p>
+          <a class="btn btn-primary" href="../index.html#quote">Request a private trip</a>
+        </div>
+
+        <div id="eventBookingLayout" class="event-booking-layout" hidden>
+          <article class="event-overview" aria-live="polite">
+            <div class="event-overview-topline">
+              <span class="event-type" id="eventType"></span>
+              <span class="event-availability" id="eventAvailability"></span>
+            </div>
+            <p class="event-date" id="eventDate"></p>
+            <h2 id="eventName"></h2>
+            <p class="event-venue" id="eventVenue"></p>
+
+            <dl class="trip-facts">
+              <div>
+                <dt>Pickup</dt>
+                <dd id="eventPickup"></dd>
+              </div>
+              <div>
+                <dt>Departure</dt>
+                <dd id="eventDeparture"></dd>
+              </div>
+              <div>
+                <dt>Drop-off</dt>
+                <dd id="eventDropoff"></dd>
+              </div>
+              <div>
+                <dt>Return</dt>
+                <dd id="eventReturn"></dd>
+              </div>
+              <div>
+                <dt>Price</dt>
+                <dd id="eventPrice"></dd>
+              </div>
+            </dl>
+
+            <details class="trip-details">
+              <summary>Trip details</summary>
+              <p class="event-description" id="eventDescription"></p>
+              <div class="trip-terms">
+                <div>
+                  <h3>Included</h3>
+                  <ul id="eventIncluded"></ul>
+                </div>
+                <div>
+                  <h3>Not included</h3>
+                  <ul id="eventNotIncluded"></ul>
+                </div>
+              </div>
+            </details>
+          </article>
+
+          <section class="seat-picker" aria-labelledby="seat-picker-heading">
+            <div class="seat-picker-heading-row">
+              <div>
+                <p class="seat-picker-kicker">14-passenger Sprinter</p>
+                <h2 id="seat-picker-heading">Choose your seats</h2>
+              </div>
+              <span id="seatRate" class="seat-rate"></span>
+            </div>
+
+            <div class="seat-legend" aria-label="Seat availability legend">
+              <span><i class="legend-swatch available"></i>Available</span>
+              <span><i class="legend-swatch selected"></i>Selected</span>
+              <span><i class="legend-swatch held"></i>Held</span>
+              <span><i class="legend-swatch unavailable"></i>Sold</span>
+            </div>
+
+            <div class="van-map" aria-label="Boston Party Van seat map, viewed from above">
+              <span class="van-wheel van-wheel-front-left" aria-hidden="true"></span>
+              <span class="van-wheel van-wheel-front-right" aria-hidden="true"></span>
+              <span class="van-wheel van-wheel-rear-left" aria-hidden="true"></span>
+              <span class="van-wheel van-wheel-rear-right" aria-hidden="true"></span>
+              <span class="van-mirror van-mirror-left" aria-hidden="true"></span>
+              <span class="van-mirror van-mirror-right" aria-hidden="true"></span>
+              <span class="van-entry-door" aria-hidden="true"></span>
+              <span class="van-entry-step" aria-hidden="true"></span>
+              <span class="van-tail-light van-tail-light-left" aria-hidden="true"></span>
+              <span class="van-tail-light van-tail-light-right" aria-hidden="true"></span>
+
+              <div class="van-front" aria-hidden="true">
+                <span class="van-direction">Front</span>
+                <span class="van-windshield"></span>
+                <span class="van-dashboard"></span>
+              </div>
+              <div class="seat-row cab-row">
+                <span class="row-label">1</span>
+                <div class="driver-position" aria-label="Driver seat, not available">
+                  <span class="seat-symbol" aria-hidden="true"></span>
+                  <span class="seat-code">DRV</span>
+                  <small>Driver</small>
+                </div>
+                <div class="cab-console" aria-hidden="true">
+                  <span class="steering-wheel"></span>
+                </div>
+                <button class="seat" type="button" data-seat="1A">
+                  <span class="seat-symbol" aria-hidden="true"></span>
+                  <span class="seat-code">1A</span>
+                  <small>Front</small>
+                </button>
+              </div>
+              <div class="cabin-divider" aria-hidden="true"><span>Passenger cabin</span></div>
+              <div class="seat-row three-seat-row">
+                <span class="row-label">2</span>
+                <button class="seat" type="button" data-seat="2A"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">2A</span></button>
+                <button class="seat" type="button" data-seat="2B"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">2B</span></button>
+                <button class="seat" type="button" data-seat="2C"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">2C</span></button>
+                <span class="cabin-aisle" aria-hidden="true"></span>
+              </div>
+              <div class="seat-row three-seat-row">
+                <span class="row-label">3</span>
+                <button class="seat" type="button" data-seat="3A"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">3A</span></button>
+                <button class="seat" type="button" data-seat="3B"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">3B</span></button>
+                <button class="seat" type="button" data-seat="3C"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">3C</span></button>
+                <span class="cabin-aisle" aria-hidden="true"></span>
+              </div>
+              <div class="seat-row three-seat-row">
+                <span class="row-label">4</span>
+                <button class="seat" type="button" data-seat="4A"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">4A</span></button>
+                <button class="seat" type="button" data-seat="4B"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">4B</span></button>
+                <button class="seat" type="button" data-seat="4C"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">4C</span></button>
+                <span class="cabin-aisle" aria-hidden="true"></span>
+              </div>
+              <div class="seat-row rear-row">
+                <span class="row-label">5</span>
+                <button class="seat" type="button" data-seat="5A"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">5A</span></button>
+                <button class="seat" type="button" data-seat="5B"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">5B</span></button>
+                <button class="seat" type="button" data-seat="5C"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">5C</span></button>
+                <button class="seat" type="button" data-seat="5D"><span class="seat-symbol" aria-hidden="true"></span><span class="seat-code">5D</span></button>
+              </div>
+              <div class="van-rear" aria-hidden="true">
+                <span>Rear doors</span>
+              </div>
+            </div>
+
+            <div class="booking-summary" aria-live="polite">
+              <div>
+                <span id="selectionCount">No seats selected</span>
+                <strong id="selectionSeats">Choose from the green seats</strong>
+              </div>
+              <div class="booking-total">
+                <span>Total</span>
+                <strong id="selectionTotal">$0</strong>
+              </div>
+              <button id="continueButton" class="btn btn-primary" type="button" disabled>
+                Continue
+              </button>
+            </div>
+            <p id="seatStatus" class="seat-status" aria-live="polite"></p>
+          </section>
+        </div>
+      </section>
+
+      <section class="past-events" aria-labelledby="past-events-heading" hidden>
+        <div>
+          <p class="eyebrow">Preview archive</p>
+          <h2 id="past-events-heading">Sold-out summer examples</h2>
+        </div>
+        <div id="pastEventList" class="past-event-list"></div>
+      </section>
+    </main>
+
+    <dialog
+      id="checkoutDialog"
+      class="event-checkout-dialog"
+      aria-labelledby="checkoutDialogTitle"
+    >
+      <header class="checkout-dialog-header">
+        <a class="checkout-brand" href="../index.html" aria-label="Boston Party Van home">
+          <img src="../assets/images/bpv-header-mark.png" alt="" aria-hidden="true" />
+          <span>Boston Party Van</span>
+        </a>
+        <ol class="checkout-progress" aria-label="Reservation progress">
+          <li class="is-active" data-checkout-step="review"><span>1</span>Review</li>
+          <li data-checkout-step="payment"><span>2</span>Payment</li>
+          <li data-checkout-step="booked"><span>3</span>Booked</li>
+        </ol>
+        <button class="dialog-close" type="button" aria-label="Close checkout">&times;</button>
+      </header>
+
+      <div id="checkoutFormView" class="checkout-view checkout-form-view">
+        <section class="checkout-order" aria-labelledby="checkoutDialogTitle">
+          <div class="checkout-order-heading">
+            <div>
+              <p class="eyebrow">Your event ride</p>
+              <span id="checkoutEventType" class="checkout-event-type"></span>
+            </div>
+            <span id="checkoutModeBadge" class="checkout-mode-badge" hidden>Preview</span>
+          </div>
+          <h2 id="checkoutDialogTitle">Review your reservation</h2>
+          <h3 id="checkoutEventName" class="checkout-event-name"></h3>
+          <p id="checkoutEventDate" class="checkout-event-date"></p>
+
+          <dl class="checkout-route">
+            <div>
+              <dt>Meet here</dt>
+              <dd id="checkoutPickup"></dd>
+            </div>
+            <div>
+              <dt>Leaves at</dt>
+              <dd id="checkoutDeparture"></dd>
+            </div>
+            <div>
+              <dt>Return plan</dt>
+              <dd id="checkoutReturn"></dd>
+            </div>
+          </dl>
+
+          <div class="checkout-seat-review">
+            <div class="checkout-section-label">
+              <span>Selected seats</span>
+              <button id="editSeatsButton" type="button">Edit</button>
+            </div>
+            <div id="checkoutSeatChips" class="checkout-seat-chips"></div>
+          </div>
+
+          <div class="checkout-totals" aria-label="Reservation total">
+            <div>
+              <span id="checkoutFareLabel"></span>
+              <span id="checkoutSubtotal"></span>
+            </div>
+            <div class="checkout-total-row">
+              <strong>Total</strong>
+              <strong id="checkoutTotal"></strong>
+            </div>
+          </div>
+          <p class="checkout-fare-note">
+            Round-trip transportation is included. Event admission, food, and drinks are not.
+          </p>
+        </section>
+
+        <section class="checkout-contact" aria-labelledby="checkout-contact-heading">
+          <p class="eyebrow">Passenger details</p>
+          <h2 id="checkout-contact-heading">Who is booking?</h2>
+          <p id="checkoutContactIntro" class="checkout-contact-intro">
+            We will send the ride confirmation and receipt to this person.
+          </p>
+
+          <form id="checkoutForm" class="event-checkout-form">
+            <label class="checkout-field checkout-field-wide">
+              <span>Reservation name</span>
+              <input
+                type="text"
+                name="name"
+                autocomplete="name"
+                maxlength="100"
+                placeholder="Full name"
+                required
+              />
+            </label>
+            <label class="checkout-field">
+              <span>Email for confirmation</span>
+              <input
+                type="email"
+                name="email"
+                autocomplete="email"
+                inputmode="email"
+                maxlength="254"
+                placeholder="you@example.com"
+                required
+              />
+            </label>
+            <label class="checkout-field">
+              <span>Mobile phone <small>Optional</small></span>
+              <input
+                type="tel"
+                name="phone"
+                autocomplete="tel"
+                inputmode="tel"
+                maxlength="30"
+                placeholder="(617) 555-0123"
+              />
+            </label>
+            <label class="checkout-agreement checkout-field-wide">
+              <input type="checkbox" name="agreement" required />
+              <span>
+                I have reviewed the pickup and return plan and understand that event admission is
+                not included.
+              </span>
+            </label>
+            <div class="checkout-submit-area checkout-field-wide">
+              <button id="checkoutSubmit" class="btn btn-primary" type="submit">
+                Continue to secure payment
+              </button>
+              <div class="secure-checkout-note">
+                <strong>Secure payment through Stripe</strong>
+                <span>Your seats are held for 30 minutes when payment opens.</span>
+              </div>
+              <p id="checkoutStatus" class="checkout-status" aria-live="polite"></p>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <div id="checkoutPreviewView" class="checkout-view checkout-outcome" hidden>
+        <div class="checkout-outcome-mark" aria-hidden="true">✓</div>
+        <p class="eyebrow">Preview complete</p>
+        <h2 id="checkoutPreviewHeading">The customer checkout is ready.</h2>
+        <p id="checkoutPreviewCopy"></p>
+        <div class="preview-checkout-steps" aria-label="Live checkout steps">
+          <span><b>1</b> Seats held for 30 minutes</span>
+          <span><b>2</b> Customer pays securely with Stripe</span>
+          <span><b>3</b> Seats and receipt confirmed by email</span>
+        </div>
+        <p class="preview-checkout-note">
+          This preview did not transmit your contact details, reserve inventory, or take payment.
+        </p>
+        <button class="btn btn-primary dialog-done" type="button">Back to event rides</button>
+      </div>
+
+      <div id="checkoutResultView" class="checkout-view checkout-outcome" hidden>
+        <div id="checkoutResultMark" class="checkout-outcome-mark is-pending" aria-hidden="true">
+          <span></span>
+        </div>
+        <p id="checkoutResultEyebrow" class="eyebrow">Confirming payment</p>
+        <h2 id="checkoutResultHeading">Checking your payment...</h2>
+        <p id="checkoutResultCopy">This usually takes only a moment.</p>
+        <dl id="checkoutResultDetails" class="checkout-result-details" hidden>
+          <div><dt>Event</dt><dd id="checkoutResultEvent"></dd></div>
+          <div><dt>Seats</dt><dd id="checkoutResultSeats"></dd></div>
+          <div><dt>Total paid</dt><dd id="checkoutResultTotal"></dd></div>
+        </dl>
+        <p id="checkoutResultHelp" class="checkout-result-help">
+          Keep this page open while we confirm your reservation.
+        </p>
+        <button id="checkoutResultDone" class="btn btn-primary dialog-done" type="button">
+          Back to event rides
+        </button>
+      </div>
+    </dialog>
+
+    <footer class="site-footer">
+      <div>
+        <h3>Boston Party Van</h3>
+        <p>Private trips and shared rides for Boston events.</p>
+      </div>
+      <div>
+        <p><a href="../index.html">Main site</a></p>
+        <p><a href="../index.html#quote">Private Trip Quote</a></p>
+      </div>
+      <div>
+        <p>Greater Boston + select New England events</p>
+      </div>
+    </footer>
+
+    <script src="../script.js?v=1.5.11-tracking"></script>
+    <script src="events.js?v=1.0-checkout"></script>
+  </body>
+</html>
