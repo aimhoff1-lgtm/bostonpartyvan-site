@@ -243,6 +243,20 @@ function shortEventName(event) {
   return event.name.replace(/^Preview:\s*/i, "");
 }
 
+function eventArtworkClass(event) {
+  const eventLabel = `${event.id} ${event.venue}`.toLowerCase();
+  if (eventLabel.includes("td-garden") || eventLabel.includes("td garden")) {
+    return "artwork-garden";
+  }
+  if (eventLabel.includes("foxborough") || eventLabel.includes("gillette")) {
+    return "artwork-van";
+  }
+  if (eventLabel.includes("mgm") || eventLabel.includes("fenway")) {
+    return "artwork-nightlife";
+  }
+  return "artwork-city";
+}
+
 function eventDateValue(event) {
   return event.startsAt.slice(0, 10);
 }
@@ -273,7 +287,7 @@ function renderFeaturedEvents(events) {
     const price = document.createElement("span");
 
     button.type = "button";
-    button.className = "featured-event-tile";
+    button.className = `featured-event-tile ${eventArtworkClass(event)}`;
     button.dataset.eventId = event.id;
     button.setAttribute("aria-label", `Select ${event.name}`);
     button.setAttribute("aria-pressed", String(event.id === state.activeEventId));
@@ -365,7 +379,7 @@ function renderEvent(event, preserveSelection = false) {
   document.getElementById("eventDate").textContent = eventDateFormat.format(
     new Date(event.startsAt)
   );
-  document.getElementById("eventName").textContent = event.name;
+  document.getElementById("eventName").textContent = shortEventName(event);
   document.getElementById("eventVenue").textContent = event.venue;
   document.getElementById("eventDescription").textContent = event.description;
   document.getElementById("eventPickup").textContent = event.pickup;
@@ -460,7 +474,7 @@ function renderCatalog({ preserveSelection = false } = {}) {
         ? ` - ${statusLabel(event)}`
         : "";
       const option = new Option(
-        `${shortDateFormat.format(new Date(event.startsAt))} - ${event.name}${statusSuffix}`,
+        `${shortDateFormat.format(new Date(event.startsAt))} - ${shortEventName(event)}${statusSuffix}`,
         event.id
       );
       option.className = event.status === "sold_out" ? "is-sold-out" : "";
@@ -707,7 +721,10 @@ function openCheckout() {
   elements.checkoutStatus.className = "checkout-status";
   elements.checkoutStatus.textContent = "";
   showCheckoutDialog();
-  elements.checkoutForm.elements.name.focus();
+  elements.checkoutDialog.scrollTop = 0;
+  elements.checkoutDialog
+    .querySelector(".dialog-close")
+    ?.focus({ preventScroll: true });
 
   if (event.checkoutEnabled) {
     trackEventRide("begin_checkout", {

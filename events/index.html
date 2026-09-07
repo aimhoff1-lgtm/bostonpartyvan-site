@@ -18,7 +18,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../style.css?v=1.5.11-tracking" />
-    <link rel="stylesheet" href="events.css?v=1.0-checkout" />
+    <link rel="stylesheet" href="events.css?v=1.1-polish" />
   </head>
   <body class="event-rides-page">
     <header class="site-header">
@@ -50,13 +50,43 @@
     </header>
 
     <main class="event-rides-main">
-      <section class="event-rides-intro" aria-labelledby="event-rides-heading">
-        <div>
-          <p class="eyebrow">Seat reservations</p>
-          <h1 id="event-rides-heading">Event rides</h1>
+      <section class="event-rides-hero" aria-labelledby="event-rides-heading">
+        <div class="event-hero-reel" aria-hidden="true">
+          <img
+            src="../assets/images/event-hero-garden.jpg"
+            alt=""
+            decoding="async"
+            fetchpriority="high"
+          />
+          <img
+            src="../assets/images/event-hero-nightlife.jpg"
+            alt=""
+            decoding="async"
+            loading="lazy"
+          />
+          <img
+            src="../assets/images/event-hero-van.jpg"
+            alt=""
+            decoding="async"
+            loading="lazy"
+          />
+        </div>
+        <div class="event-hero-content">
+          <p class="eyebrow">Boston Party Van event rides</p>
+          <h1 id="event-rides-heading">Boston event rides</h1>
+          <p class="event-hero-copy">
+            Fixed-route concert and game-day transportation with one coordinated pickup,
+            venue drop-off, and return.
+          </p>
+          <div class="event-hero-facts" aria-label="Event ride features">
+            <span>Up to 14 seats</span>
+            <span>Round trip</span>
+            <span>Secure checkout</span>
+          </div>
         </div>
         <div id="previewNotice" class="preview-notice" role="note" hidden>
-          Preview only. No payment will be taken.
+          <strong>Interactive preview</strong>
+          <span>No payment will be taken.</span>
         </div>
       </section>
 
@@ -432,6 +462,6 @@
     </footer>
 
     <script src="../script.js?v=1.5.11-tracking"></script>
-    <script src="events.js?v=1.0-checkout"></script>
+    <script src="events.js?v=1.1-polish"></script>
   </body>
 </html>

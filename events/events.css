@@ -16,36 +16,138 @@
 .event-rides-main {
   width: var(--content-width);
   margin: 0 auto;
-  padding: 2rem 0 4rem;
+  padding: 0 0 4rem;
 }
 
-.event-rides-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 1rem;
-  align-items: center;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--line);
+.event-rides-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  width: 100vw;
+  min-height: clamp(19rem, 32vw, 24rem);
+  margin-left: calc(50% - 50vw);
+  padding: clamp(2.4rem, 6vw, 4.5rem) max(1rem, calc((100vw - var(--content-width)) / 2));
+  align-items: flex-end;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  background: #07131e;
 }
 
-.event-rides-intro h1 {
-  margin-top: 0.2rem;
-  font-size: 2.5rem;
+.event-rides-hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(3, 13, 22, 0.96) 0%, rgba(3, 13, 22, 0.78) 42%, rgba(3, 13, 22, 0.3) 72%, rgba(3, 13, 22, 0.48) 100%),
+    linear-gradient(0deg, rgba(3, 13, 22, 0.82), transparent 64%);
+  content: "";
+}
+
+.event-hero-reel,
+.event-hero-reel img {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.event-hero-reel img {
+  object-fit: cover;
+  object-position: center 58%;
+  opacity: 0;
+  animation: event-hero-reel 18s infinite ease-in-out;
+  transform: scale(1.04);
+}
+
+.event-hero-reel img:nth-child(2) {
+  animation-delay: -6s;
+  object-position: center 45%;
+}
+
+.event-hero-reel img:nth-child(3) {
+  animation-delay: -12s;
+  object-position: center 62%;
+}
+
+@keyframes event-hero-reel {
+  0%,
+  28% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  36%,
+  92% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+.event-hero-content {
+  width: min(43rem, 76%);
+}
+
+.event-rides-hero h1 {
+  margin-top: 0.35rem;
+  max-width: 12ch;
+  font-size: clamp(2.85rem, 7vw, 5.7rem);
+  line-height: 0.95;
+}
+
+.event-hero-copy {
+  max-width: 42rem;
+  margin-top: 1rem;
+  color: #d7e2ea;
+  font-size: clamp(1rem, 1.7vw, 1.2rem);
+  line-height: 1.55;
+}
+
+.event-hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.35rem;
+}
+
+.event-hero-facts span {
+  padding: 0.48rem 0.68rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  color: #f4f8fb;
+  background: rgba(4, 17, 28, 0.68);
+  font-size: 0.76rem;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
 }
 
 .preview-notice {
-  max-width: 17rem;
-  padding: 0.65rem 0.8rem;
+  position: absolute;
+  right: max(1rem, calc((100vw - var(--content-width)) / 2));
+  bottom: clamp(2.4rem, 6vw, 4.5rem);
+  display: grid;
+  max-width: 14rem;
+  padding: 0.7rem 0.8rem;
   border: 1px solid rgba(255, 193, 73, 0.55);
   border-radius: 6px;
   color: #fff3d7;
-  background: rgba(58, 40, 8, 0.62);
-  font-size: 0.88rem;
+  background: rgba(48, 33, 8, 0.82);
+  font-size: 0.76rem;
   line-height: 1.45;
+  backdrop-filter: blur(10px);
+}
+
+.preview-notice strong {
+  color: var(--accent-gold);
+  font-size: 0.68rem;
+  text-transform: uppercase;
 }
 
 .event-browser {
-  padding: 1.25rem 0 0;
+  padding: 1.6rem 0 0;
 }
 
 .featured-rides {
@@ -57,11 +159,11 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
 }
 
 .featured-rides-heading h2 {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .featured-rides-heading span {
@@ -72,24 +174,57 @@
 .featured-event-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.65rem;
+  gap: 0.8rem;
 }
 
 .featured-event-tile {
+  --event-artwork: url("../assets/images/boston-skyline-river-dusk.webp");
+  --event-artwork-position: center;
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: 2.7rem minmax(0, 1fr) auto;
   gap: 0.7rem;
-  align-items: center;
+  align-items: end;
   min-width: 0;
-  min-height: 5.2rem;
-  padding: 0.65rem;
+  min-height: 8.4rem;
+  padding: 0.85rem;
+  overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 6px;
   color: var(--text-main);
-  background: rgba(7, 22, 34, 0.72);
+  background:
+    linear-gradient(180deg, rgba(5, 17, 27, 0.16) 0%, rgba(5, 17, 27, 0.94) 82%),
+    var(--event-artwork) var(--event-artwork-position) / cover no-repeat,
+    #071622;
   font: inherit;
   text-align: left;
   cursor: pointer;
+  box-shadow: inset 0 -3.5rem 4rem rgba(3, 12, 20, 0.28);
+  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.featured-event-tile::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(5, 18, 29, 0.52), transparent 62%);
+  content: "";
+}
+
+.featured-event-tile.artwork-garden {
+  --event-artwork: url("../assets/images/event-hero-garden.jpg");
+  --event-artwork-position: center 62%;
+}
+
+.featured-event-tile.artwork-van {
+  --event-artwork: url("../assets/images/event-hero-van.jpg");
+  --event-artwork-position: center 60%;
+}
+
+.featured-event-tile.artwork-nightlife {
+  --event-artwork: url("../assets/images/event-hero-nightlife.jpg");
+  --event-artwork-position: center 44%;
 }
 
 .featured-event-tile:hover,
@@ -97,20 +232,22 @@
   border-color: rgba(38, 214, 189, 0.7);
   outline: 2px solid rgba(38, 214, 189, 0.24);
   outline-offset: 2px;
+  transform: translateY(-2px);
+  box-shadow: 0 0.85rem 1.8rem rgba(0, 0, 0, 0.25);
 }
 
 .featured-event-tile.is-active {
   border-color: var(--accent-cool);
-  background: rgba(18, 63, 73, 0.7);
-  box-shadow: inset 3px 0 var(--accent-cool);
+  box-shadow: inset 3px 0 var(--accent-cool), 0 0.85rem 1.8rem rgba(0, 0, 0, 0.24);
 }
 
 .featured-event-date {
   display: grid;
   align-self: stretch;
   place-content: center;
-  border-right: 1px solid var(--line);
-  color: var(--text-soft);
+  min-height: 3.3rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.28);
+  color: #c3d1dc;
   font-size: 0.65rem;
   line-height: 1;
   text-align: center;
@@ -147,17 +284,24 @@
 
 .featured-event-copy > span:last-child {
   overflow: hidden;
-  color: var(--text-soft);
+  color: #c3d1dc;
   font-size: 0.68rem;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .featured-event-price {
-  align-self: start;
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  padding: 0.28rem 0.42rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
   color: #fff3d7;
+  background: rgba(4, 16, 26, 0.7);
   font-size: 0.78rem;
   font-weight: 700;
+  backdrop-filter: blur(7px);
 }
 
 .event-empty-state {
@@ -234,6 +378,7 @@
   grid-template-columns: minmax(0, 0.82fr) minmax(31rem, 1.18fr);
   gap: 2.5rem;
   align-items: start;
+  scroll-margin-top: 6rem;
 }
 
 .event-overview {
@@ -380,10 +525,26 @@
 }
 
 .seat-picker {
+  position: relative;
+  overflow: hidden;
   padding: 1.1rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  background: rgba(5, 16, 26, 0.7);
+  background:
+    linear-gradient(180deg, rgba(38, 214, 189, 0.055), transparent 9rem),
+    rgba(5, 16, 26, 0.82);
+  box-shadow: 0 1.4rem 3.2rem rgba(0, 0, 0, 0.22);
+  scroll-margin-top: 6rem;
+}
+
+.seat-picker::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-cool), var(--accent-gold), var(--accent-hot));
+  content: "";
 }
 
 .seat-picker-kicker {
@@ -954,8 +1115,11 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
   margin-top: 1.2rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid var(--line);
+  padding: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  background: rgba(18, 39, 54, 0.88);
+  box-shadow: 0 0.7rem 1.7rem rgba(0, 0, 0, 0.18);
 }
 
 .booking-summary span {
@@ -1675,13 +1839,12 @@
 }
 
 @media (max-width: 900px) {
-  .event-rides-intro,
   .event-booking-layout {
     grid-template-columns: 1fr;
   }
 
-  .preview-notice {
-    max-width: none;
+  .event-hero-content {
+    width: min(42rem, calc(100% - 13rem));
   }
 
   .event-picker {
@@ -1709,11 +1872,45 @@
 
 @media (max-width: 620px) {
   .event-rides-main {
-    padding-top: 1.25rem;
+    padding-top: 0;
   }
 
-  .event-rides-intro h1 {
-    font-size: 2.25rem;
+  .event-rides-hero {
+    min-height: 25rem;
+    padding-top: 2.3rem;
+    padding-bottom: 2rem;
+    align-items: flex-end;
+  }
+
+  .event-rides-hero::after {
+    background:
+      linear-gradient(0deg, rgba(3, 13, 22, 0.97) 0%, rgba(3, 13, 22, 0.74) 64%, rgba(3, 13, 22, 0.35) 100%);
+  }
+
+  .event-hero-content {
+    width: 100%;
+  }
+
+  .event-rides-hero h1 {
+    max-width: 9ch;
+    font-size: 3.35rem;
+  }
+
+  .event-hero-copy {
+    max-width: 31rem;
+    font-size: 0.96rem;
+  }
+
+  .event-hero-facts {
+    padding-right: 0;
+  }
+
+  .preview-notice {
+    top: 1rem;
+    right: 1rem;
+    bottom: auto;
+    max-width: 11rem;
+    padding: 0.5rem 0.6rem;
   }
 
   .event-overview h2 {
@@ -1730,7 +1927,8 @@
   }
 
   .featured-event-tile {
-    flex: 0 0 15.5rem;
+    flex: 0 0 17.25rem;
+    min-height: 9.2rem;
     scroll-snap-align: start;
   }
 
@@ -1861,6 +2059,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .event-hero-reel img {
+    animation: none;
+    transform: none;
+  }
+
+  .event-hero-reel img:first-child {
+    opacity: 1;
+  }
+
   .event-checkout-dialog[open],
   .event-checkout-dialog[open]::backdrop,
   .checkout-outcome-mark.is-pending span {
