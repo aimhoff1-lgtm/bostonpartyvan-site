@@ -258,7 +258,7 @@
                 "name": "Do you have a minimum booking?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Most local bookings have a three-hour minimum. Limited-time specials and custom service plans may use a different service window, which will be shown in the offer or confirmed in your personalized quote."
+                  "text": "Most local bookings have a three-hour minimum. Custom service windows are confirmed in your personalized quote."
                 }
               },
               {
@@ -306,7 +306,7 @@
                 "name": "Do you provide transportation to Boston sporting events?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes. We plan group transportation to TD Garden, Fenway Park, Gillette Stadium, White Stadium, and other New England venues. Choose the venue and one-way or round-trip plan in the estimator or quote form so the timing and any eligible game-day special are handled correctly."
+                  "text": "Yes. We plan group transportation to TD Garden, Fenway Park, Gillette Stadium, White Stadium, and other New England venues. Choose the venue and one-way or round-trip plan in the estimator or quote form so we can review your route and timing."
                 }
               },
               {
@@ -314,7 +314,7 @@
                 "name": "Do you offer Logan Airport transfers?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes. We handle private group transfers to or from Logan Airport, including qualifying direct, no-stop trips between the airport and one destination. Enter one-way or round-trip details and include your group luggage so we can confirm the plan. Current airport offers are listed in the Specials section."
+                  "text": "Yes. We handle private group transfers to or from Logan Airport, including direct, no-stop trips between the airport and one destination. Enter one-way or round-trip details and include your group luggage so we can confirm the plan."
                 }
               },
               {
@@ -322,7 +322,7 @@
                 "name": "Can you handle wedding transportation?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes. We can build transportation around hotel blocks, the ceremony, the reception, and the final return. Share the full timeline and pickup list so the personalized quote reflects the actual wedding-day plan. Current wedding offers are listed in the Specials section."
+                  "text": "Yes. We can build transportation around hotel blocks, the ceremony, the reception, and the final return. Share the full timeline and pickup list so the personalized quote reflects the actual wedding-day plan."
                 }
               },
               {
@@ -410,13 +410,13 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=1.5.10-shuttle-pricing" />
+    <link rel="stylesheet" href="style.css?v=1.5.14-availability" />
   </head>
   <body>
     <div class="bg-orb bg-orb-a"></div>
     <div class="bg-orb bg-orb-b"></div>
     <div class="noise-layer"></div>
-    <div class="version-tag" title="Site version">V1.5.11</div>
+    <div class="version-tag" title="Site version">V1.5.14</div>
 
     <header class="site-header">
       <div class="top-strip">
@@ -506,6 +506,8 @@
         </div>
       </section>
 
+      <!-- Archived deals stay inert until SITE_CONFIG.specialOffersEnabled is restored. -->
+      <template id="archivedSpecialOffers">
       <section id="offers" class="section reveal offer-section" aria-label="Current booking offers">
         <div class="section-head">
           <p class="eyebrow">Current booking offers</p>
@@ -612,6 +614,8 @@
           </article>
         </div>
       </section>
+
+      </template>
 
       <section id="services" class="section reveal">
         <div class="section-head">
@@ -1365,9 +1369,8 @@
               <details>
                 <summary>Do you have a minimum booking?</summary>
                 <p>
-                  Most local bookings have a three-hour minimum. Limited-time specials and
-                  custom service plans may use a different service window, which will be
-                  shown in the offer or confirmed in your personalized quote.
+                  Most local bookings have a three-hour minimum. Custom service windows
+                  are confirmed in your personalized quote.
                 </p>
               </details>
               <details>
@@ -1427,18 +1430,17 @@
                 <p>
                   Yes. We plan group transportation to TD Garden, Fenway Park, Gillette
                   Stadium, White Stadium, and other New England venues. Choose the venue and
-                  one-way or round-trip plan in the estimator or quote form so the timing and
-                  any eligible game-day special are handled correctly.
+                  one-way or round-trip plan in the estimator or quote form so we can review
+                  your route and timing.
                 </p>
               </details>
               <details>
                 <summary>Do you offer Logan Airport transfers?</summary>
                 <p>
                   Yes. We handle private group transfers to or from Logan Airport, including
-                  qualifying direct, no-stop trips between the airport and one destination.
+                  direct, no-stop trips between the airport and one destination.
                   Enter one-way or round-trip details and include your group luggage so we
-                  can confirm the plan. Current airport offers are listed in the Specials
-                  section.
+                  can confirm the plan.
                 </p>
               </details>
               <details>
@@ -1446,8 +1448,7 @@
                 <p>
                   Yes. We can build transportation around hotel blocks, the ceremony, the
                   reception, and the final return. Share the full timeline and pickup list so
-                  the personalized quote reflects the actual wedding-day plan. Current
-                  wedding offers are listed in the Specials section.
+                  the personalized quote reflects the actual wedding-day plan.
                 </p>
               </details>
               <details>
@@ -1592,10 +1593,25 @@
               </label>
             </div>
           </fieldset>
-          <label>
-            Event date
-            <input type="date" name="pickupDate" required />
-          </label>
+          <div class="quote-date-field">
+            <label>
+              Event date
+              <input type="date" name="pickupDate" aria-describedby="quoteAvailabilityNotice quoteUnavailableNotice" required />
+            </label>
+            <div role="status" aria-live="polite" aria-atomic="true">
+              <p id="quoteAvailabilityNotice" class="quote-availability-notice" hidden>
+                <strong>Limited availability</strong>
+                Availability is limited for trips less than 30 days away. Please submit
+                your inquiry. If we are unable to accommodate your trip, we'll do our best to
+                assist you through one of our affiliates.
+              </p>
+              <p id="quoteUnavailableNotice" class="quote-availability-notice quote-unavailable-notice" hidden>
+                <strong>Dates unavailable</strong>
+                We are unavailable December 25, 2026 through January 4, 2027.
+                Please choose dates outside this period.
+              </p>
+            </div>
+          </div>
           <label>
             Pickup area or address
             <input type="text" name="pickup" required />
@@ -1709,7 +1725,7 @@
               </details>
               <label data-custom-service-field="multi_day" hidden>
                 Service end date
-                <input type="date" name="serviceEndDate" />
+                <input type="date" name="serviceEndDate" aria-describedby="quoteUnavailableNotice" />
               </label>
               <label data-custom-service-field="stay_on_island" hidden>
                 Island
@@ -1921,6 +1937,6 @@
       <a class="mobile-tertiary" href="tel:+16175153702">Call</a>
     </div>
 
-    <script src="script.js?v=1.5.11-tracking"></script>
+    <script src="script.js?v=1.5.14-availability"></script>
   </body>
 </html>

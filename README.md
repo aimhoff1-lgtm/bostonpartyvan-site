@@ -23,6 +23,28 @@ Open:
 
 Stop the server with `Ctrl + C`.
 
+## Archived Special Offers
+
+The limited-time deals are paused with `SITE_CONFIG.specialOffersEnabled: false`
+in `script.js`. The original four cards are preserved inside the inert
+`archivedSpecialOffers` template in `index.html`, so they do not render even when
+JavaScript is disabled. Promotional sports/airport pricing, the wedding bonus,
+and old promotional quote links are disabled by the same flag. Regular trip
+options and ongoing shuttle volume pricing are unchanged.
+
+To restore the deals, review the retained copy and pricing, set the flag to `true`,
+and bump the homepage's script version before publishing. The template mounts
+before the card interactions are initialized. Keep the FAQ and its structured
+data consistent with any newly approved offer terms.
+
+## Inquiry Availability
+
+The inquiry form shows the affiliate-assistance notice for trips less than 30
+calendar days away, using Boston's date. This notice does not prevent submission.
+December 25, 2026 through January 4, 2027 is a one-time, inclusive blackout:
+inquiries cannot be submitted for pickup dates in that period or multi-day service
+that overlaps it. The rules are in `getQuoteDateAvailability` in `script.js`.
+
 ## One-Time Setup for Auto Deploy (GitHub + Cloudflare Pages)
 
 1. Create a new empty GitHub repo (for example: `bostonpartyvan-site`).

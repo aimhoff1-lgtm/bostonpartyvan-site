@@ -1,5 +1,36 @@
 # Release Notes
 
+## V1.5.14 - Inquiry Availability and Holiday Blackout
+
+### Changed
+- Extend the affiliate-assistance notice to trips less than 30 calendar days away
+- Block inquiry submission for December 25, 2026 through January 4, 2027, inclusive
+- Block multi-day service that overlaps the holiday closure and restore submission when dates are corrected
+- Include the archived special deals and their paused estimator promotions
+
+## V1.5.13 (Draft) - Short-Notice Inquiry Warning
+
+### Changed
+- Show a limited-availability notice below the inquiry date for trips less than seven calendar days away, inviting visitors to submit an inquiry for possible affiliate assistance without prompting a call
+- Keep short-notice inquiries available without blocking submission
+- Use Boston's calendar date for the warning and earliest selectable date, including near midnight and daylight-saving changes
+- Hide the notice when the date is cleared, moved at least seven days ahead, or reset after submission
+
+## V1.5.12 (Draft) - Archive Special Deals
+
+### Changed
+- Paused the four homepage deal cards while retaining their content for restoration
+- Disabled related promotional estimator pricing, bonus messages and quote presets
+- Removed deal references from the visible FAQ and matching structured data
+- Kept standard trip choices and ongoing shuttle volume pricing unchanged
+
+### Test Checklist
+- Deals remain absent on desktop, mobile and with JavaScript disabled
+- Airport, sporting-event and wedding estimates use standard planning ranges
+- Old promotional links cannot populate a special offer in the quote form
+- Standard trip links and shuttle volume pricing still work
+- Restoring the flag restores the cards, special pricing and quote presets together
+
 ## V1.5.11 (Draft) - Complete Funnel Tracking
 
 ### Changed

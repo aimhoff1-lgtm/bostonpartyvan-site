@@ -1973,6 +1973,41 @@ main > .reviews-section {
   grid-column: 1 / -1;
 }
 
+.quote-date-field {
+  min-width: 0;
+}
+
+.quote-date-field + label {
+  align-self: start;
+}
+
+.quote-availability-notice {
+  margin: 0.65rem 0 0;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--accent-gold);
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.quote-availability-notice strong {
+  display: block;
+  color: var(--accent-gold);
+}
+
+.quote-unavailable-notice {
+  border-left-color: #ffb8a3;
+}
+
+.quote-unavailable-notice strong {
+  color: #ffb8a3;
+}
+
+.quote-form button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .quote-trip-selection {
   margin: 0;
   padding: 0.75rem 0.85rem;

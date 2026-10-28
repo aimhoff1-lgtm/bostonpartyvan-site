@@ -1,4 +1,6 @@
 const SITE_CONFIG = {
+  // Restore the archived deal cards and promotion rules together when ready.
+  specialOffersEnabled: false,
   // Analytics reporting for estimate and quote demand by trip type.
   ga4MeasurementId: "G-3Q3CBMKWZP",
   // Google Ads tag for the Boston Party Van account.
@@ -6,6 +8,12 @@ const SITE_CONFIG = {
   googleAdsQuoteConversionLabel: "wuR8CJecitwcEK2clLhE",
   googleAdsEstimateConversionLabel: "2VhmCPb11dwcEK2clLhE",
 };
+
+const SPECIAL_OFFERS_ENABLED = SITE_CONFIG.specialOffersEnabled === true;
+const archivedSpecialOffers = document.getElementById("archivedSpecialOffers");
+if (SPECIAL_OFFERS_ENABLED && archivedSpecialOffers) {
+  archivedSpecialOffers.replaceWith(archivedSpecialOffers.content.cloneNode(true));
+}
 
 const GA4_MEASUREMENT_ID = (
   window.BPV_GA4_MEASUREMENT_ID ||
@@ -389,7 +397,16 @@ function hasQuoteDuration(type) {
 }
 
 function isSportsSpecialVenue(venue) {
-  return SPORTS_SPECIAL_VENUES.has(venue);
+  return SPECIAL_OFFERS_ENABLED && SPORTS_SPECIAL_VENUES.has(venue);
+}
+
+function getSportsPlanHint(venue) {
+  if (!SPECIAL_OFFERS_ENABLED) {
+    return "Pricing is based on your pickup, venue, route, and timing.";
+  }
+  return isSportsSpecialVenue(venue)
+    ? "TD Garden, Fenway Park, and White Stadium are eligible for the game-day specials when the selected plan fits."
+    : "Game-day specials are available for TD Garden, Fenway Park, and White Stadium. We will build a custom route for this venue.";
 }
 
 function getSportsPlanOptions(venue, tripDirection = "") {
@@ -696,9 +713,7 @@ if (estimateForm && estimateResult) {
       estimateSportsPlanInput.value = selectedPlan;
     }
     if (estimateSportsPlanHint) {
-      estimateSportsPlanHint.textContent = isSportsSpecialVenue(sportsVenue)
-        ? "TD Garden, Fenway Park, and White Stadium are eligible for the game-day specials when the selected plan fits."
-        : "Game-day specials are available for TD Garden, Fenway Park, and White Stadium. We will build a custom route for this venue.";
+      estimateSportsPlanHint.textContent = getSportsPlanHint(sportsVenue);
     }
   }
 
@@ -955,6 +970,7 @@ if (estimateForm && estimateResult) {
       sportsPlan === "roundTrip" &&
       tripDirection === "roundTrip";
     const qualifiesForAirportTransfer =
+      SPECIAL_OFFERS_ENABLED &&
       tripType === "airport" &&
       tripDirection === "oneWay" &&
       reservedHours === 3 &&
@@ -990,7 +1006,7 @@ if (estimateForm && estimateResult) {
               ? "Your planning range reflects a balanced mix of driving and standby time."
               : "Your planning range reflects a more active, shuttle-style ride.";
         note.textContent =
-          tripType === "sports" && sportsPlan === "dropoff"
+          SPECIAL_OFFERS_ENABLED && tripType === "sports" && sportsPlan === "dropoff"
             ? "The $400 special applies to a three-hour, one-way local game-day drop-off. This range reflects the route details entered."
             : "This is a planning estimate for a single-day route. Final pricing is confirmed after your exact itinerary and availability are reviewed.";
       }
@@ -1017,7 +1033,7 @@ if (estimateForm && estimateResult) {
         title: "Your Logan airport transfer qualifies.",
         copy: "Your estimate includes the $300 flat three-hour, one-way airport transfer with no stops between Logan and one destination. We will confirm flight timing and availability before booking.",
       });
-    } else if (tripType === "wedding" && reservedHours >= 5) {
+    } else if (SPECIAL_OFFERS_ENABLED && tripType === "wedding" && reservedHours >= 5) {
       showEstimateSpecial({
         label: "Eligible special",
         title: "Congratulations, your wedding plan qualifies.",
@@ -1509,8 +1525,38 @@ function buildLeadEventParams(data) {
   return eventParams;
 }
 
+function getQuoteDateAvailability(pickupDate, now = new Date(), serviceEndDate = "") {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(now);
+  const part = (type) => Number(parts.find((entry) => entry.type === type).value);
+  // Compare Boston calendar days, not elapsed hours across a daylight-saving change.
+  const today = new Date(Date.UTC(part("year"), part("month") - 1, part("day")));
+  const cutoff = new Date(today);
+  cutoff.setUTCDate(cutoff.getUTCDate() + 30);
+  const minimumDate = today.toISOString().slice(0, 10);
+  const lastServiceDate = serviceEndDate > pickupDate ? serviceEndDate : pickupDate;
+  const unavailable = Boolean(
+    pickupDate && pickupDate <= "2027-01-04" && lastServiceDate >= "2026-12-25"
+  );
+  return {
+    minimumDate,
+    unavailable,
+    limitedAvailability: Boolean(
+      !unavailable && pickupDate && pickupDate >= minimumDate &&
+      pickupDate < cutoff.toISOString().slice(0, 10)
+    ),
+  };
+}
+
 if (quoteForm && quoteSuccess) {
   const pickupDateInput = quoteForm.querySelector('[name="pickupDate"]');
+  const availabilityNotice = document.getElementById("quoteAvailabilityNotice");
+  const unavailableNotice = document.getElementById("quoteUnavailableNotice");
+  const quoteSubmitButton = quoteForm.querySelector('button[type="submit"]');
   const pickupTimeInput = quoteForm.querySelector('[name="pickupTime"]');
   const routeNotesInput = quoteForm.querySelector('[name="notes"]');
   const customServiceInputs = quoteForm.querySelectorAll('[name="customServices"]');
@@ -1600,19 +1646,23 @@ if (quoteForm && quoteSuccess) {
   let isApplyingQuoteTripPrefill = false;
   let previousEventType = eventTypeInput?.value || "";
   let hasTrackedQuoteFormStart = false;
+  let isSubmittingQuote = false;
   const quoteTripPrefills = {
-    "early-booking": { packageName: "Early booking offer" },
+    "early-booking": { packageName: "Early booking offer", specialOffer: true },
     "airport-transfer": {
+      specialOffer: true,
       packageName: "$300 Logan Airport Transfer",
       eventType: "airport",
       tripDirection: "oneWay",
     },
     "sports-dropoff": {
+      specialOffer: true,
       packageName: "$400 Game-Day Drop-Off",
       eventType: "sports",
       tripDirection: "oneWay",
     },
     "sports-roundtrip": {
+      specialOffer: true,
       packageName: "$600 Game-Day Drop + Pickup",
       eventType: "sports",
       tripDirection: "roundTrip",
@@ -1637,6 +1687,7 @@ if (quoteForm && quoteSuccess) {
       eventType: "wedding",
     },
     "wedding-offer": {
+      specialOffer: true,
       packageName: "Wedding 5+ Hour Special",
       eventType: "wedding",
     },
@@ -1725,6 +1776,7 @@ if (quoteForm && quoteSuccess) {
     if (customServiceNotesHint) {
       customServiceNotesHint.hidden = !hasCustomService;
     }
+    syncQuoteDateLimits();
   }
 
   function syncQuoteSportsPlanAvailability() {
@@ -1789,9 +1841,7 @@ if (quoteForm && quoteSuccess) {
       quoteSportsPlanInput.value = selectedPlan;
     }
     if (quoteSportsPlanHint) {
-      quoteSportsPlanHint.textContent = isSportsSpecialVenue(sportsVenue)
-        ? "TD Garden, Fenway Park, and White Stadium are eligible for the game-day specials when the selected plan fits."
-        : "Game-day specials are available for TD Garden, Fenway Park, and White Stadium. We will build a custom route for this venue.";
+      quoteSportsPlanHint.textContent = getSportsPlanHint(sportsVenue);
     }
   }
 
@@ -1810,9 +1860,28 @@ if (quoteForm && quoteSuccess) {
   }
 
   function syncQuoteDateLimits() {
-    const today = new Date().toISOString().split("T")[0];
+    const endDate = serviceEndDateInput && !serviceEndDateInput.disabled
+      ? serviceEndDateInput.value
+      : "";
+    const { minimumDate, limitedAvailability, unavailable } = getQuoteDateAvailability(
+      pickupDateInput?.value, new Date(), endDate
+    );
+    const unavailableMessage = unavailable
+      ? "We are unavailable December 25, 2026 through January 4, 2027. Please choose dates outside this period."
+      : "";
     if (pickupDateInput) {
-      pickupDateInput.min = today;
+      pickupDateInput.min = minimumDate;
+      pickupDateInput.setCustomValidity(unavailableMessage);
+    }
+    serviceEndDateInput?.setCustomValidity(endDate ? unavailableMessage : "");
+    if (availabilityNotice) {
+      availabilityNotice.hidden = !limitedAvailability;
+    }
+    if (unavailableNotice) {
+      unavailableNotice.hidden = !unavailable;
+    }
+    if (quoteSubmitButton) {
+      quoteSubmitButton.disabled = unavailable || isSubmittingQuote;
     }
   }
 
@@ -1995,7 +2064,7 @@ if (quoteForm && quoteSuccess) {
 
   function applyQuoteTripPrefill(tripKey) {
     const trip = quoteTripPrefills[tripKey];
-    if (!trip) return;
+    if (!trip || (trip.specialOffer && !SPECIAL_OFFERS_ENABLED)) return;
 
     isApplyingQuoteTripPrefill = true;
     if (eventTypeInput && trip.eventType) {
@@ -2090,10 +2159,15 @@ if (quoteForm && quoteSuccess) {
     });
   });
 
+  pickupDateInput?.addEventListener("input", syncQuoteDateLimits);
   pickupDateInput?.addEventListener("change", () => {
     syncQuoteDateLimits();
     syncCustomServiceDetails();
   });
+  serviceEndDateInput?.addEventListener("input", syncQuoteDateLimits);
+  serviceEndDateInput?.addEventListener("change", syncQuoteDateLimits);
+  window.addEventListener("pageshow", syncQuoteDateLimits);
+  window.addEventListener("focus", syncQuoteDateLimits);
 
   [
     pickupTimeInput,
@@ -2143,6 +2217,7 @@ if (quoteForm && quoteSuccess) {
     const submitButton = quoteForm.querySelector('button[type="submit"]');
     const originalButtonText = submitButton ? submitButton.textContent : "";
 
+    syncQuoteDateLimits();
     syncQuoteTimingValidity();
     if (!quoteForm.checkValidity()) {
       quoteForm.reportValidity();
@@ -2179,6 +2254,7 @@ if (quoteForm && quoteSuccess) {
     }
 
     try {
+      isSubmittingQuote = true;
       if (submitButton) {
         submitButton.disabled = true;
         submitButton.textContent = "Sending...";
@@ -2238,8 +2314,9 @@ if (quoteForm && quoteSuccess) {
       quoteSuccess.textContent =
         "We couldn’t submit your request right now. Please wait a moment and try again.";
     } finally {
+      isSubmittingQuote = false;
+      syncQuoteDateLimits();
       if (submitButton) {
-        submitButton.disabled = false;
         submitButton.textContent = originalButtonText || "Send Quote Request";
       }
     }
