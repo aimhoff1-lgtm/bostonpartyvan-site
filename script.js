@@ -1250,7 +1250,7 @@ function buildIntakePayload(data) {
     golf: "Golf Outing",
     cape: "Cape Cod Trip",
     islandferry: "Island Ferry Transfer",
-    whitemountains: "Ski Trips / New England Mountains",
+    whitemountains: "New England Mountain / Fall Foliage",
     bach: "Bachelor/Bachelorette",
     barcrawl: "Boston Bar Crawl",
     local: "Local Day Route",
@@ -1434,7 +1434,7 @@ function buildQuoteReceiptData(data) {
     golf: "Golf Outing",
     cape: "Cape Cod Trip",
     islandferry: "Island Ferry Transfer",
-    whitemountains: "Ski Trips / New England Mountains",
+    whitemountains: "New England Mountain / Fall Foliage",
     bach: "Bachelor/Bachelorette",
     barcrawl: "Boston Bar Crawl",
     local: "Local Day Route",
@@ -1641,13 +1641,6 @@ if (quoteForm && quoteSuccess) {
   let hasTrackedQuoteFormStart = false;
   let isSubmittingQuote = false;
   const quoteTripPrefills = {
-    holiday: { packageName: "Holiday Transportation" },
-    "holiday-party": { packageName: "Office Holiday Party", eventType: "corporate", tripDirection: "roundTrip" },
-    "christmas-party": { packageName: "Christmas Party Transportation", eventType: "other", tripDirection: "roundTrip" },
-    ski: { packageName: "Ski and Snowboard Trip", eventType: "whitemountains", tripDirection: "roundTrip" },
-    winter: { packageName: "Winter Group Outing", eventType: "family", tripDirection: "roundTrip" },
-    "christmas-lights": { packageName: "Christmas Lights Outing", eventType: "family", tripDirection: "roundTrip" },
-    "holiday-night": { packageName: "Holiday Night Out", eventType: "nightlife" },
     "early-booking": { packageName: "Early booking offer", specialOffer: true },
     "airport-transfer": {
       specialOffer: true,

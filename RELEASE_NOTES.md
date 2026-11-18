@@ -1,5 +1,15 @@
 # Release Notes
 
+## V1.6.1 - Restore Boston Party Van Branding
+
+### Changed
+- Restore the original homepage headline, skyline cover, navigation, quick actions, and standard inquiry flow
+- Limit the seasonal promotion to a small booking banner and two compact winter cards before the normal Trip Menu
+- Remove the separate Christmas-party category and seasonal inquiry presets
+- Keep van photos in the vehicle section and gallery, with the interior collapsed by default
+- Remove the van-photo covers from seasonal search guides
+- Preserve immediate availability, the holiday blackout, archived deals, and regular pricing
+
 ## V1.6.0 - New Van and Holiday Bookings
 
 ### Changed

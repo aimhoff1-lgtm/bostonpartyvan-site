@@ -6,10 +6,9 @@ const site = "https://www.bostonpartyvan.com";
 const pages = [
   {
     slug: "boston-holiday-party-transportation",
-    title: "Boston Holiday & Christmas Party Transportation",
-    heading: "Holiday & Christmas party transportation",
-    short: "Holiday & Christmas parties",
-    trip: "holiday-party",
+    title: "Boston Holiday Party Transportation",
+    heading: "Holiday party transportation in Boston",
+    short: "Holiday parties",
     description: "Private Boston holiday and Christmas party transportation for up to 14 passengers. Office parties, family dinners, hotel pickups, and a dedicated driver.",
     intro: "Celebrate together, from the first pickup to the ride home. A private Mercedes-Benz Sprinter for up to 14 passengers, plus your dedicated driver.",
     sections: [
@@ -42,7 +41,6 @@ const pages = [
     title: "Boston Ski & Snowboard Trip Transportation",
     heading: "Ski & snowboard trips from Boston",
     short: "Ski & snowboard trips",
-    trip: "ski",
     description: "Private ski and snowboard transportation from Boston for up to 14 passengers. New England mountain trips with a dedicated driver and room for skis and winter gear.",
     intro: "Bring the group and the gear. Private Boston-to-mountain transportation with 14 passenger seats, a dedicated driver, and plenty of space for skis and winter bags.",
     sections: [
@@ -76,7 +74,6 @@ const pages = [
     title: "Boston Winter Outing & Christmas Lights Transportation",
     heading: "Winter outings & Christmas lights",
     short: "Winter outings & Christmas lights",
-    trip: "winter",
     description: "Private Boston winter group transportation for Christmas lights, ice skating, holiday markets, tubing, concerts, and family outings. Up to 14 passengers plus a driver.",
     intro: "Christmas lights, skating, winter shows, and a great meal together. Give your group one private ride and a dedicated driver for the whole plan.",
     sections: [
@@ -117,7 +114,7 @@ function escape(value) {
 async function main() {
   for (const page of pages) {
     const url = `${site}/guides/${page.slug}/`;
-    const quote = `../../index.html?trip=${page.trip}#quote`;
+    const quote = "../../index.html#quote";
     const schema = { "@context": "https://schema.org", "@graph": [
       { "@type": "Service", "@id": `${url}#service`, name: page.title, url, description: page.description, serviceType: "Private driver-included group transportation", provider: { "@id": `${site}/#business` }, areaServed: ["Greater Boston", "Massachusetts", "New England"], image: `${site}/assets/images/van-2026/exterior-retouched.webp` },
       { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Boston Party Van", item: `${site}/` }, { "@type": "ListItem", position: 2, name: page.short, item: url }] },
@@ -145,36 +142,33 @@ async function main() {
   <meta property="og:title" content="${escape(page.title)}" />
   <meta property="og:description" content="${escape(page.description)}" />
   <meta property="og:url" content="${url}" />
-  <meta property="og:image" content="${site}/assets/images/van-2026/exterior-retouched.webp" />
+  <meta property="og:image" content="${site}/assets/images/boston-skyline-river-dusk.webp" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escape(page.title)}" />
   <meta name="twitter:description" content="${escape(page.description)}" />
-  <meta name="twitter:image" content="${site}/assets/images/van-2026/exterior-retouched.webp" />
+  <meta name="twitter:image" content="${site}/assets/images/boston-skyline-river-dusk.webp" />
   <script type="application/ld+json">${JSON.stringify(schema, null, 2)}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../../style.css?v=1.6.0-holiday-van" />
+  <link rel="stylesheet" href="../../style.css?v=1.6.1-branding" />
 </head>
 <body>
   <header class="site-header">
-    <div class="top-strip"><p>Available now | 14 passengers + your dedicated driver</p></div>
+    <div class="top-strip"><p>Sprinter van bookings for Greater Boston and nearby routes</p></div>
     <div class="nav-wrap">
       <a class="brand" href="../../index.html" aria-label="Boston Party Van home"><span class="brand-lockup"><img class="brand-logo" src="../../assets/images/bpv-header-mark.png" alt="" aria-hidden="true" /><span class="brand-wordmark">Boston Party Van</span></span></a>
       <button class="menu-toggle" aria-label="Toggle menu">Menu</button>
-      <nav class="main-nav"><a href="../../index.html#seasonal">Holiday &amp; Ski</a><a href="../../index.html#services">All Trips</a><a href="../../photos.html">Our Van</a><a class="nav-cta" href="${quote}">Request a Quote</a></nav>
+      <nav class="main-nav"><a href="../../index.html#services">Trip Menu</a><a href="../../index.html#pricing">Estimate</a><a href="../../photos.html">Photos</a><a class="nav-cta" href="${quote}">Request a Quote</a></nav>
     </div>
   </header>
   <main class="winter-guide-content">
-    <section class="hero section holiday-hero">
-      <img class="hero-van-photo" src="../../assets/images/van-2026/exterior-retouched.webp" alt="Our actual black high-roof Mercedes-Benz Sprinter" width="1536" height="1024" fetchpriority="high" />
-      <div class="hero-copy">
-        <p class="eyebrow">Boston Party Van | Private group rides</p>
+    <section class="section winter-guide-intro">
+        <p class="eyebrow">Boston Party Van</p>
         <h1>${escape(page.heading)}</h1>
-        <p class="hero-sub">${escape(page.intro)}</p>
-        <div class="hero-actions"><a class="btn btn-primary" href="${quote}">Plan this trip</a><a class="btn btn-ghost" href="../../photos.html">See the van</a></div>
+        <p>${escape(page.intro)}</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="${quote}">Request a Quote</a><a class="btn btn-ghost" href="../../index.html#services">View Trip Options</a></div>
         <p class="holiday-availability"><strong>Available now.</strong> Closed Dec 25-Jan 4.</p>
-      </div>
     </section>
     ${sections}
     <section class="section"><h2>Frequently asked questions</h2><div class="faq-list">${page.faqs.map(([q, a]) => `<details><summary>${escape(q)}</summary><p>${escape(a)}</p></details>`).join("\n")}</div></section>
@@ -182,7 +176,7 @@ async function main() {
     <section class="section"><h2>More holiday and winter trips</h2><ul>${related}<li><a href="../../photos.html">See the actual van and passenger seating</a></li></ul></section>
   </main>
   <footer class="site-footer"><div><h3>Boston Party Van</h3><p>Private transportation for Greater Boston and New England.</p></div><div><a href="../../index.html">Home</a></div><div><a href="${quote}">Request a Quote</a></div></footer>
-  <script src="../../script.js?v=1.6.0-holiday-van"></script>
+  <script src="../../script.js?v=1.6.1-branding"></script>
 </body>
 </html>
 `;

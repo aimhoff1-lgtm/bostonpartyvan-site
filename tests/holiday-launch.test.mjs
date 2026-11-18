@@ -14,12 +14,17 @@ test("homepage advertises immediate availability and the actual seating capacity
   assert.doesNotMatch(html, /2500|MBenzSprinter14PAX|van-interior-rear\.jpg/);
 });
 
-test("every holiday call to action has a matching inquiry preset", () => {
-  for (const key of ["holiday", "holiday-party", "christmas-party", "ski", "winter"]) {
-    assert.match(html, new RegExp(`data-quote-trip="${key}"`));
-    assert.match(script, new RegExp(`(?:"${key}"|${key}): \\{ packageName:`));
-  }
-  assert.match(photos, /index\.html\?trip=holiday#quote/);
+test("seasonal promotion preserves the normal brand, cover, and inquiry flow", () => {
+  assert.match(html, /<title>Boston Party Van \| Private Group Transportation for Up to 14<\/title>/);
+  assert.match(html, /<h1>Private Boston group transportation for up to 14\.<\/h1>/);
+  assert.match(html, /class="seasonal-banner" href="#quote">Holiday parties and ski trips are booking now!/);
+  assert.match(html, /<a href="#services">Trip Menu<\/a>/);
+  assert.equal((html.match(/class="quick-action-card"/g) || []).length, 3);
+  assert.equal((html.match(/class="winter-trip"/g) || []).length, 2);
+  assert.ok(html.indexOf('class="section winter-highlight"') < html.indexOf('id="services"'));
+  assert.doesNotMatch(html, /hero-van-photo|holiday-hero|seasonal-card|data-quote-trip="(?:holiday|christmas-party|ski|winter)"/);
+  assert.doesNotMatch(script, /packageName: "(?:Holiday Transportation|Office Holiday Party|Christmas Party Transportation|Ski and Snowboard Trip|Winter Group Outing)"/);
+  assert.match(photos, /href="index\.html#quote">Request a Quote/);
 });
 
 test("six new van images exist and retouched gallery photos are labeled", async () => {
@@ -53,6 +58,7 @@ test("seasonal pages have canonical URLs, matching FAQ schema, and sitemap entri
       assert.ok(page.includes(`<p>${escape(item.acceptedAnswer.text)}</p>`));
     }
     assert.match(page, /December 25, 2026 through January 4, 2027/);
-    assert.match(page, /\?trip=[a-z-]+#quote/);
+    assert.match(page, /href="\.\.\/\.\.\/index\.html#quote">Request a Quote/);
+    assert.doesNotMatch(page, /hero-van-photo|holiday-hero|\?trip=/);
   }
 });
