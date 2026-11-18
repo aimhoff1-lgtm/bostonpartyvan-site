@@ -321,15 +321,39 @@ a {
 
 .seasonal-banner { text-decoration: none; letter-spacing: 0; }
 .seasonal-banner:hover { text-decoration: underline; text-underline-offset: 0.2em; }
-.winter-highlight { padding-top: 2.5rem; }
-.winter-highlight h2 { font-size: 1.5rem; letter-spacing: 0; margin-bottom: 1rem; }
+.winter-highlight { padding-top: 3rem; }
+.winter-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem 2rem; margin-bottom: 1.25rem; }
+.winter-heading .eyebrow { font-size: 0.78rem; letter-spacing: 0; color: var(--accent-gold); margin-bottom: 0.6rem; }
+.winter-highlight h2 { font-size: 2rem; letter-spacing: 0; line-height: 1.1; margin-bottom: 0; }
+.winter-heading > p { font-size: 0.9rem; line-height: 1.5; color: var(--text-soft); }
 .winter-trips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.winter-trip { padding: 1rem; border: 1px solid var(--line); border-radius: 8px; }
-.winter-trip h3 { font-size: 1.15rem; letter-spacing: 0; }
-.winter-trip p { color: var(--text-soft); font-size: 0.9rem; line-height: 1.5; }
-.winter-trip > div { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; margin-top: 0.75rem; }
-.winter-trip a { font-size: 0.85rem; text-underline-offset: 0.2em; }
-.winter-trip a:first-child { color: var(--accent-cool); }
+.winter-trip { min-width: 0; display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-top: 3px solid var(--accent-gold); border-radius: 8px; background: #0b2026; }
+.winter-trip:nth-child(2) { border-top-color: var(--accent-cool); background: #122329; }
+.winter-trip > img { display: block; width: 100%; height: 185px; object-fit: cover; object-position: center 55%; }
+.winter-trip:first-child > img { object-position: center 35%; }
+.winter-trip-body { display: flex; flex-direction: column; align-items: flex-start; flex: 1; padding: 1.25rem; }
+.winter-trip h3 { font-size: 1.5rem; letter-spacing: 0; margin-bottom: 0.7rem; }
+.winter-trip p { color: #bccbd5; font-size: 0.95rem; line-height: 1.5; }
+.winter-trip .winter-kicker { color: var(--accent-gold); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.45rem; }
+.winter-trip:nth-child(2) .winter-kicker { color: var(--accent-cool); }
+.winter-trip .winter-route { font-size: 0.8rem; color: #dae5e7; margin: 0.85rem 0 1.1rem; }
+.winter-trip-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 0.75rem 1rem; margin-top: auto; }
+.winter-trip-actions a { font-size: 0.85rem; text-underline-offset: 0.2em; }
+.winter-trip-actions .btn { display: inline-flex; justify-content: center; align-items: center; min-height: 44px; letter-spacing: 0; }
+.winter-events { margin-top: 1.75rem; }
+.winter-events-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem 1rem; margin-bottom: 0.8rem; }
+.winter-events-heading h3 { font-size: 1.25rem; letter-spacing: 0; line-height: 1.2; margin: 0; }
+.winter-events-heading > span { font-size: 0.78rem; color: var(--text-soft); }
+.winter-event-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2rem; }
+.winter-event-list li { border-top: 1px solid var(--line); padding: 1rem 0; min-width: 0; }
+.winter-event-place { font-size: 0.7rem; text-transform: uppercase; font-weight: 700; color: var(--accent-cool); }
+.winter-event-list h4 { margin: 0.35rem 0; font-size: 1rem; line-height: 1.35; letter-spacing: 0; }
+.winter-event-list h4 a { text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.winter-event-list p { font-size: 0.82rem; line-height: 1.5; color: var(--text-soft); }
+.winter-event-list .winter-event-date { font-size: 0.78rem; color: #f2d38e; margin-bottom: 0.35rem; }
+.winter-event-note { max-width: 100ch; font-size: 0.78rem; color: var(--text-soft); line-height: 1.5; padding-top: 0.5rem; }
+.winter-event-note strong { color: var(--text-main); }
+.winter-outing-link { display: inline-block; margin-top: 0.85rem; font-size: 0.85rem; color: var(--accent-cool); text-underline-offset: 0.2em; }
 
 .holiday-availability {
   margin-top: 1rem;
@@ -407,11 +431,17 @@ a {
 .winter-guide-intro .hero-actions { margin-top: 1.25rem; }
 
 @media (max-width: 960px) {
+  .winter-heading { display: block; }
+  .winter-heading > p { margin-top: 0.75rem; }
   .van-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 620px) {
   .winter-trips { grid-template-columns: 1fr; }
+  .winter-highlight h2 { font-size: 1.75rem; }
+  .winter-trip > img { height: 160px; }
+  .winter-trip-body { padding: 1rem; }
+  .winter-event-list { grid-template-columns: 1fr; }
   .winter-guide-intro h1 { font-size: 2rem; }
   .holiday-availability { font-size: 0.78rem; }
   .van-gallery-intro h1 { font-size: 2rem; }

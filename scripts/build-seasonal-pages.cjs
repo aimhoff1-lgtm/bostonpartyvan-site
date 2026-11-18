@@ -77,6 +77,19 @@ const pages = [
     description: "Private Boston winter group transportation for Christmas lights, ice skating, holiday markets, tubing, concerts, and family outings. Up to 14 passengers plus a driver.",
     intro: "Christmas lights, skating, winter shows, and a great meal together. Give your group one private ride and a dedicated driver for the whole plan.",
     sections: [
+      { id: "holiday-calendar", title: "2026 holiday markets, lights, and festivals", paragraphs: [
+        "Give your group a specific night or day out to look forward to. These organizer-published dates were checked November 18, 2026. Choose an open event date outside our December 25, 2026 through January 4, 2027 closure; transportation availability is confirmed with your quote. Admission and event tickets are separate."
+      ], items: [
+        "SoWa Christmas Market, Boston's South End: November 20-December 27, 2026. Handmade gifts, food, and live music. Closed Mondays and Thanksgiving, with special holiday hours. BPV ride requests must be for dates before December 25.",
+        "La Salette Christmas Festival of Lights, Attleboro: November 21, 2026-January 3, 2027. Plan an evening among the illuminated grounds, with a dinner stop if desired. Our available season for this outing ends December 24.",
+        "Winterlights at the Eleanor Cabot Bradley Estate, Canton: select nights November 27, 2026-January 2, 2027. Timed tickets are required; the event is closed December 24-25. Request one of the event's open nights through December 23, and contact the organizer about group admission for more than 10 guests.",
+        "Kennebunkport Christmas Prelude, Maine: December 3-13, 2026. Tree lightings, caroling, and coastal-town celebrations make a longer holiday day trip. Pick the activities you want from the official schedule so we can plan the route and return time."
+      ], links: [
+        ["SoWa official dates and hours", "https://www.sowaboston.com/sowa-christmas-market/"],
+        ["La Salette official festival schedule", "https://www.lasaletteattleboroshrine.org/christmas-festival"],
+        ["Winterlights official nights and tickets", "https://thetrustees.org/program/winterlights-massachusetts/"],
+        ["Christmas Prelude official schedule", "https://christmasprelude.com/schedule/"]
+      ] },
       { title: "Make a winter day of it", paragraphs: [
         "Winter outings are easier when everyone travels together. Boston Party Van provides private group transportation from Greater Boston in our actual high-roof Mercedes-Benz Sprinter, with 14 passenger seats plus a separate driver seat.",
         "Build a route around the activities your group wants: Christmas-light displays, holiday markets, ice skating, snow tubing, winter concerts, theater performances, hockey games, or an indoor museum day followed by dinner. We provide the transportation; tickets, equipment rentals, and activity reservations are arranged separately."

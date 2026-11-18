@@ -1,5 +1,13 @@
 # Release Notes
 
+## V1.6.2 - Winter Trip Highlights
+
+### Changed
+- Give the two winter cards activity imagery, seasonal accents, itinerary cues, and clear links to the existing inquiry form
+- Add four verified 2026 holiday events with official schedule links, dates, and admission/availability notes
+- Add the event ideas to the winter guide while preserving the original homepage branding and skyline cover
+- Keep pricing, form behavior, special-deal archiving, and the December 25-January 4 blackout unchanged
+
 ## V1.6.1 - Restore Boston Party Van Branding
 
 ### Changed

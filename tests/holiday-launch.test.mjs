@@ -35,6 +35,26 @@ test("six new van images exist and retouched gallery photos are labeled", async 
   assert.doesNotMatch(photos, /Coming soon|coming soon/);
 });
 
+test("winter cards use activity photos and link four dated events to their organizers", () => {
+  const section = html.match(/<section id="winter"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(section);
+  assert.match(section, /assets\/images\/nightlife\.jpg/);
+  assert.match(section, /assets\/images\/mountain-apres-ski-party\.jpg/);
+  assert.doesNotMatch(section, /van-2026|data-quote-trip|Christmas parties/);
+  for (const [url, start, end] of [
+    ["https://www.sowaboston.com/sowa-christmas-market/", "2026-11-20", "2026-12-27"],
+    ["https://www.lasaletteattleboroshrine.org/christmas-festival", "2026-11-21", "2027-01-03"],
+    ["https://thetrustees.org/program/winterlights-massachusetts/", "2026-11-27", "2027-01-02"],
+    ["https://christmasprelude.com/schedule/", "2026-12-03", "2026-12-13"]
+  ]) {
+    assert.ok(section.includes(`href="${url}" target="_blank" rel="noopener noreferrer"`));
+    assert.ok(section.includes(`datetime="${start}"`));
+    assert.ok(section.includes(`datetime="${end}"`));
+  }
+  assert.match(section, /Admission is separate/);
+  assert.match(section, /BPV is unavailable December 25, 2026 through January 4, 2027/);
+});
+
 test("homepage structured data remains valid", () => {
   for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
     assert.ok(JSON.parse(json));
