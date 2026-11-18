@@ -1,5 +1,20 @@
 # Release Notes
 
+## V1.6.0 - New Van and Holiday Bookings
+
+### Changed
+- Show immediate availability and remove the 30-day affiliate warning
+- Preserve the December 25, 2026-January 4, 2027 blackout, including multi-day overlaps
+- Feature the owner's actual 14-passenger Sprinter, with a separate driver seat
+- Add holiday-party, Christmas-lights, and holiday-night inquiry presets
+- Promote holiday parties, Christmas parties, ski trips, and winter outings through four seasonal cards and three dedicated, internally linked service guides
+- Add service, breadcrumb, and matching FAQ structured data, descriptive titles, canonical URLs, social previews, and sitemap entries for the new guides
+- Highlight ski and snowboard storage and retain the full-load confirmation step
+- Clean the requested pavement marking and background signs from the lead exterior photo
+- Replace the placeholder photo page with six exterior/interior photographs, identifying retouched images
+- Replace older vehicle imagery on the homepage and related vehicle/service pages
+- Keep special deals archived and regular pricing unchanged
+
 ## V1.5.14 - Inquiry Availability and Holiday Blackout
 
 ### Changed

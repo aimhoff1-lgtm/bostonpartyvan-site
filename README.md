@@ -39,8 +39,9 @@ data consistent with any newly approved offer terms.
 
 ## Inquiry Availability
 
-The inquiry form shows the affiliate-assistance notice for trips less than 30
-calendar days away, using Boston's date. This notice does not prevent submission.
+The site accepts inquiries immediately, including same-day requests. The former
+30-day affiliate-assistance warning has been removed. Past dates remain invalid,
+using Boston's calendar date.
 December 25, 2026 through January 4, 2027 is a one-time, inclusive blackout:
 inquiries cannot be submitted for pickup dates in that period or multi-day service
 that overlaps it. The rules are in `getQuoteDateAvailability` in `script.js`.

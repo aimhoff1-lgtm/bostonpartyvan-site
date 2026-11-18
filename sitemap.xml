@@ -2,25 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.bostonpartyvan.com/</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.bostonpartyvan.com/photos.html</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.62</priority>
   </url>
   <url>
     <loc>https://www.bostonpartyvan.com/boston/party-bus-6-to-14-passengers/</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.94</priority>
   </url>
   <url>
     <loc>https://www.bostonpartyvan.com/services/shuttle-van-for-hire/</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
@@ -50,7 +50,7 @@
   </url>
   <url>
     <loc>https://www.bostonpartyvan.com/guides/white-mountains-northern-nh-transportation/</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.82</priority>
   </url>
@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>https://www.bostonpartyvan.com/guides/boston-corporate-outing-transportation/</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.78</priority>
   </url>
@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>https://www.bostonpartyvan.com/guides/boston-family-outing-transportation/</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.76</priority>
   </url>
@@ -95,5 +95,23 @@
     <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://www.bostonpartyvan.com/guides/boston-holiday-party-transportation/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.bostonpartyvan.com/guides/boston-ski-trip-transportation/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.bostonpartyvan.com/guides/boston-winter-group-transportation/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 </urlset>

@@ -1250,7 +1250,7 @@ function buildIntakePayload(data) {
     golf: "Golf Outing",
     cape: "Cape Cod Trip",
     islandferry: "Island Ferry Transfer",
-    whitemountains: "New England Mountain / Fall Foliage",
+    whitemountains: "Ski Trips / New England Mountains",
     bach: "Bachelor/Bachelorette",
     barcrawl: "Boston Bar Crawl",
     local: "Local Day Route",
@@ -1434,7 +1434,7 @@ function buildQuoteReceiptData(data) {
     golf: "Golf Outing",
     cape: "Cape Cod Trip",
     islandferry: "Island Ferry Transfer",
-    whitemountains: "New England Mountain / Fall Foliage",
+    whitemountains: "Ski Trips / New England Mountains",
     bach: "Bachelor/Bachelorette",
     barcrawl: "Boston Bar Crawl",
     local: "Local Day Route",
@@ -1533,10 +1533,8 @@ function getQuoteDateAvailability(pickupDate, now = new Date(), serviceEndDate =
     day: "2-digit",
   }).formatToParts(now);
   const part = (type) => Number(parts.find((entry) => entry.type === type).value);
-  // Compare Boston calendar days, not elapsed hours across a daylight-saving change.
+  // Use Boston's calendar date, including when a visitor is in another timezone.
   const today = new Date(Date.UTC(part("year"), part("month") - 1, part("day")));
-  const cutoff = new Date(today);
-  cutoff.setUTCDate(cutoff.getUTCDate() + 30);
   const minimumDate = today.toISOString().slice(0, 10);
   const lastServiceDate = serviceEndDate > pickupDate ? serviceEndDate : pickupDate;
   const unavailable = Boolean(
@@ -1545,16 +1543,11 @@ function getQuoteDateAvailability(pickupDate, now = new Date(), serviceEndDate =
   return {
     minimumDate,
     unavailable,
-    limitedAvailability: Boolean(
-      !unavailable && pickupDate && pickupDate >= minimumDate &&
-      pickupDate < cutoff.toISOString().slice(0, 10)
-    ),
   };
 }
 
 if (quoteForm && quoteSuccess) {
   const pickupDateInput = quoteForm.querySelector('[name="pickupDate"]');
-  const availabilityNotice = document.getElementById("quoteAvailabilityNotice");
   const unavailableNotice = document.getElementById("quoteUnavailableNotice");
   const quoteSubmitButton = quoteForm.querySelector('button[type="submit"]');
   const pickupTimeInput = quoteForm.querySelector('[name="pickupTime"]');
@@ -1648,6 +1641,13 @@ if (quoteForm && quoteSuccess) {
   let hasTrackedQuoteFormStart = false;
   let isSubmittingQuote = false;
   const quoteTripPrefills = {
+    holiday: { packageName: "Holiday Transportation" },
+    "holiday-party": { packageName: "Office Holiday Party", eventType: "corporate", tripDirection: "roundTrip" },
+    "christmas-party": { packageName: "Christmas Party Transportation", eventType: "other", tripDirection: "roundTrip" },
+    ski: { packageName: "Ski and Snowboard Trip", eventType: "whitemountains", tripDirection: "roundTrip" },
+    winter: { packageName: "Winter Group Outing", eventType: "family", tripDirection: "roundTrip" },
+    "christmas-lights": { packageName: "Christmas Lights Outing", eventType: "family", tripDirection: "roundTrip" },
+    "holiday-night": { packageName: "Holiday Night Out", eventType: "nightlife" },
     "early-booking": { packageName: "Early booking offer", specialOffer: true },
     "airport-transfer": {
       specialOffer: true,
@@ -1863,7 +1863,7 @@ if (quoteForm && quoteSuccess) {
     const endDate = serviceEndDateInput && !serviceEndDateInput.disabled
       ? serviceEndDateInput.value
       : "";
-    const { minimumDate, limitedAvailability, unavailable } = getQuoteDateAvailability(
+    const { minimumDate, unavailable } = getQuoteDateAvailability(
       pickupDateInput?.value, new Date(), endDate
     );
     const unavailableMessage = unavailable
@@ -1874,9 +1874,6 @@ if (quoteForm && quoteSuccess) {
       pickupDateInput.setCustomValidity(unavailableMessage);
     }
     serviceEndDateInput?.setCustomValidity(endDate ? unavailableMessage : "");
-    if (availabilityNotice) {
-      availabilityNotice.hidden = !limitedAvailability;
-    }
     if (unavailableNotice) {
       unavailableNotice.hidden = !unavailable;
     }

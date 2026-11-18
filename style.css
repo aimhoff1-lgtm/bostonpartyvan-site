@@ -319,6 +319,196 @@ a {
   justify-content: center;
 }
 
+.holiday-hero.hero {
+  display: block;
+  width: 100%;
+  min-height: 560px;
+  height: min(680px, calc(100svh - 180px));
+  padding: 44px max(24px, calc((100% - 1280px) / 2));
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: #09251e;
+}
+
+.hero-van-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 65%;
+}
+
+.holiday-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(3, 19, 15, 0.9), rgba(3, 19, 15, 0.5) 28%, transparent 53%);
+  pointer-events: none;
+}
+
+.holiday-hero .hero-copy {
+  width: min(400px, 40%);
+  z-index: 1;
+}
+
+.holiday-hero .eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0;
+  color: #e1bd70;
+}
+
+.holiday-hero h1 {
+  font-size: 3.15rem;
+  letter-spacing: 0;
+  color: #fff;
+}
+
+.holiday-hero .hero-sub {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: #f1f5f2;
+}
+
+.holiday-availability {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #e6e9e7;
+}
+
+.holiday-availability strong {
+  color: #a2e6c5;
+}
+
+.holiday-hero .btn-primary {
+  background: #e2be75;
+  color: #122b24;
+  box-shadow: none;
+}
+
+.holiday-hero .btn-ghost {
+  color: #fff;
+  background: rgba(3, 19, 15, 0.55);
+}
+
+.van-gallery-intro h1 {
+  font-size: 2.75rem;
+  letter-spacing: 0;
+}
+
+.van-gallery-intro .photos-actions {
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+
+.van-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.van-gallery figure {
+  margin: 0;
+  min-width: 0;
+}
+
+.van-gallery-wide {
+  grid-column: 1 / -1;
+}
+
+.van-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  background: #08111a;
+}
+
+.van-gallery-wide img {
+  aspect-ratio: 3 / 2;
+}
+
+.van-gallery figcaption {
+  padding-top: 0.6rem;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.van-gallery a:focus-visible {
+  outline: 3px solid var(--accent-cool);
+  outline-offset: 4px;
+}
+
+.seasonal-section { padding-top: 2rem; }
+.seasonal-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.seasonal-card { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #101f28; }
+.seasonal-card img { display: block; width: 100%; height: 145px; object-fit: cover; }
+.seasonal-card > div { padding: 1rem; }
+.seasonal-card .eyebrow { font-size: 0.7rem; letter-spacing: 0; margin-bottom: 0.5rem; color: #e2be75; }
+.seasonal-card h3 { font-size: 1.25rem; letter-spacing: 0; line-height: 1.15; }
+.seasonal-card p:not(.eyebrow) { color: var(--text-soft); font-size: 0.9rem; line-height: 1.5; }
+.seasonal-card a { display: block; font-size: 0.85rem; line-height: 1.45; margin-top: 0.75rem; text-underline-offset: 0.2em; color: #83dfbe; }
+.seasonal-card a:last-child { font-size: 0.78rem; color: var(--text-soft); }
+.seasonal-more { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; color: var(--text-soft); font-size: 0.9rem; }
+.winter-guide-content .section:not(.hero) { padding-top: 3rem; padding-bottom: 1rem; }
+.winter-guide-content .section:not(.hero) p { max-width: 78ch; color: var(--text-soft); line-height: 1.7; margin: 0.8rem 0; }
+.winter-guide-content .section:not(.hero) h2 { font-size: 1.75rem; line-height: 1.2; }
+.winter-guide-content .section:not(.hero) ul { max-width: 78ch; padding-left: 1.25rem; color: var(--text-soft); line-height: 1.75; }
+.winter-guide-content .section:not(.hero) a { color: #83dfbe; text-underline-offset: 0.2em; }
+.winter-guide-content .section:not(.hero) .btn-primary { color: #09131d; }
+.winter-guide-content .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.winter-guide-content .faq-list { max-width: 850px; }
+.winter-guide-content .faq-list details { border-bottom: 1px solid var(--line); padding: 1rem 0; }
+.winter-guide-content .faq-list summary { font-weight: 700; cursor: pointer; }
+.winter-guide-content .hero-copy .eyebrow { font-size: 0.8rem; }
+
+@media (max-width: 1000px) {
+  .seasonal-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .seasonal-cards { gap: 0.75rem; }
+  .seasonal-card img { height: 110px; }
+  .seasonal-card > div { padding: 0.75rem; }
+  .seasonal-card h3 { font-size: 1.12rem; }
+  .seasonal-card p:not(.eyebrow) { font-size: 0.8rem; }
+}
+
+@media (max-width: 960px) {
+  .holiday-hero h1 { font-size: 2rem; }
+  .holiday-hero .hero-copy { width: 44%; }
+  .van-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
+  .holiday-hero.hero {
+    height: auto;
+    min-height: 0;
+    padding: 18px 16px calc(50vw + 12px);
+  }
+  .holiday-hero .hero-copy { width: 100%; }
+  .holiday-hero h1 { font-size: 2rem; max-width: 17ch; }
+  .holiday-hero .hero-sub { font-size: 0.95rem; line-height: 1.45; }
+  .holiday-hero .eyebrow { margin-bottom: 0.65rem; font-size: 0.75rem; }
+  .holiday-hero .hero-actions { gap: 0.5rem; margin-top: 1rem; }
+  .holiday-hero .btn { font-size: 0.85rem; padding: 0.7rem 0.8rem; }
+  .hero-van-photo { top: auto; bottom: 0; height: auto; aspect-ratio: 2 / 1; }
+  .holiday-hero::after { display: none; }
+  .holiday-availability { font-size: 0.78rem; }
+  .van-gallery-intro h1 { font-size: 2rem; }
+  .van-gallery { gap: 1.2rem 0.75rem; }
+  .van-gallery figcaption { font-size: 0.75rem; }
+}
+
+@media (max-width: 360px) {
+  .holiday-hero .eyebrow { display: none; }
+  .holiday-hero h1 { font-size: 1.75rem; }
+}
+
 .btn {
   border: 1px solid transparent;
   border-radius: 999px;
@@ -1712,12 +1902,12 @@ main > .reviews-section {
 }
 
 .offer-early-booking {
-  --package-image: url("assets/images/MBenzSprinter14PAX-Exterior0.jpg");
+  --package-image: url("assets/images/van-2026/exterior-retouched.webp");
   --package-position: center;
 }
 
 .offer-airport-transfer {
-  --package-image: url("assets/images/MBenzSprinter14PAX-Exterior1.jpg");
+  --package-image: url("assets/images/van-2026/exterior-original.webp");
   --package-position: center;
 }
 
@@ -1763,7 +1953,7 @@ main > .reviews-section {
 }
 
 .package-shuttle {
-  --package-image: url("assets/images/MBenzSprinter14PAX-Exterior0.jpg");
+  --package-image: url("assets/images/van-2026/exterior-retouched.webp");
   --package-position: center;
 }
 
