@@ -2421,7 +2421,7 @@ main > .reviews-section {
     z-index: 200;
     display: grid;
     gap: 0.5rem;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
     padding: 0.55rem 0.7rem calc(0.55rem + env(safe-area-inset-bottom));
     background: rgba(5, 16, 27, 0.94);
     border-top: 1px solid var(--line);
@@ -2435,6 +2435,11 @@ main > .reviews-section {
     font-size: 0.92rem;
     font-weight: 700;
     text-align: center;
+  }
+
+  .mobile-callbar.is-hidden,
+  body:has(#quoteForm:focus-within) .mobile-callbar {
+    display: none;
   }
 
   .mobile-primary {
@@ -2459,6 +2464,13 @@ main > .reviews-section {
 }
 
 @media (max-width: 620px) {
+  .hero .hero-tagline,
+  .hero .eyebrow-separator,
+  .hero .hero-actions .btn-ghost,
+  .hero .hero-stats-card {
+    display: none;
+  }
+
   :root {
     --content-width: calc(100% - 24px);
   }
@@ -2492,6 +2504,7 @@ main > .reviews-section {
   }
 
   .hero {
+    min-height: 0;
     background-image:
       linear-gradient(
         145deg,

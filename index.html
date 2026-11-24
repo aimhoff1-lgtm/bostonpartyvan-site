@@ -17,6 +17,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="https://www.bostonpartyvan.com/assets/images/favicon-192.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="https://www.bostonpartyvan.com/assets/images/apple-touch-icon.png" />
     <link rel="canonical" href="https://www.bostonpartyvan.com/" />
+    <link rel="preload" as="image" href="assets/images/boston-skyline-river-dusk.webp" fetchpriority="high" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Boston Party Van" />
     <meta
@@ -70,12 +71,6 @@
               "addressCountry": "US"
             },
             "priceRange": "$$",
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "5.0",
-              "reviewCount": "11",
-              "bestRating": "5"
-            },
             "areaServed": [
               "Boston",
               "Cambridge",
@@ -410,13 +405,13 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=1.6.2-winter" />
+    <link rel="stylesheet" href="style.css?v=1.6.3-inquiries" />
   </head>
   <body>
     <div class="bg-orb bg-orb-a"></div>
     <div class="bg-orb bg-orb-b"></div>
     <div class="noise-layer"></div>
-    <div class="version-tag" title="Site version">V1.6.2</div>
+    <div class="version-tag" title="Site version">V1.6.3</div>
 
     <header class="site-header">
       <div class="top-strip">
@@ -454,7 +449,7 @@
           <p class="eyebrow">
             <span class="eyebrow-brand">Boston Party Van</span>
             <span class="eyebrow-separator" aria-hidden="true">|</span>
-            Boston's newest group transportation company
+            <span class="hero-tagline">Boston's newest group transportation company</span>
           </p>
           <h1>Private Boston group transportation for up to 14.</h1>
           <p class="hero-sub">
@@ -501,7 +496,7 @@
           <a class="quick-action-card" href="#quote">
             <p class="quick-action-label">Ready to reach out?</p>
             <h3>Get your trip quote</h3>
-            <span>Share your date, route, and group size, and get your personal quote the same day.</span>
+            <span>Share your date, route, and group size. Andrew will follow up with a personalized quote.</span>
           </a>
         </div>
       </section>
@@ -1557,12 +1552,12 @@
           <p class="eyebrow">Let’s build your route</p>
           <h2>Request a custom quote</h2>
           <p class="section-intro">
-            Available now. Tell us the basics and Andrew will build a personalized quote around your actual
+            Now accepting inquiries. Tell us the basics and Andrew will build a personalized quote around your actual
             plan. Add timing and trip details now if you have them, or start with what you know.
           </p>
           <div class="quote-trust" aria-label="Boston Party Van inquiry details">
             <a href="#reviews"><strong>5.0 on Google</strong> from 11 reviews</a>
-            <span>Same-day personal response</span>
+            <span>Personal follow-up from Andrew</span>
             <span>No payment required</span>
           </div>
         </div>
@@ -1577,6 +1572,7 @@
           <input type="hidden" name="gbraid" />
           <input type="hidden" name="wbraid" />
           <input type="hidden" name="lead_landing_page" />
+          <input type="hidden" name="lead_last_landing_page" />
           <input type="hidden" name="lead_referrer" />
           <input type="hidden" name="lead_submit_page" />
           <input type="hidden" name="lead_first_seen_at" />
@@ -1588,15 +1584,15 @@
           </p>
           <label>
             Full name
-            <input type="text" name="name" required />
+            <input type="text" name="name" autocomplete="name" required />
           </label>
           <label>
             Email
-            <input type="email" name="email" required />
+            <input type="email" name="email" autocomplete="email" required />
           </label>
           <label>
             Phone<span class="field-hint" data-phone-hint> (optional)</span>
-            <input type="tel" name="phone" />
+            <input type="tel" name="phone" autocomplete="tel" />
           </label>
           <label>
             Event type
@@ -1832,7 +1828,10 @@
         </form>
         <p class="form-help">
           This is an inquiry, not a booking or payment. Your request goes directly to Andrew,
-          and you will receive an automatic confirmation by email.
+          who will confirm availability and transportation arrangements before you book.
+        </p>
+        <p class="form-help quote-email-fallback" hidden>
+          <a href="mailto:bostonpartyvan@gmail.com?subject=Trip%20inquiry">Email your trip inquiry</a>
         </p>
         <p id="quoteSuccess" class="quote-success" aria-live="polite"></p>
       </section>
@@ -1985,11 +1984,10 @@
       </div>
     </footer>
     <div class="mobile-callbar">
-      <a class="mobile-primary" href="#quote">Quote</a>
+      <a class="mobile-primary" href="#quote">Request a Quote</a>
       <a class="mobile-secondary" href="#pricing">Estimate</a>
-      <a class="mobile-tertiary" href="tel:+16175153702">Call</a>
     </div>
 
-    <script src="script.js?v=1.6.1-branding"></script>
+    <script src="script.js?v=1.6.3-inquiries"></script>
   </body>
 </html>

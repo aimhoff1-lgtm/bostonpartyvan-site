@@ -188,15 +188,31 @@ if (siteHeader) {
 }
 
 if (menuToggle && mainNav) {
+  if (!mainNav.id) mainNav.id = "mainNavigation";
+  menuToggle.setAttribute("aria-controls", mainNav.id);
+  const setMenuOpen = (open) => {
+    mainNav.classList.toggle("open", open);
+    menuToggle.setAttribute("aria-expanded", String(open));
+  };
+  setMenuOpen(false);
   menuToggle.addEventListener("click", () => {
-    mainNav.classList.toggle("open");
+    setMenuOpen(!mainNav.classList.contains("open"));
   });
 
   document.addEventListener("click", (event) => {
     const clickedInside =
       mainNav.contains(event.target) || menuToggle.contains(event.target);
     if (!clickedInside) {
-      mainNav.classList.remove("open");
+      setMenuOpen(false);
+    }
+  });
+  mainNav.addEventListener("click", (event) => {
+    if (event.target.closest("a")) setMenuOpen(false);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && mainNav.classList.contains("open")) {
+      setMenuOpen(false);
+      menuToggle.focus();
     }
   });
 }
@@ -1084,6 +1100,12 @@ if (estimateForm && estimateResult) {
 
 const quoteForm = document.getElementById("quoteForm");
 const quoteSuccess = document.getElementById("quoteSuccess");
+const mobileQuoteBar = document.querySelector(".mobile-callbar");
+if (quoteForm && mobileQuoteBar && "IntersectionObserver" in window) {
+  new IntersectionObserver(([entry]) => {
+    mobileQuoteBar.classList.toggle("is-hidden", entry.isIntersecting);
+  }).observe(quoteForm);
+}
 const INTAKE_ENDPOINT =
   "https://formsubmit.co/ajax/902c76a22ec98900ac487ed64bc69c35";
 const QUOTE_RECEIPT_ENDPOINT = "/api/quote-receipt";
@@ -1157,6 +1179,27 @@ function buildLeadSourceSummary(attribution) {
   return campaign ? `${source} / ${medium} | ${campaign}` : `${source} / ${medium}`;
 }
 
+function getExternalTrafficSource(referrer) {
+  try {
+    const host = new URL(referrer).hostname.replace(/^www\./, "");
+    const currentHost = window.location.hostname.replace(/^www\./, "");
+    if (!host || host === currentHost) return null;
+    const searchEngines = [
+      [/^(?:[^.]+\.)?google\.[a-z.]+$/, "google"],
+      [/(^|\.)bing\.com$/, "bing"],
+      [/(^|\.)duckduckgo\.com$/, "duckduckgo"],
+      [/(^|\.)search\.yahoo\.com$/, "yahoo"],
+    ];
+    const searchEngine = searchEngines.find(([pattern]) => pattern.test(host));
+    return {
+      utm_source: searchEngine ? searchEngine[1] : host,
+      utm_medium: searchEngine ? "organic" : "referral",
+    };
+  } catch {
+    return null;
+  }
+}
+
 function buildAttributionSnapshot() {
   const now = new Date().toISOString();
   const params = new URLSearchParams(window.location.search);
@@ -1170,39 +1213,27 @@ function buildAttributionSnapshot() {
     snapshot.first_referrer = document.referrer || "";
   }
 
-  let foundAttributionParam = false;
+  const incoming = {};
   TRACKED_ATTRIBUTION_KEYS.forEach((key) => {
     const value = normalizeValue(params.get(key));
-    if (value) {
-      snapshot[key] = value;
-      foundAttributionParam = true;
-    }
+    if (value) incoming[key] = value;
   });
-
-  if (foundAttributionParam || !normalizeValue(snapshot.last_touch_at)) {
+  const externalSource = getExternalTrafficSource(document.referrer);
+  const isCampaignVisit = Object.keys(incoming).length > 0;
+  const isNewTouch = isCampaignVisit || externalSource || !snapshot.last_touch_at;
+  if (isNewTouch) {
+    // Replace a campaign as a unit so old ad IDs cannot label a new visit.
+    TRACKED_ATTRIBUTION_KEYS.forEach((key) => { delete snapshot[key]; });
+    const hasGoogleAdsClickId = Boolean(incoming.gclid || incoming.gbraid || incoming.wbraid);
+    Object.assign(snapshot, {
+      utm_source: incoming.utm_source || (hasGoogleAdsClickId ? "google" : externalSource?.utm_source || "direct"),
+      utm_medium: incoming.utm_medium || (hasGoogleAdsClickId ? "cpc" : externalSource?.utm_medium || "none"),
+      ...incoming,
+    });
     snapshot.last_touch_at = now;
+    snapshot.last_referrer = document.referrer || "";
+    snapshot.last_landing_page = currentPath;
   }
-
-  const hasGoogleAdsClickId = Boolean(snapshot.gclid || snapshot.gbraid || snapshot.wbraid);
-  if (!normalizeValue(snapshot.utm_source)) {
-    snapshot.utm_source = hasGoogleAdsClickId
-      ? "google"
-      : document.referrer
-        ? "referral"
-        : "direct";
-  }
-  if (!normalizeValue(snapshot.utm_medium)) {
-    snapshot.utm_medium = hasGoogleAdsClickId
-      ? "cpc"
-      : document.referrer
-        ? "referral"
-        : "none";
-  }
-  if (!normalizeValue(snapshot.utm_campaign)) {
-    snapshot.utm_campaign = hasGoogleAdsClickId ? "google-ads" : "organic-or-direct";
-  }
-
-  snapshot.last_referrer = document.referrer || normalizeValue(snapshot.first_referrer);
   snapshot.last_submit_page = currentPath;
   snapshot.lead_source_summary = buildLeadSourceSummary(snapshot);
 
@@ -1226,6 +1257,7 @@ function populateAttributionFields(form, attribution) {
     lead_submit_page: attribution.last_submit_page,
     lead_first_seen_at: attribution.first_seen_at,
     lead_last_touch_at: attribution.last_touch_at,
+    lead_last_landing_page: attribution.last_landing_page,
     lead_source_summary: attribution.lead_source_summary,
   };
 
@@ -1236,6 +1268,9 @@ function populateAttributionFields(form, attribution) {
     }
   });
 }
+
+// Capture the original entry on every guide, not only pages with an inquiry form.
+const initialAttribution = buildAttributionSnapshot();
 
 function buildIntakePayload(data) {
   const name = data.get("name") || "New Lead";
@@ -1406,6 +1441,9 @@ function buildIntakePayload(data) {
   }
   addIfPresent(payload, "Route and service details", data.get("notes"));
   addIfPresent(payload, "Lead source", leadSource);
+  addIfPresent(payload, "First landing page", data.get("lead_landing_page"));
+  addIfPresent(payload, "Latest landing page", data.get("lead_last_landing_page"));
+  addIfPresent(payload, "Referring page", data.get("lead_referrer"));
   addIfPresent(
     payload,
     "Google Ads click ID",
@@ -1701,6 +1739,8 @@ if (quoteForm && quoteSuccess) {
       quoteSuccess.classList.add(stateClass);
     }
     quoteSuccess.textContent = message;
+    const fallback = document.querySelector(".quote-email-fallback");
+    if (fallback) fallback.hidden = stateClass !== "error";
   };
 
   function trackQuoteFormStart(source) {
@@ -1716,17 +1756,16 @@ if (quoteForm && quoteSuccess) {
     });
   }
 
-  const initialAttribution = buildAttributionSnapshot();
   populateAttributionFields(quoteForm, initialAttribution);
 
   function syncPhoneRequirement() {
     if (!contactPreferenceInput || !phoneInput) return;
-    const requiresPhone = contactPreferenceInput.value === "text";
+    const requiresPhone = ["text", "call"].includes(contactPreferenceInput.value);
     phoneInput.required = requiresPhone;
     phoneInput.setAttribute("aria-required", requiresPhone ? "true" : "false");
     if (phoneHint) {
       phoneHint.textContent = requiresPhone
-        ? " (required for text)"
+        ? " (required for your contact preference)"
         : " (optional)";
     }
     phoneInput.setCustomValidity("");
@@ -2197,12 +2236,13 @@ if (quoteForm && quoteSuccess) {
 
   quoteForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (isSubmittingQuote) return;
 
     const latestAttribution = buildAttributionSnapshot();
     populateAttributionFields(quoteForm, latestAttribution);
     const data = new FormData(quoteForm);
     const name = data.get("name");
-    const requiresPhone = data.get("contactPreference") === "text";
+    const requiresPhone = ["text", "call"].includes(data.get("contactPreference"));
     const phoneValue = (data.get("phone") || "").toString().trim();
     const submitButton = quoteForm.querySelector('button[type="submit"]');
     const originalButtonText = submitButton ? submitButton.textContent : "";
@@ -2216,11 +2256,11 @@ if (quoteForm && quoteSuccess) {
 
     if (requiresPhone && !phoneValue) {
       if (phoneInput) {
-        phoneInput.setCustomValidity("Phone is required when preferred contact is text.");
+        phoneInput.setCustomValidity("Please enter a phone number for your preferred contact method.");
         phoneInput.reportValidity();
       }
       setQuoteMessage(
-        "Please enter a phone number if you prefer to be contacted by text.",
+        "Please enter a phone number if you prefer a text or phone call.",
         "error"
       );
       return;
@@ -2254,24 +2294,37 @@ if (quoteForm && quoteSuccess) {
 
       const payload = buildIntakePayload(data);
       const receipt = buildQuoteReceiptData(data);
-      const response = await fetch(INTAKE_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const result = await response.json().catch(() => ({}));
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 20000);
+      let response;
+      let result;
+      try {
+        response = await fetch(INTAKE_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+        result = await response.json().catch((error) => {
+          if (error.name === "AbortError") throw error;
+          return {};
+        });
+      } finally {
+        window.clearTimeout(timeout);
+      }
       const message = (result.message || "").toString();
       const isSuccess = result.success === true || result.success === "true";
 
       if (!response.ok || !isSuccess) {
         if (message.toLowerCase().includes("activation")) {
           setQuoteMessage(
-            "The booking form still needs to be activated before requests can be delivered. Please finish the FormSubmit activation, then submit again."
+            "Our inquiry form is temporarily unavailable. Your details are still here. Please email bostonpartyvan@gmail.com with your trip details.",
+            "error"
           );
+          trackGa4Event("quote_form_error", { form_name: "quote_form", error_type: "intake_unavailable" });
           return;
         }
         throw new Error(result.message || "Submission failed");
@@ -2282,7 +2335,7 @@ if (quoteForm && quoteSuccess) {
       });
 
       setQuoteMessage(
-        `Thanks ${name || "there"}! Your request is in. We typically reply within 30-60 minutes between 8am-9pm ET (same day otherwise).`,
+        `Thanks ${name || "there"}! Your inquiry has been received. Andrew will follow up${receipt.contactPreference ? ` by ${{ text: "text", call: "phone", email: "email" }[receipt.contactPreference] || "your preferred contact method"}` : " personally"} after reviewing your trip. Your reservation is not confirmed yet.`,
         "success"
       );
       trackGa4Event("generate_lead", buildLeadEventParams(data));
@@ -2299,10 +2352,14 @@ if (quoteForm && quoteSuccess) {
       syncQuoteTimingValidity();
       clearQuoteTripPrefill();
     } catch (error) {
-      quoteSuccess.classList.remove("success", "sending");
-      quoteSuccess.classList.add("error");
-      quoteSuccess.textContent =
-        "We couldn’t submit your request right now. Please wait a moment and try again.";
+      const timedOut = error.name === "AbortError";
+      setQuoteMessage(
+        timedOut
+          ? "We couldn't confirm delivery in time. Your details are still here. Please email bostonpartyvan@gmail.com before resending so we can check for your inquiry."
+          : "We couldn't submit your request. Your details are still here. Please try again or email bostonpartyvan@gmail.com with your trip details.",
+        "error"
+      );
+      trackGa4Event("quote_form_error", { form_name: "quote_form", error_type: timedOut ? "timeout" : "submission_failed" });
     } finally {
       isSubmittingQuote = false;
       syncQuoteDateLimits();

@@ -6,7 +6,7 @@
     <title>Photos | Boston Party Van</title>
     <meta
       name="description"
-      content="See the actual Boston Party Van: a black high-roof Mercedes-Benz Sprinter with 14 passenger seats plus a driver. Exterior and interior photos. Available now."
+      content="See the actual Boston Party Van: a black high-roof Mercedes-Benz Sprinter with 14 passenger seats plus a driver. Exterior and interior photos. Request a trip quote."
     />
     <meta name="robots" content="index,follow" />
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.bostonpartyvan.com/assets/images/favicon-32.png" />
@@ -16,7 +16,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Boston Party Van" />
     <meta property="og:title" content="Photos | Boston Party Van" />
-    <meta property="og:description" content="Meet our actual Sprinter. 14 passenger seats plus your driver, ready for holiday parties and group trips." />
+    <meta property="og:description" content="Meet our actual Sprinter with 14 passenger seats plus your driver. View exterior and interior photos, then request a trip quote." />
     <meta property="og:url" content="https://www.bostonpartyvan.com/photos.html" />
     <meta
       property="og:image"
@@ -24,11 +24,29 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Photos | Boston Party Van" />
-    <meta name="twitter:description" content="Meet our actual Sprinter. 14 passenger seats plus your driver, ready for holiday parties and group trips." />
+    <meta name="twitter:description" content="Meet our actual Sprinter with 14 passenger seats plus your driver. View exterior and interior photos, then request a trip quote." />
     <meta
       name="twitter:image"
       content="https://www.bostonpartyvan.com/assets/images/van-2026/exterior-retouched.webp"
     />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ImageGallery",
+        "name": "Boston Party Van Sprinter Photos",
+        "url": "https://www.bostonpartyvan.com/photos.html",
+        "description": "Exterior and interior photographs of the Boston Party Van Mercedes-Benz Sprinter, with retouched photographs labeled in the gallery.",
+        "about": { "@id": "https://www.bostonpartyvan.com/#business" },
+        "image": [
+          "https://www.bostonpartyvan.com/assets/images/van-2026/exterior-retouched.webp",
+          "https://www.bostonpartyvan.com/assets/images/van-2026/interior-retouched.webp",
+          "https://www.bostonpartyvan.com/assets/images/van-2026/cabin-original.webp",
+          "https://www.bostonpartyvan.com/assets/images/van-2026/rear-original.webp",
+          "https://www.bostonpartyvan.com/assets/images/van-2026/exterior-original.webp",
+          "https://www.bostonpartyvan.com/assets/images/van-2026/sunset-original.webp"
+        ]
+      }
+    </script>
     <script>
       (function () {
         var params = new URLSearchParams(window.location.search);
@@ -36,19 +54,6 @@
           window.BPV_DISABLE_ANALYTICS = true;
         }
 
-        if (!window.BPV_DISABLE_ANALYTICS) {
-          window.dataLayer = window.dataLayer || [];
-          window.gtag = function () {
-            window.dataLayer.push(arguments);
-          };
-          window.gtag("js", new Date());
-          window.gtag("config", "AW-18371382829");
-
-          var googleTag = document.createElement("script");
-          googleTag.async = true;
-          googleTag.src = "https://www.googletagmanager.com/gtag/js?id=AW-18371382829";
-          document.head.appendChild(googleTag);
-        }
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,7 +62,7 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=1.6.1-branding" />
+    <link rel="stylesheet" href="style.css?v=1.6.3-inquiries" />
   </head>
   <body class="photos-page">
     <div class="bg-orb bg-orb-a"></div>
@@ -97,7 +102,7 @@
 
     <main class="photos-main">
       <section class="van-gallery-intro" aria-labelledby="photos-heading">
-        <p class="eyebrow">Available now</p>
+        <p class="eyebrow">Meet your ride</p>
         <h1 id="photos-heading">Meet your Boston Party Van.</h1>
         <p class="section-intro">Our black high-roof Mercedes-Benz Sprinter. 14 passenger seats,
           plus a dedicated driver. One private ride for your whole group.</p>
@@ -178,31 +183,6 @@
       </div>
     </footer>
 
-    <script>
-      var menuToggle = document.querySelector(".menu-toggle");
-      var mainNav = document.querySelector(".main-nav");
-      var siteHeader = document.querySelector(".site-header");
-
-      if (siteHeader) {
-        var syncHeaderCompactState = function () {
-          siteHeader.classList.toggle("is-compact", window.scrollY > 24);
-        };
-
-        syncHeaderCompactState();
-        window.addEventListener("scroll", syncHeaderCompactState, { passive: true });
-      }
-
-      if (menuToggle && mainNav) {
-        menuToggle.addEventListener("click", function () {
-          mainNav.classList.toggle("open");
-        });
-
-        document.addEventListener("click", function (event) {
-          if (!mainNav.contains(event.target) && !menuToggle.contains(event.target)) {
-            mainNav.classList.remove("open");
-          }
-        });
-      }
-    </script>
+    <script src="script.js?v=1.6.3-inquiries"></script>
   </body>
 </html>

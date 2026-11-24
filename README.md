@@ -42,6 +42,9 @@ data consistent with any newly approved offer terms.
 The site accepts inquiries immediately, including same-day requests. The former
 30-day affiliate-assistance warning has been removed. Past dates remain invalid,
 using Boston's calendar date.
+Public copy accepts inquiries rather than guaranteeing immediate service.
+Andrew confirms availability and transportation arrangements before booking;
+the van's DPU inspection must be cleared before operating regulated trips.
 December 25, 2026 through January 4, 2027 is a one-time, inclusive blackout:
 inquiries cannot be submitted for pickup dates in that period or multi-day service
 that overlaps it. The rules are in `getQuoteDateAvailability` in `script.js`.
@@ -108,3 +111,18 @@ When ready:
    - Click call/text buttons (tracks `contact_click`)
    - Use estimator (tracks `estimate_calculated`)
    - Submit quote form successfully (tracks `generate_lead`)
+
+### Inquiry Verification
+
+Run `node --test tests/*.test.mjs` for the pricing, blackout, attribution, and
+content checks. `tests/inquiry-flow.browser.cjs` uses Playwright with installed
+Chrome, starts and closes its own local server, and checks desktop/mobile quote
+flows. All intake/receipt requests and analytics are intercepted; it sends no
+customer emails or real conversions. Set `BPV_TEST_ORIGIN` to test production
+with the same interception safeguards.
+
+Attribution is captured on every page that loads `script.js`, not only the form.
+New campaigns replace previous campaign fields and ad click IDs, internal
+navigation preserves them, and direct returns retain the last attributed source.
+Owner notifications include landing-page context. Submission failures emit
+`quote_form_error`; successful submissions alone emit the lead conversion.

@@ -14,7 +14,7 @@ const pages = [
     sections: [
       { title: "Your holiday party starts with the ride", paragraphs: [
         "A company celebration, a Christmas dinner with friends, or a family night out should not require a convoy of cars. Boston Party Van keeps your group together in one private, high-roof Sprinter. Andrew plans the pickup, stop sequence, and return around your actual event.",
-        "We are available now for holiday transportation from Greater Boston, including Boston, Cambridge, Somerville, Newton, and nearby communities. The van has 14 passenger seats plus a separate driver seat. Request your date and itinerary for personalized pricing; sending an inquiry does not confirm a reservation."
+        "We are accepting holiday transportation inquiries from Greater Boston, including Boston, Cambridge, Somerville, Newton, and nearby communities. The van has 14 passenger seats plus a separate driver seat. Request your date and itinerary for personalized pricing; availability and transportation arrangements are confirmed before booking."
       ] },
       { title: "Office and corporate holiday parties", paragraphs: [
         "Arrange one office pickup, a hotel departure, or a planned neighborhood pickup loop before your team dinner or company party. Share the venue address, event start time, and when everyone needs to be back. We can plan a round trip or a one-way transfer if your group has a separate return arrangement.",
@@ -164,7 +164,7 @@ async function main() {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../../style.css?v=1.6.1-branding" />
+  <link rel="stylesheet" href="../../style.css?v=1.6.3-inquiries" />
 </head>
 <body>
   <header class="site-header">
@@ -181,7 +181,7 @@ async function main() {
         <h1>${escape(page.heading)}</h1>
         <p>${escape(page.intro)}</p>
         <div class="hero-actions"><a class="btn btn-primary" href="${quote}">Request a Quote</a><a class="btn btn-ghost" href="../../index.html#services">View Trip Options</a></div>
-        <p class="holiday-availability"><strong>Available now.</strong> Closed Dec 25-Jan 4.</p>
+        <p class="holiday-availability"><strong>Now accepting inquiries.</strong> Availability confirmed before booking. Closed Dec 25-Jan 4.</p>
     </section>
     ${sections}
     <section class="section"><h2>Frequently asked questions</h2><div class="faq-list">${page.faqs.map(([q, a]) => `<details><summary>${escape(q)}</summary><p>${escape(a)}</p></details>`).join("\n")}</div></section>
@@ -189,7 +189,7 @@ async function main() {
     <section class="section"><h2>More holiday and winter trips</h2><ul>${related}<li><a href="../../photos.html">See the actual van and passenger seating</a></li></ul></section>
   </main>
   <footer class="site-footer"><div><h3>Boston Party Van</h3><p>Private transportation for Greater Boston and New England.</p></div><div><a href="../../index.html">Home</a></div><div><a href="${quote}">Request a Quote</a></div></footer>
-  <script src="../../script.js?v=1.6.1-branding"></script>
+  <script src="../../script.js?v=1.6.3-inquiries"></script>
 </body>
 </html>
 `;

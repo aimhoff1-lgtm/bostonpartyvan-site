@@ -36,19 +36,6 @@
           window.BPV_DISABLE_ANALYTICS = true;
         }
 
-        if (!window.BPV_DISABLE_ANALYTICS) {
-          window.dataLayer = window.dataLayer || [];
-          window.gtag = function () {
-            window.dataLayer.push(arguments);
-          };
-          window.gtag("js", new Date());
-          window.gtag("config", "AW-18371382829");
-
-          var googleTag = document.createElement("script");
-          googleTag.async = true;
-          googleTag.src = "https://www.googletagmanager.com/gtag/js?id=AW-18371382829";
-          document.head.appendChild(googleTag);
-        }
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,7 +44,7 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=1.5.7-photos-tab" />
+    <link rel="stylesheet" href="style.css?v=1.6.3-inquiries" />
   </head>
   <body class="shop-page">
     <div class="bg-orb bg-orb-a"></div>
@@ -145,31 +132,6 @@
       </div>
     </footer>
 
-    <script>
-      var menuToggle = document.querySelector(".menu-toggle");
-      var mainNav = document.querySelector(".main-nav");
-      var siteHeader = document.querySelector(".site-header");
-
-      if (siteHeader) {
-        var syncHeaderCompactState = function () {
-          siteHeader.classList.toggle("is-compact", window.scrollY > 24);
-        };
-
-        syncHeaderCompactState();
-        window.addEventListener("scroll", syncHeaderCompactState, { passive: true });
-      }
-
-      if (menuToggle && mainNav) {
-        menuToggle.addEventListener("click", function () {
-          mainNav.classList.toggle("open");
-        });
-
-        document.addEventListener("click", function (event) {
-          if (!mainNav.contains(event.target) && !menuToggle.contains(event.target)) {
-            mainNav.classList.remove("open");
-          }
-        });
-      }
-    </script>
+    <script src="script.js?v=1.6.3-inquiries"></script>
   </body>
 </html>

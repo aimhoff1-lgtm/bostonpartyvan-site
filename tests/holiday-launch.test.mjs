@@ -7,8 +7,10 @@ const html = await readFile(new URL("index.html", root), "utf8");
 const photos = await readFile(new URL("photos.html", root), "utf8");
 const script = await readFile(new URL("script.js", root), "utf8");
 
-test("homepage advertises immediate availability and the actual seating capacity", () => {
-  assert.match(html, /Available now/);
+test("homepage accepts inquiries without promising availability and states the seating capacity", () => {
+  assert.match(html, /Now accepting inquiries/);
+  assert.doesNotMatch(html, /Available now/);
+  assert.match(html, /confirm availability and transportation arrangements before you book/);
   assert.match(html, /14 passenger seats plus a separate driver seat/);
   assert.match(html, /December 25, 2026 through January 4, 2027/);
   assert.doesNotMatch(html, /2500|MBenzSprinter14PAX|van-interior-rear\.jpg/);

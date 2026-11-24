@@ -1,5 +1,18 @@
 # Release Notes
 
+## V1.6.3 - Inquiry Conversion and Search Cleanup
+
+### Changed
+- Preserve campaign attribution from service guides through the inquiry form, distinguish organic search, and clear stale ad click IDs on a new campaign
+- Include first/latest landing pages in owner lead notifications
+- Prioritize quote and estimate actions on mobile; close navigation after selection and keep the action bar out of the form
+- Add contact autofill, phone requirements for requested calls/texts, duplicate-submit protection, bounded request timeouts, and an email fallback on failure
+- Track submission errors without customer names, emails, or itinerary details
+- Replace immediate-service promises with inquiry and availability-confirmation wording while the vehicle inspection is pending
+- Expand the sporting-event guide with Gillette route, parking, and return-planning details linked to the stadium
+- Preload the existing skyline image and remove ineligible self-serving rating markup while preserving visible reviews
+- Preserve core branding, photos, pricing, trip choices, archived deals, and holiday blackout dates
+
 ## V1.6.2 - Winter Trip Highlights
 
 ### Changed
