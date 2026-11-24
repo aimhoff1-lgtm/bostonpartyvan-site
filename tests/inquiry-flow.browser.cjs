@@ -90,7 +90,7 @@ async function main() {
       await visit(origin + landing);
       await noOverflow();
       await page.locator(".winter-guide-intro a[href$='#quote']").click();
-      await page.waitForURL("**/index.html#quote");
+      await page.waitForURL((url) => ["/", "/index.html"].includes(url.pathname) && url.hash === "#quote");
       await page.addStyleTag({ content: "html { scroll-behavior: auto !important; }" });
       const form = page.locator("#quoteForm");
       assert.equal(await form.locator('[name="utm_campaign"]').inputValue(), "winter-test");
