@@ -29,11 +29,16 @@ test("seasonal promotion preserves the normal brand, cover, and inquiry flow", (
   assert.match(photos, /href="index\.html#quote">Request a Quote/);
 });
 
-test("six new van images exist and retouched gallery photos are labeled", async () => {
+test("the gallery retains the first four van photos without visible captions", async () => {
   const sources = [...photos.matchAll(/<img src="(assets\/images\/van-2026\/[^"]+)"/g)].map((m) => m[1]);
-  assert.equal(sources.length, 6);
+  assert.deepEqual(sources, [
+    "exterior-retouched.webp",
+    "interior-retouched.webp",
+    "cabin-original.webp",
+    "rear-original.webp",
+  ].map((name) => `assets/images/van-2026/${name}`));
   for (const source of sources) assert.ok((await stat(new URL(source, root))).size > 1000);
-  assert.equal((photos.match(/Photo retouched for lighting/g) || []).length, 2);
+  assert.doesNotMatch(photos, /<figcaption\b/);
   assert.doesNotMatch(photos, /Coming soon|coming soon/);
 });
 
