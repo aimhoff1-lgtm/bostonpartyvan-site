@@ -96,6 +96,17 @@ async function main() {
         assert.equal(await page.locator(".menu-toggle").getAttribute("aria-expanded"), "false");
       }
 
+      const fleetModes = page.locator("#fleet .fleet-modes");
+      await fleetModes.scrollIntoViewIfNeeded();
+      await page.waitForFunction(() => document.querySelector("#fleet").classList.contains("in-view"));
+      assert.match(await fleetModes.textContent(), /six-channel amp.*subwoofer/);
+      assert.match(await fleetModes.textContent(), /tailgates and parked parties.*rear cargo-door speakers.*underglow/);
+      assert.equal(await fleetModes.locator("a").getAttribute("href"), "#quote");
+      const modeColumns = await fleetModes.locator(".fleet-modes-grid").evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(" ").length);
+      assert.equal(modeColumns, viewport.width <= 620 ? 1 : 2);
+      await noOverflow();
+      await fleetModes.screenshot({ path: path.join(output, `${prefix}fleet-modes-${viewport.width}.png`), animations: "disabled", style: ".site-header, .mobile-callbar { visibility: hidden !important; }" });
+
       const landing = "/guides/boston-ski-trip-transportation/?utm_source=google&utm_medium=cpc&utm_campaign=winter-test&gclid=test-click";
       await visit(origin + landing);
       await noOverflow();

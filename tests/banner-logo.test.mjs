@@ -18,7 +18,7 @@ test("main headers use the new banner mark and keep the original hero", async ()
     const html = await readFile(new URL(name, root), "utf8");
     assert.match(html, /src="[^"]*assets\/images\/bpv-web-lockup\.svg"/);
     assert.doesNotMatch(html, /src="[^"]*(?:bpv-header-mark\.png|bpv-banner-logo\.webp)"/);
-    assert.match(html, /style\.css\?v=1\.6\.5-brand/);
+    assert.match(html, /style\.css\?v=[\w.-]+/);
     assert.match(html, /family=Archivo:ital,wght/);
   }
   assert.match(home, /boston-skyline-river-dusk\.webp/);

@@ -1,5 +1,11 @@
 # Release Notes
 
+## V1.6.6 - Sprinter Sound and Lighting
+
+### Changed
+- Feature the van's adjustable sound and lighting, including a quiet ride for business groups and a party setup for celebrations
+- Highlight rear cargo-door speakers and underglow for parked events where the venue allows
+
 ## V1.6.5 - BPV Website Branding
 
 ### Changed
