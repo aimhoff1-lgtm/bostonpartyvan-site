@@ -1298,9 +1298,9 @@
 }
 
 .checkout-brand img {
-  width: 2.25rem;
-  height: 2.25rem;
-  object-fit: contain;
+  width: 9rem;
+  height: auto;
+  aspect-ratio: 256 / 60;
 }
 
 .checkout-progress {
@@ -1997,10 +1997,11 @@
   .checkout-dialog-header {
     min-height: 4rem;
     padding: 0.6rem 3.5rem 0.6rem 0.8rem;
+    gap: 0.65rem;
   }
 
-  .checkout-brand span {
-    display: none;
+  .checkout-brand img {
+    width: 6.5rem;
   }
 
   .checkout-progress {

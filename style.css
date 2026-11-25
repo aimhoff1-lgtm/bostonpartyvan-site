@@ -1,13 +1,13 @@
+@import url("brand.css?v=1.6.5");
+
 :root {
-  --bg-deep: #091420;
-  --bg-mid: #0d1f2f;
-  --panel: rgba(11, 28, 43, 0.74);
-  --panel-strong: #10263a;
-  --text-main: #e7eef7;
-  --text-soft: #a9bacd;
+  --bg-deep: var(--brand-ink);
+  --bg-mid: #121c26;
+  --panel: rgba(19, 29, 39, 0.86);
+  --panel-strong: #172330;
+  --text-main: #f4f8fc;
+  --text-soft: #b6c6d5;
   --line: rgba(255, 255, 255, 0.16);
-  --accent-hot: #ff6a3d;
-  --accent-cool: #26d6bd;
   --accent-gold: #ffc149;
   --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.45);
   --radius-xl: 24px;
@@ -31,8 +31,7 @@ body {
   margin: 0;
   font-family: "Space Grotesk", "Segoe UI", Tahoma, sans-serif;
   color: var(--text-main);
-  background: radial-gradient(circle at 10% 0%, #183552 0%, var(--bg-deep) 40%),
-    linear-gradient(130deg, #08101a 0%, #0a1724 52%, #0f2638 100%);
+  background: var(--bg-deep);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -42,7 +41,8 @@ h1,
 h2,
 h3 {
   margin: 0 0 0.6rem;
-  font-family: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  font-family: var(--brand-type);
+  font-weight: 800;
   line-height: 1.05;
 }
 
@@ -52,30 +52,6 @@ p {
 
 a {
   color: inherit;
-}
-
-.bg-orb {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(8px);
-  pointer-events: none;
-  z-index: -3;
-}
-
-.bg-orb-a {
-  width: 420px;
-  height: 420px;
-  top: -130px;
-  left: -110px;
-  background: radial-gradient(circle, rgba(255, 106, 61, 0.35), transparent 70%);
-}
-
-.bg-orb-b {
-  width: 460px;
-  height: 460px;
-  right: -150px;
-  top: 16%;
-  background: radial-gradient(circle, rgba(38, 214, 189, 0.24), transparent 70%);
 }
 
 .noise-layer {
@@ -110,8 +86,8 @@ a {
   top: 0;
   z-index: 50;
   backdrop-filter: blur(10px);
-  background: linear-gradient(to bottom, rgba(4, 14, 25, 0.92), rgba(4, 14, 25, 0.64));
-  border-bottom: 1px solid var(--line);
+  background: var(--brand-header);
+  border-bottom: 1px solid rgba(var(--brand-blue-rgb), 0.36);
   transition: background 220ms ease;
 }
 
@@ -127,7 +103,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.55rem 0;
+  padding: 0.5rem 0;
   max-height: 4.25rem;
   overflow: hidden;
   color: #fff3d7;
@@ -141,14 +117,14 @@ a {
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
-  letter-spacing: 0.11em;
+  letter-spacing: 0;
   line-height: 1.25;
   text-align: center;
   text-transform: uppercase;
 }
 
 .site-header.is-compact {
-  background: rgba(4, 14, 25, 0.96);
+  background: var(--brand-header);
 }
 
 .site-header.is-compact .top-strip {
@@ -169,7 +145,8 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.8rem 0 1rem;
+  gap: 1rem;
+  padding: 0.55rem 0;
   transition: padding 240ms ease;
 }
 
@@ -182,18 +159,15 @@ a {
 }
 
 .brand-lockup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.08rem;
-  width: 11rem;
+  display: block;
+  width: 13rem;
 }
 
 .brand-logo {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 1633 / 963;
+  aspect-ratio: 256 / 60;
   object-fit: contain;
 }
 
@@ -208,7 +182,7 @@ a {
 .main-nav {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1.05rem;
 }
 
 .main-nav a {
@@ -222,11 +196,16 @@ a {
 }
 
 .main-nav .nav-cta {
-  color: #111a23;
-  background: linear-gradient(135deg, var(--accent-cool), #85efe0);
-  border-radius: 999px;
+  color: var(--brand-ink);
+  background: var(--brand-blue);
+  border-radius: 6px;
   font-weight: 700;
   padding: 0.55rem 1rem;
+}
+
+.main-nav .nav-cta:hover {
+  color: var(--brand-ink);
+  background: var(--brand-sky);
 }
 
 .section {
@@ -238,33 +217,33 @@ a {
 }
 
 .hero {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: 1.25fr 1fr;
+  display: flex;
   align-items: center;
-  min-height: 68vh;
-  padding: clamp(1.2rem, 2.2vw, 2rem);
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: var(--shadow-lg);
-  position: relative;
-  overflow: hidden;
+  min-height: min(33rem, 66svh);
+  padding-block: 4rem;
+  border-bottom: 1px solid var(--line);
+  background-color: var(--brand-ink);
   background-image:
-    linear-gradient(
-      120deg,
-      rgba(4, 10, 18, 0.84) 10%,
-      rgba(4, 10, 18, 0.58) 48%,
-      rgba(4, 10, 18, 0.76) 100%
-    ),
-    var(--hero-image),
-    linear-gradient(135deg, #0e2133 0%, #153450 100%);
+    linear-gradient(90deg, rgba(4, 12, 20, 0.96), rgba(4, 12, 20, 0.7) 43%, rgba(4, 12, 20, 0.2) 83%),
+    linear-gradient(0deg, rgba(4, 12, 20, 0.55), transparent 55%),
+    var(--hero-image);
   background-size: cover;
   background-position: center;
 }
 
 .hero-copy {
-  position: relative;
-  z-index: 1;
+  width: var(--content-width);
+  margin: 0 auto;
+}
+
+.hero-copy::before {
+  content: "";
+  display: block;
+  width: 3.6rem;
+  height: 0.34rem;
+  margin: 0 0 1.25rem 0.1rem;
+  background: linear-gradient(90deg, var(--brand-blue) 72%, transparent 72% 82%, var(--brand-sky) 82%);
+  transform: skewX(-24deg);
 }
 
 .eyebrow {
@@ -277,25 +256,34 @@ a {
   margin-bottom: 0.9rem;
 }
 
-.eyebrow-brand {
-  color: #fff3d7;
-}
-
-.eyebrow-separator {
-  color: var(--accent-gold);
-  padding: 0 0.22em;
-}
-
 .hero h1 {
-  font-size: clamp(2.25rem, 5.5vw, 4.4rem);
-  max-width: 18ch;
+  margin: 0;
+  font-size: 4.65rem;
+  font-weight: 900;
+  font-style: italic;
+  line-height: 0.98;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.hero h1 span {
+  display: inline-block;
+}
+
+.hero-tagline {
+  margin-top: 0.85rem;
+  font-family: var(--brand-type);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--brand-sky);
 }
 
 .hero-sub {
-  margin-top: 1rem;
-  max-width: 58ch;
-  color: var(--text-soft);
-  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  margin-top: 0.8rem;
+  max-width: 46ch;
+  color: var(--text-main);
+  font-size: 1.125rem;
+  line-height: 1.55;
 }
 
 .hero-copy .hero-actions {
@@ -303,13 +291,18 @@ a {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.7rem;
-  margin-top: 1.25rem;
+  margin-top: 1.6rem;
 }
 
 .hero-copy .hero-actions .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.hero-copy .btn-ghost {
+  background: rgba(8, 16, 24, 0.72);
+  border-color: rgba(255, 255, 255, 0.38);
 }
 
 .seasonal-banner { text-decoration: none; letter-spacing: 0; }
@@ -444,7 +437,7 @@ a {
 
 .btn {
   border: 1px solid transparent;
-  border-radius: 999px;
+  border-radius: 6px;
   text-decoration: none;
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -464,67 +457,18 @@ a {
 }
 
 .btn-primary {
-  color: #05121b;
-  background: linear-gradient(135deg, var(--accent-hot), #ff9954);
-  box-shadow: 0 12px 26px rgba(255, 106, 61, 0.33);
+  color: var(--brand-ink);
+  background: var(--brand-blue);
+}
+
+.btn-primary:hover {
+  background: var(--brand-sky);
 }
 
 .btn-ghost {
   color: var(--text-main);
   border-color: var(--line);
   background: rgba(255, 255, 255, 0.03);
-}
-
-.hero-card {
-  background: linear-gradient(135deg, rgba(14, 36, 54, 0.9), rgba(12, 26, 39, 0.93));
-  border: 1px solid var(--line);
-  border-radius: var(--radius-xl);
-  padding: 1.4rem;
-  box-shadow: var(--shadow-lg);
-  backdrop-filter: blur(5px);
-  position: relative;
-  z-index: 1;
-}
-
-.hero-card h2 {
-  font-size: 1.4rem;
-}
-
-.hero-card p {
-  color: var(--text-soft);
-}
-
-.hero-stats-card {
-  padding: 0.85rem;
-}
-
-.hero-stats-card .special-stats {
-  margin-top: 0;
-}
-
-.special-stats {
-  margin-top: 1rem;
-  display: grid;
-  gap: 0.7rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.special-stats div {
-  padding: 0.6rem;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  text-align: center;
-}
-
-.special-stats strong {
-  display: block;
-  font-size: 1.25rem;
-}
-
-.special-stats span {
-  color: var(--text-soft);
-  font-size: 0.82rem;
 }
 
 .quick-actions {
@@ -543,39 +487,33 @@ a {
 
 .quick-actions-grid {
   display: grid;
-  gap: 0.85rem;
+  gap: 1.5rem;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .quick-action-card {
   text-decoration: none;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  background: linear-gradient(145deg, rgba(14, 34, 52, 0.88), rgba(10, 22, 35, 0.84));
-  padding: 1rem;
+  border-top: 2px solid rgba(var(--brand-blue-rgb), 0.42);
+  padding: 0.9rem 0;
   display: grid;
   gap: 0.42rem;
-  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  align-content: start;
+  transition: border-color 180ms ease;
 }
 
 .quick-action-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(38, 214, 189, 0.52);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+  border-color: var(--brand-sky);
 }
 
-.quick-action-label {
+.quick-action-card h2 {
   margin: 0;
-  color: var(--accent-cool);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.74rem;
-  font-weight: 700;
+  font-size: 1.25rem;
 }
 
-.quick-action-card h3 {
-  margin: 0;
-  font-size: clamp(1.12rem, 2vw, 1.34rem);
+.quick-action-card h2::after {
+  content: "\2192" / "";
+  margin-left: 0.5em;
+  color: var(--brand-sky);
 }
 
 .quick-action-card span {
@@ -678,7 +616,7 @@ a {
 
 .route-list h4 {
   margin: 0 0 0.28rem;
-  font-family: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  font-family: var(--brand-type);
   font-size: 1rem;
 }
 
@@ -920,14 +858,14 @@ a {
 }
 
 .segment-option input:checked + span {
-  border-color: rgba(38, 214, 189, 0.7);
-  background: rgba(38, 214, 189, 0.14);
+  border-color: rgba(var(--brand-blue-rgb), 0.7);
+  background: rgba(var(--brand-blue-rgb), 0.14);
   color: var(--text-main);
   font-weight: 700;
 }
 
 .segment-option input:focus-visible + span {
-  outline: 2px solid rgba(38, 214, 189, 0.5);
+  outline: 2px solid rgba(var(--brand-blue-rgb), 0.5);
   outline-offset: 2px;
 }
 
@@ -965,7 +903,7 @@ a {
   width: 1.3rem;
   height: 1.3rem;
   place-items: center;
-  border: 1px solid rgba(38, 214, 189, 0.65);
+  border: 1px solid rgba(var(--brand-blue-rgb), 0.65);
   border-radius: 50%;
   color: var(--accent-cool);
   cursor: pointer;
@@ -980,7 +918,7 @@ a {
 }
 
 .estimate-help summary:focus-visible {
-  outline: 2px solid rgba(38, 214, 189, 0.55);
+  outline: 2px solid rgba(var(--brand-blue-rgb), 0.55);
   outline-offset: 2px;
 }
 
@@ -991,7 +929,7 @@ a {
   left: 0;
   width: min(22rem, calc(100vw - 3rem));
   padding: 0.85rem 2.45rem 0.85rem 0.85rem;
-  border: 1px solid rgba(38, 214, 189, 0.35);
+  border: 1px solid rgba(var(--brand-blue-rgb), 0.35);
   border-radius: 8px;
   background: #0b1c2c;
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3);
@@ -1020,7 +958,7 @@ a {
 
 .estimate-help-close:hover,
 .estimate-help-close:focus-visible {
-  background: rgba(38, 214, 189, 0.2);
+  background: rgba(var(--brand-blue-rgb), 0.2);
 }
 
 .estimate-help-popover p {
@@ -1195,7 +1133,7 @@ textarea {
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 2px solid rgba(38, 214, 189, 0.5);
+  outline: 2px solid rgba(var(--brand-blue-rgb), 0.5);
   border-color: transparent;
 }
 
@@ -1256,7 +1194,7 @@ textarea:focus {
 }
 
 .custom-service-options summary:focus-visible {
-  outline: 2px solid rgba(38, 214, 189, 0.55);
+  outline: 2px solid rgba(var(--brand-blue-rgb), 0.55);
   outline-offset: 3px;
 }
 
@@ -1286,7 +1224,7 @@ textarea:focus {
 }
 
 .estimate-price {
-  font-family: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  font-family: var(--brand-type);
   font-size: clamp(2rem, 5vw, 3.2rem);
   margin: 0.4rem 0;
 }
@@ -1335,7 +1273,7 @@ textarea:focus {
 }
 
 .estimate-special strong {
-  font-family: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  font-family: var(--brand-type);
   font-size: 1.02rem;
 }
 
@@ -1496,7 +1434,7 @@ textarea:focus {
   inset: 0;
   background:
     linear-gradient(135deg, rgba(255, 193, 73, 0.18), transparent 42%),
-    radial-gradient(circle at 80% 18%, rgba(38, 214, 189, 0.18), transparent 34%),
+    radial-gradient(circle at 80% 18%, rgba(var(--brand-blue-rgb), 0.18), transparent 34%),
     linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
   background-size: auto, auto, 54px 54px, 54px 54px;
@@ -1509,7 +1447,7 @@ textarea:focus {
   top: 50%;
   width: min-content;
   color: rgba(231, 238, 247, 0.08);
-  font-family: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  font-family: var(--brand-type);
   font-size: clamp(4.4rem, 16vw, 12rem);
   font-weight: 800;
   letter-spacing: 0;
@@ -1588,7 +1526,7 @@ main > .reviews-section {
 .review-rating strong {
   grid-row: span 2;
   color: var(--text-main);
-  font-family: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  font-family: var(--brand-type);
   font-size: 2.05rem;
   line-height: 0.9;
 }
@@ -1623,7 +1561,7 @@ main > .reviews-section {
 .review-card blockquote {
   margin: 0;
   color: var(--text-main);
-  font-family: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  font-family: var(--brand-type);
   font-size: 1.08rem;
   font-weight: 700;
   line-height: 1.45;
@@ -1921,7 +1859,7 @@ main > .reviews-section {
   border-radius: 50%;
   display: inline-grid;
   place-items: center;
-  background: linear-gradient(135deg, var(--accent-hot), #ff9f54);
+  background: var(--brand-blue);
   color: #17202a;
   font-weight: 800;
   margin-bottom: 0.8rem;
@@ -1963,7 +1901,7 @@ main > .reviews-section {
 }
 
 .faq-list details[open] {
-  border-color: rgba(38, 214, 189, 0.48);
+  border-color: rgba(var(--brand-blue-rgb), 0.48);
   background: rgba(14, 39, 58, 0.88);
 }
 
@@ -1989,7 +1927,7 @@ main > .reviews-section {
   height: 1.45rem;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(38, 214, 189, 0.52);
+  border: 1px solid rgba(var(--brand-blue-rgb), 0.52);
   border-radius: 50%;
   color: var(--accent-cool);
   font-size: 1.05rem;
@@ -2074,7 +2012,7 @@ main > .reviews-section {
 
 .quote-trust a {
   color: var(--text-main);
-  text-decoration-color: rgba(38, 214, 189, 0.55);
+  text-decoration-color: rgba(var(--brand-blue-rgb), 0.55);
   text-underline-offset: 0.2em;
 }
 
@@ -2134,9 +2072,9 @@ main > .reviews-section {
 .quote-trip-selection {
   margin: 0;
   padding: 0.75rem 0.85rem;
-  border: 1px solid rgba(38, 214, 189, 0.45);
+  border: 1px solid rgba(var(--brand-blue-rgb), 0.45);
   border-radius: 8px;
-  background: rgba(38, 214, 189, 0.08);
+  background: rgba(var(--brand-blue-rgb), 0.08);
   color: var(--text-soft);
 }
 
@@ -2190,7 +2128,7 @@ main > .reviews-section {
 }
 
 .quote-details > summary:focus-visible {
-  outline: 2px solid rgba(38, 214, 189, 0.55);
+  outline: 2px solid rgba(var(--brand-blue-rgb), 0.55);
   outline-offset: -3px;
 }
 
@@ -2325,12 +2263,11 @@ main > .reviews-section {
   }
 
   .brand-lockup {
-    width: 9rem;
+    width: 11.5rem;
   }
 }
 
 @media (max-width: 960px) {
-  .hero,
   .estimator-wrap,
   .service-layout {
     grid-template-columns: 1fr;
@@ -2339,6 +2276,14 @@ main > .reviews-section {
   .quick-actions-grid,
   .trust-grid {
     grid-template-columns: 1fr;
+  }
+
+  .quick-actions-grid {
+    gap: 0.45rem;
+  }
+
+  .hero h1 {
+    font-size: 3.65rem;
   }
 
   .shop-main {
@@ -2420,7 +2365,7 @@ main > .reviews-section {
 
   .mobile-callbar a {
     text-decoration: none;
-    border-radius: 999px;
+    border-radius: 6px;
     padding: 0.72rem 0.9rem;
     font-size: 0.92rem;
     font-weight: 700;
@@ -2433,13 +2378,14 @@ main > .reviews-section {
   }
 
   .mobile-primary {
-    background: linear-gradient(135deg, var(--accent-hot), #ff9954);
-    color: #08131c;
+    background: var(--brand-blue);
+    color: var(--brand-ink);
   }
 
   .mobile-secondary {
-    background: linear-gradient(135deg, var(--accent-cool), #87ede0);
-    color: #08131c;
+    background: var(--bg-mid);
+    border: 1px solid var(--line);
+    color: var(--brand-sky);
   }
 
   .mobile-tertiary {
@@ -2454,13 +2400,6 @@ main > .reviews-section {
 }
 
 @media (max-width: 620px) {
-  .hero .hero-tagline,
-  .hero .eyebrow-separator,
-  .hero .hero-actions .btn-ghost,
-  .hero .hero-stats-card {
-    display: none;
-  }
-
   :root {
     --content-width: calc(100% - 24px);
   }
@@ -2477,11 +2416,6 @@ main > .reviews-section {
     padding: 4rem 0 1rem;
   }
 
-  html,
-  body {
-    background: #091420;
-  }
-
   .bg-orb,
   .noise-layer {
     display: none;
@@ -2495,15 +2429,11 @@ main > .reviews-section {
 
   .hero {
     min-height: 0;
+    padding-block: 2.3rem;
+    background-position: 59% center;
     background-image:
-      linear-gradient(
-        145deg,
-        rgba(3, 11, 19, 0.93) 0%,
-        rgba(3, 11, 19, 0.86) 54%,
-        rgba(3, 11, 19, 0.8) 100%
-      ),
-      var(--hero-image),
-      linear-gradient(135deg, #0e2133 0%, #153450 100%);
+      linear-gradient(90deg, rgba(4, 12, 20, 0.94), rgba(4, 12, 20, 0.65)),
+      var(--hero-image);
   }
 
   .hero h1,
@@ -2512,7 +2442,23 @@ main > .reviews-section {
   }
 
   .hero h1 {
-    color: #ffffff;
+    font-size: 2.6rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.35rem;
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+  }
+
+  .hero-copy .hero-actions {
+    gap: 0.5rem;
+  }
+
+  .hero-copy .hero-actions .btn {
+    padding-inline: 0.75rem;
   }
 
   .shop-main {
@@ -2533,10 +2479,6 @@ main > .reviews-section {
 
   .shop-product-copy h1 {
     font-size: 2.3rem;
-  }
-
-  .hero-sub {
-    color: #e7eef7;
   }
 
   .package-card::before {

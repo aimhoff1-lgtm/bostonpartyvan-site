@@ -402,16 +402,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..900;1,900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=1.6.4-logo" />
+    <link rel="stylesheet" href="style.css?v=1.6.5-brand" />
   </head>
   <body>
-    <div class="bg-orb bg-orb-a"></div>
-    <div class="bg-orb bg-orb-b"></div>
-    <div class="noise-layer"></div>
-    <div class="version-tag" title="Site version">V1.6.4</div>
+    <div class="version-tag" title="Site version">V1.6.5</div>
 
     <header class="site-header">
       <div class="top-strip">
@@ -421,7 +418,7 @@
         <a class="brand" href="#home" aria-label="Boston Party Van home">
           <span class="brand-lockup">
             <img
-              src="assets/images/bpv-banner-logo.webp"
+              src="assets/images/bpv-web-lockup.svg"
               alt=""
               aria-hidden="true"
               class="brand-logo"
@@ -444,59 +441,34 @@
     </header>
 
     <main id="home">
-      <section class="hero section reveal">
+      <section class="hero reveal" aria-labelledby="home-heading">
         <div class="hero-copy">
-          <p class="eyebrow">
-            <span class="eyebrow-brand">Boston Party Van</span>
-            <span class="eyebrow-separator" aria-hidden="true">|</span>
-            <span class="hero-tagline">Boston's newest group transportation company</span>
-          </p>
-          <h1>Private Boston group transportation for up to 14.</h1>
+          <h1 id="home-heading"><span>Boston</span> <span>Party Van</span></h1>
+          <p class="hero-tagline">One van. The whole crew.</p>
           <p class="hero-sub">
-            Your own Mercedes-Benz Sprinter and dedicated driver for game days, concerts,
-            corporate outings, shuttle service, weddings, nights out, and custom New England routes.
+            A private Mercedes-Benz Sprinter with a dedicated driver and room for up to 14 guests.
+            From Boston game days to New England day trips, keep your group together.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#quote">Request a Quote</a>
-            <a class="btn btn-ghost" href="boston/party-bus-6-to-14-passengers/">
-              Built for groups of 6–14
-            </a>
+            <a class="btn btn-ghost" href="photos.html">See the Van</a>
           </div>
         </div>
-        <aside class="hero-card hero-stats-card" aria-label="Trip highlights">
-          <div class="special-stats">
-            <div>
-              <strong>Up to 14</strong>
-              <span>Guests</span>
-            </div>
-            <div>
-              <strong>1</strong>
-              <span>Dedicated driver</span>
-            </div>
-            <div>
-              <strong>Custom</strong>
-              <span>Route-based pricing</span>
-            </div>
-          </div>
-        </aside>
       </section>
 
       <section class="section reveal quick-actions" aria-label="Quick actions">
         <div class="quick-actions-grid">
           <a class="quick-action-card" href="#services">
-            <p class="quick-action-label">Need ideas?</p>
-            <h3>Find your route</h3>
-            <span>Open the Trip Menu for inspiration, from an open-ended occasion to a carefully curated route. We do it all.</span>
+            <h2>Explore trips</h2>
+            <span>Game days, concerts, weddings, shuttles, and more.</span>
           </a>
           <a class="quick-action-card" href="#pricing">
-            <p class="quick-action-label">Still planning?</p>
-            <h3>See a rough estimate in less than 30 seconds</h3>
-            <span>We can give you a rough estimate to help you visualize your ride</span>
+            <h2>Estimate your ride</h2>
+            <span>Get a ballpark price for your route.</span>
           </a>
           <a class="quick-action-card" href="#quote">
-            <p class="quick-action-label">Ready to reach out?</p>
-            <h3>Get your trip quote</h3>
-            <span>Share your date, route, and group size. Andrew will follow up with a personalized quote.</span>
+            <h2>Request a quote</h2>
+            <span>Send Andrew your date, route, and group size.</span>
           </a>
         </div>
       </section>

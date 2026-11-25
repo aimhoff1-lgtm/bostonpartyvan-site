@@ -18,7 +18,7 @@ test("homepage accepts inquiries without promising availability and states the s
 
 test("seasonal promotion preserves the normal brand, cover, and inquiry flow", () => {
   assert.match(html, /<title>Boston Party Van \| Private Group Transportation for Up to 14<\/title>/);
-  assert.match(html, /<h1>Private Boston group transportation for up to 14\.<\/h1>/);
+  assert.match(html, /<h1 id="home-heading"><span>Boston<\/span> <span>Party Van<\/span><\/h1>/);
   assert.match(html, /class="seasonal-banner" href="#quote">Holiday parties and ski trips are booking now!/);
   assert.match(html, /<a href="#services">Trip Menu<\/a>/);
   assert.equal((html.match(/class="quick-action-card"/g) || []).length, 3);

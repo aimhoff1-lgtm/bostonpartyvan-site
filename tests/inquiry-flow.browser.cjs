@@ -6,7 +6,7 @@ const { chromium } = require("playwright");
 
 const root = path.resolve(__dirname, "..");
 const output = path.resolve(root, "../tmp/inquiry-release");
-const mime = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".webp": "image/webp", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".xml": "application/xml" };
+const mime = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".webp": "image/webp", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".svg": "image/svg+xml", ".xml": "application/xml" };
 const server = http.createServer(async (req, res) => {
   const pathname = decodeURIComponent(new URL(req.url, "http://localhost").pathname);
   const file = path.resolve(root, `.${pathname.endsWith("/") ? `${pathname}index.html` : pathname}`);
@@ -62,20 +62,27 @@ async function main() {
         assert.ok(dimensions[0] <= dimensions[1] + 1, `${page.url()}: ${dimensions}`);
       }
       await visit(origin);
-      await page.waitForFunction(() => document.querySelector(".brand-logo").naturalWidth === 1633);
-      assert.match(await page.locator(".brand-logo").getAttribute("src"), /bpv-banner-logo\.webp/);
+      await page.waitForFunction(() => document.querySelector(".brand-logo").naturalWidth > 0);
+      assert.match(await page.locator(".brand-logo").getAttribute("src"), /bpv-web-lockup\.svg/);
       assert.equal(await page.locator(".brand-wordmark").isVisible(), false);
       await page.waitForFunction(() => document.querySelector(".hero").classList.contains("in-view"));
       await page.evaluate(async () => { const img = new Image(); img.src = "/assets/images/boston-skyline-river-dusk.webp"; await img.decode(); });
       assert.match(await page.locator(".hero").evaluate((el) => getComputedStyle(el).backgroundImage), /boston-skyline-river-dusk/);
+      assert.match(await page.locator(".hero h1").evaluate((el) => getComputedStyle(el).fontFamily), /Archivo/);
+      assert.equal(await page.locator(".hero h1").textContent(), "Boston Party Van");
       assert.equal(await page.locator("#offers").count(), 0);
       assert.equal(await page.locator(".winter-trip").count(), 2);
       await noOverflow();
       const framing = await page.evaluate(() => ({
-        nextSectionTop: document.querySelector(".quick-action-label").getBoundingClientRect().bottom,
+        nextSectionTop: document.querySelector(".quick-action-card h2").getBoundingClientRect().bottom,
         visibleBottom: innerHeight - (document.querySelector(".mobile-callbar").getBoundingClientRect().height || 0),
+        heroWidth: document.querySelector(".hero").getBoundingClientRect().width,
+        viewportWidth: document.documentElement.clientWidth,
+        titleFits: Array.from(document.querySelectorAll(".hero h1 span")).every((el) => el.getBoundingClientRect().right <= document.documentElement.clientWidth),
       }));
       assert.ok(framing.nextSectionTop < framing.visibleBottom, JSON.stringify(framing));
+      assert.equal(framing.heroWidth, framing.viewportWidth);
+      assert.ok(framing.titleFits);
       await page.screenshot({ path: path.join(output, `${prefix}home-${viewport.width}.png`), animations: "disabled" });
       console.log(`Homepage checked at ${viewport.width}px`);
       if (viewport.width < 600) {
@@ -206,23 +213,24 @@ async function main() {
           assert.ok(details.scripts.some((src) => src.includes("script.js?v=1.6.3-inquiries")), pathname);
         }
         console.log(`Checked ${urls.length} sitemap pages, canonical URLs, structured data, and current tracking assets`);
-        for (const width of [1280, 1100, 1024, 960, 768]) {
+        for (const width of [1280, 1101, 1100, 1024, 960, 768]) {
           await page.setViewportSize({ width, height: 900 });
           await visit(origin);
-          await page.waitForFunction(() => document.querySelector(".brand-logo").naturalWidth === 1633);
+          await page.waitForFunction(() => document.querySelector(".brand-logo").naturalWidth > 0);
           await noOverflow();
           const geometry = await page.evaluate(() => {
             const logo = document.querySelector(".brand-logo").getBoundingClientRect();
             const nav = document.querySelector(".main-nav");
             return { ratio: logo.width / logo.height, logoRight: logo.right, navLeft: nav.getBoundingClientRect().left, navVisible: getComputedStyle(nav).display !== "none" };
           });
-          assert.ok(Math.abs(geometry.ratio - 1633 / 963) < 0.01);
+          assert.ok(Math.abs(geometry.ratio - 256 / 60) < 0.01);
           if (geometry.navVisible) assert.ok(geometry.logoRight < geometry.navLeft);
           assert.equal(await page.locator(".menu-toggle").isVisible(), width <= 1100);
           await page.locator(".site-header").screenshot({ path: path.join(output, `${prefix}banner-${width}.png`), animations: "disabled" });
         }
         await visit(origin + "/guides/boston-sporting-event-transportation/");
-        await page.waitForFunction(() => document.querySelector(".brand img").naturalWidth === 1633);
+        await page.waitForFunction(() => document.querySelector(".brand img").naturalWidth > 0);
+        assert.match(await page.locator(".brand img").getAttribute("src"), /bpv-web-lockup\.svg/);
         await page.locator(".topbar").screenshot({ path: path.join(output, `${prefix}guide-banner.png`), animations: "disabled" });
         console.log("New banner artwork checked across desktop, tablet, mobile, and guide headers");
       }

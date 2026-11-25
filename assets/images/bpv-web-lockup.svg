@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 60">
+  <title>Boston Party Van</title>
+  <!-- BPV letterforms traced from the MOO front artwork. -->
+  <svg x="1" y="12" width="134" height="35" viewBox="215 81 1142 299">
+    <g fill="#fff" fill-rule="evenodd">
+      <path d="M327 82h221c61 0 89 24 75 60-11 28-33 46-65 55 33 8 45 30 36 57-16 46-72 77-161 77H216L327 82Zm78 49-23 48h99c25 0 40-8 46-23 5-15-6-25-32-25h-90Zm-44 97-23 48h104c31 0 50-9 57-25 7-16-6-23-33-23H361Z"/>
+      <path d="M670 82h183c68 0 101 31 88 74-15 53-70 89-158 89h-75l-40 85-106 48L670 82Zm83 53-24 53h71c38 0 62-11 70-31 7-16-8-22-34-22h-83Z"/>
+      <path d="M955 82h104l29 151 143-151h125l-254 249h-79l-59-229-9-20Z"/>
+    </g>
+  </svg>
+  <path fill="#22abff" d="M150 13h5l-15 34h-5zM158 13h2l-15 34h-2z"/>
+  <g fill="#fff" font-family="Arial, sans-serif" font-size="15" font-weight="900" font-style="italic">
+    <text x="166" y="26">BOSTON</text>
+    <text x="166" y="44">PARTY VAN</text>
+  </g>
+</svg>

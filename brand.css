@@ -1,0 +1,15 @@
+:root {
+  --brand-blue: #35b5ff;
+  --brand-blue-rgb: 53, 181, 255;
+  --brand-sky: #8cdaff;
+  --brand-ink: #081018;
+  --brand-header: #0a131e;
+  --brand-type: "Archivo", "Arial Black", "Segoe UI", sans-serif;
+  --accent-hot: var(--brand-blue);
+  --accent-cool: var(--brand-sky);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-sky);
+  outline-offset: 3px;
+}

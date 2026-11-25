@@ -1,5 +1,13 @@
 # Release Notes
 
+## V1.6.5 - BPV Website Branding
+
+### Changed
+- Trace the MOO card lettering into a transparent, horizontal site mark and carry its angled stripes and blue accents into the website
+- Use Archivo for headings and keep Space Grotesk for body text and controls
+- Lead with Boston Party Van, a simpler introduction, and the original skyline photograph in a full-width homepage hero
+- Keep trip options, pricing, inquiry handling, and holiday dates unchanged
+
 ## V1.6.4 - Supplied Banner Logo
 
 ### Changed
