@@ -99,8 +99,11 @@ async function main() {
       const fleetModes = page.locator("#fleet .fleet-modes");
       await fleetModes.scrollIntoViewIfNeeded();
       await page.waitForFunction(() => document.querySelector("#fleet").classList.contains("in-view"));
-      assert.match(await fleetModes.textContent(), /six-channel amp.*subwoofer/);
-      assert.match(await fleetModes.textContent(), /tailgates and parked parties.*rear cargo-door speakers.*underglow/);
+      const fleetCopy = await fleetModes.textContent();
+      assert.match(fleetCopy, /clean, classy, and elegant/);
+      assert.match(fleetCopy, /pro audio.*bass.*party lighting/);
+      assert.match(fleetCopy, /rear cargo-door speakers.*underglow when parked/);
+      assert.match(fleetCopy, /You choose the volume, bass, and lighting/);
       assert.equal(await fleetModes.locator("a").getAttribute("href"), "#quote");
       const modeColumns = await fleetModes.locator(".fleet-modes-grid").evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(" ").length);
       assert.equal(modeColumns, viewport.width <= 620 ? 1 : 2);

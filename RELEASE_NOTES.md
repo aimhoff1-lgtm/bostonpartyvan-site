@@ -1,5 +1,10 @@
 # Release Notes
 
+## V1.6.7 - Van Section Copy
+
+### Changed
+- Describe the Sprinter's clean, elegant corporate look and optional pro audio and party lighting, with sound and lighting set to the group's preferences
+
 ## V1.6.6 - Sprinter Sound and Lighting
 
 ### Changed
