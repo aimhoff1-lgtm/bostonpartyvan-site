@@ -95,11 +95,15 @@ a {
 }
 
 .brand img {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: block;
+  width: 9rem;
+  height: auto;
+  aspect-ratio: 1633 / 963;
+  object-fit: contain;
+}
+
+.brand > span {
+  display: none;
 }
 
 .top-links {
@@ -256,6 +260,12 @@ a {
 .footer a {
   color: var(--accent-cool);
   text-decoration: none;
+}
+
+@media (max-width: 1100px) {
+  .version-tag {
+    display: none;
+  }
 }
 
 @media (max-width: 760px) {

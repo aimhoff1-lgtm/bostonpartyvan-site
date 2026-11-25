@@ -1,5 +1,13 @@
 # Release Notes
 
+## V1.6.4 - Supplied Banner Logo
+
+### Changed
+- Replace the old header logo with artwork extracted directly from the supplied MOO front PDF
+- Keep the artwork's original lettering, skyline, Sprinter, colors, and proportions
+- Use the same mark in the main and guide headers; hide duplicate adjacent wordmarks
+- Size the header logo for desktop and mobile without changing hero imagery, content, pricing, or inquiry behavior
+
 ## V1.6.3 - Inquiry Conversion and Search Cleanup
 
 ### Changed

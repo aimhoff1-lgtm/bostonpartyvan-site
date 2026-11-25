@@ -164,13 +164,13 @@ async function main() {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../../style.css?v=1.6.3-inquiries" />
+  <link rel="stylesheet" href="../../style.css?v=1.6.4-logo" />
 </head>
 <body>
   <header class="site-header">
     <div class="top-strip"><p>Sprinter van bookings for Greater Boston and nearby routes</p></div>
     <div class="nav-wrap">
-      <a class="brand" href="../../index.html" aria-label="Boston Party Van home"><span class="brand-lockup"><img class="brand-logo" src="../../assets/images/bpv-header-mark.png" alt="" aria-hidden="true" /><span class="brand-wordmark">Boston Party Van</span></span></a>
+      <a class="brand" href="../../index.html" aria-label="Boston Party Van home"><span class="brand-lockup"><img class="brand-logo" src="../../assets/images/bpv-banner-logo.webp" alt="" aria-hidden="true" /><span class="brand-wordmark">Boston Party Van</span></span></a>
       <button class="menu-toggle" aria-label="Toggle menu">Menu</button>
       <nav class="main-nav"><a href="../../index.html#services">Trip Menu</a><a href="../../index.html#pricing">Estimate</a><a href="../../photos.html">Photos</a><a class="nav-cta" href="${quote}">Request a Quote</a></nav>
     </div>
