@@ -408,7 +408,7 @@
     <link rel="stylesheet" href="style.css?v=1.6.6-van" />
   </head>
   <body>
-    <div class="version-tag" title="Site version">V1.6.7</div>
+    <div class="version-tag" title="Site version">V1.6.8</div>
 
     <header class="site-header">
       <div class="top-strip">
@@ -596,7 +596,11 @@
               <p class="winter-kicker">Make a night of it</p><h3>Holiday parties</h3>
               <p>Office celebrations, festive dinners, and a night out with friends. Arrive together and keep the whole evening on one plan.</p>
               <p class="winter-route">Your pickup &bull; Dinner or party &bull; Your ride home</p>
-              <div class="winter-trip-actions"><a class="btn btn-primary" href="#quote">Plan your holiday ride</a><a href="guides/boston-holiday-party-transportation/">Trip details</a></div>
+              <div class="winter-trip-actions">
+                <a class="btn btn-primary" href="#quote" data-quote-trip="holiday">Plan your holiday ride</a>
+                <a href="#pricing" data-estimate-trip="holiday">Get an estimate</a>
+                <a href="guides/boston-holiday-party-transportation/">Trip details</a>
+              </div>
             </div>
           </article>
           <article class="winter-trip">
@@ -605,7 +609,11 @@
               <p class="winter-kicker">Bring the skis. Bring the crew.</p><h3>Ski trips</h3>
               <p>Early mountain starts, full days on the slopes, and a relaxed ride back. Plenty of room for skis, snowboards, boots, and bags.</p>
               <p class="winter-route">Boston pickup &bull; Your mountain &bull; Return together</p>
-              <div class="winter-trip-actions"><a class="btn btn-primary" href="#quote">Plan your ski trip</a><a href="guides/boston-ski-trip-transportation/">Trip details</a></div>
+              <div class="winter-trip-actions">
+                <a class="btn btn-primary" href="#quote" data-quote-trip="ski">Plan your ski trip</a>
+                <a href="#pricing" data-estimate-trip="ski">Get an estimate</a>
+                <a href="guides/boston-ski-trip-transportation/">Trip details</a>
+              </div>
             </div>
           </article>
         </div>
@@ -1069,9 +1077,11 @@
                 <option value="shuttlehire">Shuttle Van Service / Hire</option>
                 <option value="family">Family Outing / Field Trip</option>
                 <option value="golf">Golf Outing</option>
+                <option value="holiday">Holiday Party</option>
                 <option value="islandferry">Island Ferry Transfer (Drop-Off / Same-Day Pickup Only)</option>
                 <option value="local">Local Day Route</option>
                 <option value="nightlife">Night Out</option>
+                <option value="ski">Ski Trip</option>
                 <option value="sports">Sporting Event / Game Day</option>
                 <option value="wedding">Wedding</option>
                 <option value="whitemountains">New England Mountain / Fall Foliage</option>
@@ -1595,9 +1605,11 @@
               <option value="shuttlehire">Shuttle Van Service / Hire</option>
               <option value="family">Family Outing / Field Trip</option>
               <option value="golf">Golf Outing</option>
+              <option value="holiday">Holiday Party</option>
               <option value="islandferry">Island Ferry Transfer (Drop-Off / Same-Day Pickup Only)</option>
               <option value="local">Local Day Route</option>
               <option value="nightlife">Night Out</option>
+              <option value="ski">Ski Trip</option>
               <option value="sports">Sporting Event / Game Day</option>
               <option value="wedding">Wedding</option>
               <option value="whitemountains">New England Mountain / Fall Foliage</option>
@@ -1975,6 +1987,6 @@
       <a class="mobile-secondary" href="#pricing">Estimate</a>
     </div>
 
-    <script src="script.js?v=1.6.3-inquiries"></script>
+    <script src="script.js?v=1.6.8-winter-trips"></script>
   </body>
 </html>

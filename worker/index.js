@@ -101,6 +101,14 @@ function receiptDetails(receipt) {
         ? "I have your golf-trip round-trip request, including both legs of the day."
         : "I have your golf-trip transportation request and the timing you submitted.",
     },
+    holiday: {
+      subject: "Your holiday party ride request is in",
+      copy: "I have your holiday party transportation request and will review the route and timing you shared.",
+    },
+    ski: {
+      subject: "Your ski trip ride request is in",
+      copy: "I have your ski trip transportation request and will review the details you shared.",
+    },
     cape: {
       subject: "Your Cape Cod trip request is in",
       copy: receipt.tripDirection === "roundTrip"

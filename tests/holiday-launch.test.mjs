@@ -24,7 +24,7 @@ test("seasonal promotion preserves the normal brand, cover, and inquiry flow", (
   assert.equal((html.match(/class="quick-action-card"/g) || []).length, 3);
   assert.equal((html.match(/class="winter-trip"/g) || []).length, 2);
   assert.ok(html.indexOf('class="section winter-highlight"') < html.indexOf('id="services"'));
-  assert.doesNotMatch(html, /hero-van-photo|holiday-hero|seasonal-card|data-quote-trip="(?:holiday|christmas-party|ski|winter)"/);
+  assert.doesNotMatch(html, /hero-van-photo|holiday-hero|seasonal-card|data-quote-trip="(?:christmas-party|winter)"/);
   assert.doesNotMatch(script, /packageName: "(?:Holiday Transportation|Office Holiday Party|Christmas Party Transportation|Ski and Snowboard Trip|Winter Group Outing)"/);
   assert.match(photos, /href="index\.html#quote">Request a Quote/);
 });
@@ -47,7 +47,7 @@ test("winter cards use activity photos and link four dated events to their organ
   assert.ok(section);
   assert.match(section, /assets\/images\/nightlife\.jpg/);
   assert.match(section, /assets\/images\/mountain-apres-ski-party\.jpg/);
-  assert.doesNotMatch(section, /van-2026|data-quote-trip|Christmas parties/);
+  assert.doesNotMatch(section, /van-2026|Christmas parties/);
   for (const [url, start, end] of [
     ["https://www.sowaboston.com/sowa-christmas-market/", "2026-11-20", "2026-12-27"],
     ["https://www.lasaletteattleboroshrine.org/christmas-festival", "2026-11-21", "2027-01-03"],
@@ -62,6 +62,18 @@ test("winter cards use activity photos and link four dated events to their organ
   assert.match(section, /BPV is unavailable December 25, 2026 through January 4, 2027/);
 });
 
+test("both forms and both winter cards offer Holiday Party and Ski Trip", () => {
+  const winterSection = html.match(/<section id="winter"[\s\S]*?<\/section>/)?.[0];
+  for (const [value, label] of [["holiday", "Holiday Party"], ["ski", "Ski Trip"]]) {
+    for (const field of ["tripType", "eventType"]) {
+      const select = html.match(new RegExp(`<select name="${field}"[^>]*>[\\s\\S]*?</select>`))?.[0];
+      assert.ok(select?.includes(`<option value="${value}">${label}</option>`), field);
+    }
+    assert.ok(winterSection?.includes(`href="#quote" data-quote-trip="${value}"`));
+    assert.ok(winterSection?.includes(`href="#pricing" data-estimate-trip="${value}"`));
+  }
+});
+
 test("homepage structured data remains valid", () => {
   for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
     assert.ok(JSON.parse(json));
@@ -70,7 +82,11 @@ test("homepage structured data remains valid", () => {
 
 test("seasonal pages have canonical URLs, matching FAQ schema, and sitemap entries", async () => {
   const sitemap = await readFile(new URL("sitemap.xml", root), "utf8");
-  for (const slug of ["boston-holiday-party-transportation", "boston-ski-trip-transportation", "boston-winter-group-transportation"]) {
+  for (const [slug, trip] of [
+    ["boston-holiday-party-transportation", "holiday"],
+    ["boston-ski-trip-transportation", "ski"],
+    ["boston-winter-group-transportation", ""],
+  ]) {
     const page = await readFile(new URL(`guides/${slug}/index.html`, root), "utf8");
     const url = `https://www.bostonpartyvan.com/guides/${slug}/`;
     assert.ok(page.includes(`<link rel="canonical" href="${url}"`));
@@ -85,7 +101,8 @@ test("seasonal pages have canonical URLs, matching FAQ schema, and sitemap entri
       assert.ok(page.includes(`<p>${escape(item.acceptedAnswer.text)}</p>`));
     }
     assert.match(page, /December 25, 2026 through January 4, 2027/);
-    assert.match(page, /href="\.\.\/\.\.\/index\.html#quote">Request a Quote/);
-    assert.doesNotMatch(page, /hero-van-photo|holiday-hero|\?trip=/);
+    assert.ok(page.includes(`href="../../index.html${trip ? `?trip=${trip}` : ""}#quote">Request a Quote`));
+    assert.ok(page.includes(`href="../../index.html${trip ? `?estimate=${trip}` : ""}#pricing">Estimate your ride`));
+    assert.doesNotMatch(page, /hero-van-photo|holiday-hero/);
   }
 });

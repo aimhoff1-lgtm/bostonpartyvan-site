@@ -110,6 +110,37 @@ async function main() {
       await noOverflow();
       await fleetModes.screenshot({ path: path.join(output, `${prefix}fleet-modes-${viewport.width}.png`), animations: "disabled", style: ".site-header, .mobile-callbar { visibility: hidden !important; }" });
 
+      if (viewport.width === 1440) {
+        const estimateType = page.locator('#estimateForm [name="tripType"]');
+        const quoteType = page.locator('#quoteForm [name="eventType"]');
+        const calculate = page.locator('#estimateForm button[type="submit"]');
+        const estimateQuote = page.locator("#estimateResult .estimate-quote-link");
+        for (const trip of ["holiday", "ski"]) {
+          await page.locator(`#winter [data-estimate-trip="${trip}"]`).click();
+          assert.equal(await estimateType.inputValue(), trip);
+          await calculate.click();
+          assert.match(await page.locator("#estimateResult .estimate-price").textContent(), /\$[\d,]+ - \$[\d,]+/);
+          await estimateQuote.click();
+          assert.equal(await quoteType.inputValue(), trip);
+          await quoteType.selectOption("other");
+          await page.locator(`#winter [data-quote-trip="${trip}"]`).click();
+          assert.equal(await quoteType.inputValue(), trip);
+        }
+        await page.locator('#estimateForm [name="multiDay"]').check();
+        await calculate.click();
+        assert.equal(await page.locator("#estimateResult .estimate-price").textContent(), "Custom quote");
+        await estimateQuote.click();
+        assert.equal(await quoteType.inputValue(), "ski");
+        assert.equal(await page.locator('#quoteForm [name="customServices"][value="multi_day"]').isChecked(), true);
+        await estimateType.selectOption("other");
+        assert.equal(await estimateQuote.isVisible(), false);
+        await visit(origin + "/guides/boston-holiday-party-transportation/");
+        await page.locator(".winter-guide-intro a[href$='#pricing']").click();
+        await page.waitForURL((url) => url.searchParams.get("estimate") === "holiday" && url.hash === "#pricing");
+        assert.equal(await estimateType.inputValue(), "holiday");
+        console.log("Winter card links, estimate-to-quote handoff, and guide estimate checked");
+      }
+
       const landing = "/guides/boston-ski-trip-transportation/?utm_source=google&utm_medium=cpc&utm_campaign=winter-test&gclid=test-click";
       await visit(origin + landing);
       await noOverflow();
@@ -117,16 +148,16 @@ async function main() {
       await page.waitForURL((url) => ["/", "/index.html"].includes(url.pathname) && url.hash === "#quote");
       await page.addStyleTag({ content: "html { scroll-behavior: auto !important; }" });
       const form = page.locator("#quoteForm");
+      assert.equal(await form.locator('[name="eventType"]').inputValue(), "ski");
       assert.equal(await form.locator('[name="utm_campaign"]').inputValue(), "winter-test");
       assert.equal(await form.locator('[name="lead_landing_page"]').inputValue(), "/");
       assert.equal(await form.locator('[name="lead_last_landing_page"]').inputValue(), landing);
       await form.locator('[name="name"]').fill("Browser Test");
       await form.locator('[name="email"]').fill("browser-test@example.com");
-      await form.locator('[name="eventType"]').selectOption("other");
       await form.locator(".segment-option").filter({ hasText: "Round trip" }).click();
       await form.locator('[name="pickupDate"]').fill("2026-12-10");
       await form.locator('[name="pickup"]').fill("Somerville");
-      await form.locator('[name="dropoff"]').fill("Gillette Stadium");
+      await form.locator('[name="dropoff"]').fill("Wachusett Mountain");
       await form.locator(".quote-details > summary").click();
       await form.locator('[name="contactPreference"]').selectOption("text");
       assert.equal(await form.locator('[name="phone"]').getAttribute("required"), "");
@@ -183,12 +214,17 @@ async function main() {
         assert.equal(await page.evaluate(() => window.dataLayer.filter((event) => event[1] === "generate_lead").length), 0);
       }
       behavior = "success";
+      const receiptRequest = page.waitForRequest(`${origin}/api/quote-receipt`);
       await submit.click();
       await page.waitForFunction(() => document.querySelector("#quoteSuccess").classList.contains("success"));
       assert.match(await page.locator("#quoteSuccess").textContent(), /by email/);
       assert.equal(await form.locator('[name="name"]').inputValue(), "");
       assert.equal(await page.locator(".quote-email-fallback").isVisible(), false);
       assert.equal(payloads.length, 3);
+      assert.equal(payloads.at(-1)["Trip type"], "Ski Trip");
+      const receipt = (await receiptRequest).postDataJSON();
+      assert.equal(receipt.eventType, "ski");
+      assert.equal(receipt.eventTypeLabel, "Ski Trip");
       assert.equal(payloads.at(-1)["Latest landing page"], landing);
       assert.match(payloads.at(-1)["Lead source"], /winter-test/);
       const events = await page.evaluate(() => window.dataLayer.map((event) => Array.from(event)));
@@ -224,7 +260,8 @@ async function main() {
           assert.equal(details.canonical, canonical, pathname);
           assert.ok(details.title && details.description, pathname);
           assert.ok(details.schema.length, pathname);
-          assert.ok(details.scripts.some((src) => src.includes("script.js?v=1.6.3-inquiries")), pathname);
+          const version = pathname === "/" ? "1.6.8-winter-trips" : "1.6.3-inquiries";
+          assert.ok(details.scripts.some((src) => src.endsWith(`script.js?v=${version}`)), pathname);
         }
         console.log(`Checked ${urls.length} sitemap pages, canonical URLs, structured data, and current tracking assets`);
         for (const width of [1280, 1101, 1100, 1024, 960, 768]) {

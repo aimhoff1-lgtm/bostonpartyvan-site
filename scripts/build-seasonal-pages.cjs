@@ -6,6 +6,7 @@ const site = "https://www.bostonpartyvan.com";
 const pages = [
   {
     slug: "boston-holiday-party-transportation",
+    trip: "holiday",
     title: "Boston Holiday Party Transportation",
     heading: "Holiday party transportation in Boston",
     short: "Holiday parties",
@@ -38,6 +39,7 @@ const pages = [
   },
   {
     slug: "boston-ski-trip-transportation",
+    trip: "ski",
     title: "Boston Ski & Snowboard Trip Transportation",
     heading: "Ski & snowboard trips from Boston",
     short: "Ski & snowboard trips",
@@ -127,7 +129,11 @@ function escape(value) {
 async function main() {
   for (const page of pages) {
     const url = `${site}/guides/${page.slug}/`;
-    const quote = "../../index.html#quote";
+    const quote = page.trip ? `../../index.html?trip=${page.trip}#quote` : "../../index.html#quote";
+    const estimate = page.trip ? `../../index.html?estimate=${page.trip}#pricing` : "../../index.html#pricing";
+    const introSecondary = page.trip
+      ? `<a class="btn btn-ghost" href="${estimate}">Get an estimate</a>`
+      : '<a class="btn btn-ghost" href="../../index.html#services">View Trip Options</a>';
     const schema = { "@context": "https://schema.org", "@graph": [
       { "@type": "Service", "@id": `${url}#service`, name: page.title, url, description: page.description, serviceType: "Private driver-included group transportation", provider: { "@id": `${site}/#business` }, areaServed: ["Greater Boston", "Massachusetts", "New England"], image: `${site}/assets/images/van-2026/exterior-retouched.webp` },
       { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Boston Party Van", item: `${site}/` }, { "@type": "ListItem", position: 2, name: page.short, item: url }] },
@@ -172,7 +178,7 @@ async function main() {
     <div class="nav-wrap">
       <a class="brand" href="../../index.html" aria-label="Boston Party Van home"><span class="brand-lockup"><img class="brand-logo" src="../../assets/images/bpv-web-lockup.svg" alt="" aria-hidden="true" /><span class="brand-wordmark">Boston Party Van</span></span></a>
       <button class="menu-toggle" aria-label="Toggle menu">Menu</button>
-      <nav class="main-nav"><a href="../../index.html#services">Trip Menu</a><a href="../../index.html#pricing">Estimate</a><a href="../../photos.html">Photos</a><a class="nav-cta" href="${quote}">Request a Quote</a></nav>
+      <nav class="main-nav"><a href="../../index.html#services">Trip Menu</a><a href="${estimate}">Estimate</a><a href="../../photos.html">Photos</a><a class="nav-cta" href="${quote}">Request a Quote</a></nav>
     </div>
   </header>
   <main class="winter-guide-content">
@@ -180,12 +186,12 @@ async function main() {
         <p class="eyebrow">Boston Party Van</p>
         <h1>${escape(page.heading)}</h1>
         <p>${escape(page.intro)}</p>
-        <div class="hero-actions"><a class="btn btn-primary" href="${quote}">Request a Quote</a><a class="btn btn-ghost" href="../../index.html#services">View Trip Options</a></div>
+        <div class="hero-actions"><a class="btn btn-primary" href="${quote}">Request a Quote</a>${introSecondary}</div>
         <p class="holiday-availability"><strong>Now accepting inquiries.</strong> Availability confirmed before booking. Closed Dec 25-Jan 4.</p>
     </section>
     ${sections}
     <section class="section"><h2>Frequently asked questions</h2><div class="faq-list">${page.faqs.map(([q, a]) => `<details><summary>${escape(q)}</summary><p>${escape(a)}</p></details>`).join("\n")}</div></section>
-    <section class="section"><h2>Plan your private winter ride</h2><p>Send Andrew your date, headcount, pickup, destination, and timing. Your quote is built around the whole itinerary. This is an inquiry, not a booking or payment.</p><div class="hero-actions"><a class="btn btn-primary" href="${quote}">Request your trip quote</a><a class="btn btn-ghost" href="../../index.html#pricing">Estimate your ride</a></div></section>
+    <section class="section"><h2>Plan your private winter ride</h2><p>Send Andrew your date, headcount, pickup, destination, and timing. Your quote is built around the whole itinerary. This is an inquiry, not a booking or payment.</p><div class="hero-actions"><a class="btn btn-primary" href="${quote}">Request your trip quote</a><a class="btn btn-ghost" href="${estimate}">Estimate your ride</a></div></section>
     <section class="section"><h2>More holiday and winter trips</h2><ul>${related}<li><a href="../../photos.html">See the actual van and passenger seating</a></li></ul></section>
   </main>
   <footer class="site-footer"><div><h3>Boston Party Van</h3><p>Private transportation for Greater Boston and New England.</p></div><div><a href="../../index.html">Home</a></div><div><a href="${quote}">Request a Quote</a></div></footer>

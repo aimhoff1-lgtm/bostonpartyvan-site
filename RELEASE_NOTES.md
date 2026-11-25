@@ -1,5 +1,12 @@
 # Release Notes
 
+## V1.6.8 - Winter Trip Forms
+
+### Changed
+- Add Holiday Party and Ski Trip to the estimate and inquiry forms
+- Select the matching trip from the winter cards or guides, and carry it from the estimate to the inquiry
+- Keep route-based pricing and blackout rules unchanged
+
 ## V1.6.7 - Van Section Copy
 
 ### Changed

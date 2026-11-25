@@ -151,6 +151,8 @@ function normalizeTripType(value) {
     nightlife: "night_out",
     family: "family_outing",
     golf: "golf_outing",
+    holiday: "holiday_party",
+    ski: "ski_trip",
     cape: "cape_cod",
     islandferry: "island_ferry",
     "island-ferry": "island_ferry",
@@ -367,6 +369,7 @@ if (packageCards.length) {
 
 const estimateForm = document.getElementById("estimateForm");
 const estimateResult = document.getElementById("estimateResult");
+const WINTER_TRIP_LABELS = { holiday: "Holiday Party", ski: "Ski Trip" };
 
 function formatUsd(value) {
   return value.toLocaleString("en-US", {
@@ -497,6 +500,7 @@ function populateTimeSelects(form) {
 
 if (estimateForm && estimateResult) {
   const tripTypeInput = estimateForm.querySelector('[name="tripType"]');
+  const quoteLink = estimateResult.querySelector(".estimate-quote-link");
   const hoursInput = estimateForm.querySelector('[name="hours"]');
   const hoursLabel = estimateForm.querySelector("[data-estimate-hours-label]");
   const shuttleHireTermField = estimateForm.querySelector(
@@ -577,6 +581,8 @@ if (estimateForm && estimateResult) {
     shuttlehire: { oneWay: 100, roundTrip: 100 },
     family: { oneWay: 75, roundTrip: 50 },
     golf: { oneWay: 75, roundTrip: 50 },
+    holiday: { oneWay: 75, roundTrip: 50 },
+    ski: { oneWay: 100, roundTrip: 50 },
     islandferry: { oneWay: 100, roundTrip: 75 },
     local: { oneWay: 75, roundTrip: 50 },
     nightlife: { oneWay: 75, roundTrip: 50 },
@@ -771,6 +777,10 @@ if (estimateForm && estimateResult) {
   }
 
   tripTypeInput?.addEventListener("change", () => {
+    if (quoteLink && Object.hasOwn(WINTER_TRIP_LABELS, quoteLink.dataset.quoteEventType)) {
+      quoteLink.hidden = true;
+      delete quoteLink.dataset.quoteEventType;
+    }
     if (tripTypeInput.value === "airport") {
       applyAirportTransferDefault();
     }
@@ -829,25 +839,23 @@ if (estimateForm && estimateResult) {
   syncPaceValue();
   clearEstimateSpecial();
 
-  const estimateTripFromUrl = new URLSearchParams(window.location.search).get(
-    "estimate"
-  );
-  if (
-    estimateTripFromUrl &&
-    tripTypeInput &&
-    Array.from(tripTypeInput.options).some(
-      (option) => option.value === estimateTripFromUrl
-    )
-  ) {
-    tripTypeInput.value = estimateTripFromUrl;
+  function selectEstimateTrip(tripType) {
+    if (!tripTypeInput || !Array.from(tripTypeInput.options).some((option) => option.value === tripType)) return;
+    tripTypeInput.value = tripType;
     tripTypeInput.dispatchEvent(new Event("change", { bubbles: true }));
   }
+
+  selectEstimateTrip(new URLSearchParams(window.location.search).get("estimate"));
+  document.querySelectorAll("[data-estimate-trip]").forEach((link) => {
+    link.addEventListener("click", () => selectEstimateTrip(link.dataset.estimateTrip));
+  });
 
   estimateForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const data = new FormData(estimateForm);
     const tripType = data.get("tripType");
+    const isWinterTrip = Object.hasOwn(WINTER_TRIP_LABELS, tripType);
     const analyticsTripType = normalizeTripType(tripType);
     const hours = Number(data.get("hours"));
     const miles = Number(data.get("miles"));
@@ -869,7 +877,6 @@ if (estimateForm && estimateResult) {
     const breakdown = estimateResult.querySelector("#estimateBreakdown");
     const note = estimateResult.querySelector(".estimate-note");
     const guestCap = estimateResult.querySelector("[data-estimate-guest-cap]");
-    const quoteLink = estimateResult.querySelector(".estimate-quote-link");
     const needsCustomQuote =
       (isMultiDay && !isShuttleHire) ||
       (tripType === "islandferry" && hasStayOnIsland);
@@ -885,6 +892,8 @@ if (estimateForm && estimateResult) {
       quoteLink.dataset.quoteService = isMultiDay ? "multi_day" : "stay_on_island";
       if (hasStayOnIsland) {
         quoteLink.dataset.quoteEventType = "islandferry";
+      } else if (isWinterTrip) {
+        quoteLink.dataset.quoteEventType = tripType;
       } else {
         delete quoteLink.dataset.quoteEventType;
       }
@@ -1026,9 +1035,14 @@ if (estimateForm && estimateResult) {
             ? "The $400 special applies to a three-hour, one-way local game-day drop-off. This range reflects the route details entered."
             : "This is a planning estimate for a single-day route. Final pricing is confirmed after your exact itinerary and availability are reviewed.";
       }
-      delete quoteLink.dataset.quoteService;
-      delete quoteLink.dataset.quoteEventType;
-      quoteLink.hidden = true;
+      if (isWinterTrip) {
+        quoteLink.dataset.quoteService = "";
+        quoteLink.dataset.quoteEventType = tripType;
+      } else {
+        delete quoteLink.dataset.quoteService;
+        delete quoteLink.dataset.quoteEventType;
+      }
+      quoteLink.hidden = !isWinterTrip;
     }
 
     if (qualifiesForSportsDropoff) {
@@ -1276,6 +1290,7 @@ function buildIntakePayload(data) {
   const name = data.get("name") || "New Lead";
   const eventType = data.get("eventType") || "";
   const eventTypeLabels = {
+    ...WINTER_TRIP_LABELS,
     airport: "Airport Transfer",
     sports: "Sporting Event / Game Day",
     wedding: "Wedding",
@@ -1463,6 +1478,7 @@ function buildIntakePayload(data) {
 function buildQuoteReceiptData(data) {
   const eventType = normalizeValue(data.get("eventType"));
   const eventTypeLabels = {
+    ...WINTER_TRIP_LABELS,
     airport: "Airport Transfer",
     sports: "Sporting Event / Game Day",
     wedding: "Wedding",
@@ -1704,6 +1720,8 @@ if (quoteForm && quoteSuccess) {
     },
     family: { packageName: "Family Day Out", eventType: "family" },
     golf: { packageName: "Tee Time Takeoff", eventType: "golf" },
+    holiday: { packageName: WINTER_TRIP_LABELS.holiday, eventType: "holiday" },
+    ski: { packageName: WINTER_TRIP_LABELS.ski, eventType: "ski" },
     cape: { packageName: "Cape Escape Route", eventType: "cape" },
     "island-ferry": {
       packageName: "Martha's Vineyard + Nantucket",
@@ -2174,6 +2192,7 @@ if (quoteForm && quoteSuccess) {
 
       const eventType = link.dataset.quoteEventType;
       if (eventType && eventTypeInput) {
+        if (eventTypeInput.value !== eventType) clearQuoteTripPrefill();
         eventTypeInput.value = eventType;
         previousEventType = eventType;
         syncQuoteTripFields();
