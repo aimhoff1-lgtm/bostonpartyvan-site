@@ -2229,6 +2229,25 @@ main > .reviews-section {
   margin-bottom: 0.4rem;
 }
 
+.footer-affiliation {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1rem;
+  font-family: system-ui, sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0;
+}
+
+.footer-affiliation img {
+  display: block;
+  width: 7.75rem;
+  height: auto;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
 .site-footer a {
   text-decoration: none;
   color: var(--accent-cool);
