@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="584" height="112" viewBox="0 0 584 112">
+  <title>Greater Boston Ventures</title>
+  <g fill="#23394e" stroke="#a1b8ce" stroke-width="1.4" stroke-linejoin="round">
+    <path d="M61 88V66h13v-9h12v31M86 88V49h7V38l7-3V23h5v12l7 3v11h6v39"/>
+    <path d="M117 88V29l10-4 13 3v60M127 25V9"/>
+    <path d="M140 88V61h9V45h4v-7h4v-8l4-10 4 10v8h4v7h4v43"/>
+    <path d="M173 88V64l9-5 8 5v24"/>
+  </g>
+  <g fill="none" stroke="#a1b8ce" stroke-linecap="round">
+    <path d="M92 55h18m-18 6h18m-18 6h18m-18 6h18m12-37 13-3m-13 10 13-3m-13 10 13-3m-13 10 13-3m-13 10 13-3m-13 10 13-3m-13 10 13-3m20-18v12m-4-19h8m13 28h5m-5-6h5"/>
+    <path stroke-width="1.35" d="M40 35 4 83m36-39L14 83m27-30L24 83m23-47 42 47M47 46l33 37M47 57l24 26"/>
+    <path stroke-width="3" d="M34 88l6-52h7l7 52M4 88h186"/>
+  </g>
+  <path fill="#caa458" d="M0 94h190v2H49c-18 0-34 2-45 7 6-5 14-8 27-9H0Z"/>
+  <!-- The GBV letterforms follow the original navy-and-gold artwork. -->
+  <svg x="205" y="30" width="174" height="54" viewBox="299 489 839 267">
+    <g fill="#f4f8fc" fill-rule="evenodd">
+      <path d="M570 494l-44 43h-83c-50 0-87 34-87 82s37 86 88 86h75v-60h-96l36-45h115v119l-33 31H440c-80 0-139-53-139-131 0-73 56-125 138-125Z"/>
+      <path d="M596 495h135c65 0 104 25 104 69 0 24-13 42-36 51 38 8 59 29 59 60 0 47-39 75-110 75H563l29-27V530h-33l37-35Zm56 45v60h79c30 0 46-11 46-30 0-20-16-30-45-30h-80Zm0 104v61h92c32 0 51-10 51-31s-18-30-49-30h-94Z"/>
+    </g>
+    <path fill="#caa458" d="M814 503h88l81 168 81-168h72l-129 247h-48L855 546c-12-22-24-35-41-43Z"/>
+  </svg>
+  <path d="M398 31v51" stroke="#caa458" stroke-width="1.5"/>
+  <g font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="600" font-size="22">
+    <text x="415" y="51" fill="#f4f8fc">Greater Boston</text>
+    <text x="415" y="77" fill="#dfbe7c">Ventures</text>
+  </g>
+</svg>

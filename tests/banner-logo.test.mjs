@@ -43,3 +43,14 @@ test("header styles preserve artwork proportions and suppress duplicate letterin
   assert.match(css, /\.brand-wordmark\s*\{\s*display: none/);
   assert.match(css, /@media \(max-width: 1100px\)/);
 });
+
+test("homepage footer pairs the BPV credit with the wide GBV artwork", async () => {
+  const footer = home.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
+  assert.ok(footer);
+  assert.match(footer, /bpv-web-lockup\.svg[^>]*>[\s\S]*?<p class="footer-affiliation">A Greater Boston Ventures Company<\/p>/);
+  assert.match(footer, /gbv-footer-lockup\.svg/);
+  assert.doesNotMatch(footer, /gbv-logo\.png/);
+  const logo = await readFile(new URL("assets/images/gbv-footer-lockup.svg", root), "utf8");
+  assert.match(logo, /viewBox="0 0 584 112"/);
+  assert.doesNotMatch(logo, /<image\b/);
+});
